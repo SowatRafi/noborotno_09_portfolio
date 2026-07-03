@@ -13,25 +13,6 @@ export const experience: readonly ExperienceEntry[] = [
     ],
   },
   {
-    role: 'Incident Handling & Digital Forensics',
-    organisation: 'SOC Simulation — La Trobe University coursework',
-    period: 'Jul – Nov 2025',
-    highlights: [
-      'Triaged 15+ simulated alerts in TheHive across phishing, brute-force, and malware scenarios; enriched IOCs with VirusTotal and AbuseIPDB to reduce false positives.',
-      'Conducted phishing analysis on headers, URLs, and attachments; drafted mailbox-sweep and URL-block playbook procedures.',
-      'Reconstructed incident timelines from Windows Event Logs and disk images (Autopsy, Wireshark), documented to chain-of-custody standards.',
-    ],
-  },
-  {
-    role: 'Risk Management & Client Reporting',
-    organisation: 'Managed Services Simulation — La Trobe University coursework',
-    period: 'Mar – May 2025',
-    highlights: [
-      'Authored weekly and monthly client-style reports on security posture, open risks, and remediation for technical and executive audiences.',
-      'Aligned reporting with ISO/IEC 27001 controls, mapping risks to business impact.',
-    ],
-  },
-  {
     role: 'Cybersecurity Virtual Experience — Malware Attack Response',
     organisation: 'Telstra Forge Program via Forage',
     period: 'Mar 2025',
