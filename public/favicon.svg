@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <!-- Terminal-prompt monogram: dark tile, teal prompt. -->
+  <rect width="64" height="64" rx="12" fill="#0b1017"/>
+  <rect width="64" height="64" rx="12" fill="none" stroke="#22304a" stroke-width="2"/>
+  <text x="10" y="42" font-family="ui-monospace, Consolas, monospace" font-size="26" font-weight="700" fill="#2dd4bf">&gt;_</text>
+</svg>
