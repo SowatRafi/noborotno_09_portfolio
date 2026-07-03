@@ -57,7 +57,8 @@
   --font-mono: ui-monospace, 'Cascadia Code', 'JetBrains Mono', Menlo, Consolas, monospace;
 
   --radius: 10px;
-  --container-width: 66rem;
+  --radius-lg: 16px;
+  --container-width: 72rem;
 }
 
 /* Light theme via explicit toggle choice — keep in sync with the media query

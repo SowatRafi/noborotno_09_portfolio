@@ -184,7 +184,7 @@ function link(gl: WebGLRenderingContext, vsSrc: string, fsSrc: string): WebGLPro
 
 const NODE_COUNT = 900
 const LINE_COUNT = 260
-const DIST = 3.2 // camera distance; sphere radius is 1
+const DIST = 2.7 // camera distance; sphere radius is 1
 const BASE_TILT = 0.42 // radians — a flattering fixed viewing angle
 
 function buildNodes(): Float32Array {

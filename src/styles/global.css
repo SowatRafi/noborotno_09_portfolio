@@ -273,77 +273,270 @@ a {
  * Hero
  * ------------------------------------------------------------------------ */
 
-.hero {
-  /* relative + overflow clip the 3D scene layers; isolation gives the scene a
-     private stacking context so its z-index never fights the sticky header. */
-  position: relative;
-  overflow: hidden;
-  isolation: isolate;
-  padding-block: 6rem 4.5rem;
-  /* Subtle depth using the resume's deep blue — atmosphere without imagery. */
-  background:
-    radial-gradient(60rem 30rem at 85% -10%, var(--brand-blue-soft), transparent 70%),
-    radial-gradient(40rem 20rem at 0% 110%, var(--brand-blue-soft), transparent 75%);
+.bento {
+  max-width: var(--container-width);
+  margin-inline: auto;
+  padding: 2.25rem 1.25rem 3rem;
+  display: grid;
+  gap: 0.9rem;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-auto-rows: minmax(5rem, auto);
+  grid-template-areas:
+    'id     id     globe   globe'
+    'id     id     globe   globe'
+    'photo  term   term    current'
+    'photo  stats  cta     current';
 }
 
-/* WebGL globe canvas: fills the hero, sits behind content, and is inert.
-   A right-biased mask keeps node density away from the left-hand text so the
-   headline and terminal stay high-contrast on any theme. */
+/* Tablet: two columns, tiles reflow into a taller stack. */
+@media (max-width: 900px) {
+  .bento {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-areas:
+      'id      id'
+      'globe   globe'
+      'photo   current'
+      'term    term'
+      'stats   cta';
+  }
+}
+
+/* Phone: single column, one tile per row in reading order. */
+@media (max-width: 560px) {
+  .bento {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      'id'
+      'globe'
+      'photo'
+      'term'
+      'stats'
+      'current'
+      'cta';
+  }
+}
+
+/* Shared bento surface. */
+.tile {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 1.35rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow);
+  transition:
+    transform 0.2s ease-out,
+    box-shadow 0.2s ease-out,
+    border-color 0.2s ease-out;
+}
+
+@media (hover: hover) {
+  .tile:hover {
+    border-color: var(--panel-border);
+    box-shadow: var(--shadow-lift), var(--glow);
+  }
+}
+
+.tile--id {
+  grid-area: id;
+  gap: 0.35rem;
+  background:
+    radial-gradient(32rem 20rem at 115% -40%, var(--brand-blue-soft), transparent 70%),
+    var(--surface);
+}
+
+.tile--photo {
+  grid-area: photo;
+  min-height: 14rem;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.tile--globe {
+  grid-area: globe;
+  min-height: 15rem;
+  padding: 0;
+}
+
+.tile--term {
+  grid-area: term;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.tile--stats {
+  grid-area: stats;
+}
+
+.tile--current {
+  grid-area: current;
+}
+
+.tile--cta {
+  grid-area: cta;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-content: center;
+  gap: 0.6rem;
+}
+
+/* Identity tile */
+.tile__kicker {
+  margin: 0;
+  font-family: var(--font-mono);
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+
+.tile__name {
+  margin: 0;
+  font-size: clamp(2rem, 4.5vw, 3.1rem);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  /* Gradient-clipped headline: starts at full text colour so contrast stays
+     WCAG-safe, drifting towards the accent only at the tail end. */
+  background: linear-gradient(95deg, var(--text) 55%, var(--accent) 115%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+}
+
+.tile__title {
+  margin: 0.4rem 0 0;
+  font-family: var(--font-mono);
+  color: var(--accent);
+  font-size: clamp(0.95rem, 2vw, 1.15rem);
+}
+
+.tile__loc {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0.55rem 0 0;
+  color: var(--text-muted);
+}
+
+.tile__led {
+  width: 0.55rem;
+  height: 0.55rem;
+  flex: none;
+  border-radius: 50%;
+  background: var(--status);
+  box-shadow: 0 0 8px var(--status);
+}
+
+/* Globe tile — the WebGL canvas fills it; a corner badge labels it. */
 .hero__canvas {
   position: absolute;
   inset: 0;
-  z-index: -1;
   width: 100%;
   height: 100%;
   pointer-events: none;
-  -webkit-mask-image: radial-gradient(90% 95% at 66% 48%, #000 42%, transparent 88%);
-  mask-image: radial-gradient(90% 95% at 66% 48%, #000 42%, transparent 88%);
+  -webkit-mask-image: radial-gradient(circle at 50% 47%, #000 70%, transparent 92%);
+  mask-image: radial-gradient(circle at 50% 47%, #000 70%, transparent 92%);
 }
 
-@media (max-width: 860px) {
-  /* Single-column layout: centre the globe and soften it so it reads as a
-     backdrop behind the stacked content rather than competing with it. */
-  .hero__canvas {
-    opacity: 0.6;
-    -webkit-mask-image: radial-gradient(90% 70% at 50% 32%, #000 20%, transparent 78%);
-    mask-image: radial-gradient(90% 70% at 50% 32%, #000 20%, transparent 78%);
-  }
-}
-
-.hero__content {
-  position: relative;
-}
-
-/* Two-column command centre: intro on the left, HUD portrait on the right.
-   Collapses to a single column with the portrait below on small screens. */
-.hero__layout {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
-  gap: 2.5rem 3.5rem;
+.tile__badge {
+  position: absolute;
+  left: 0.9rem;
+  bottom: 0.85rem;
+  z-index: 1;
+  display: inline-flex;
   align-items: center;
+  gap: 0.4rem;
+  padding: 0.28rem 0.6rem;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--surface) 70%, transparent);
+  backdrop-filter: blur(4px);
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--text-muted);
 }
 
-@media (max-width: 860px) {
-  .hero__layout {
-    grid-template-columns: 1fr;
-  }
+/* Stats tile */
+.stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.7rem 0.9rem;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.stats__item {
+  display: flex;
+  flex-direction: column;
+}
+
+.stats__value {
+  font-family: var(--font-mono);
+  font-size: 1.55rem;
+  font-weight: 600;
+  line-height: 1;
+  color: var(--accent);
+}
+
+.stats__label {
+  margin-top: 0.2rem;
+  font-size: 0.72rem;
+  color: var(--text-muted);
+}
+
+/* Current-role tile */
+.tile__eyebrow {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.tile__role {
+  margin: 0.3rem 0 0;
+  font-weight: 600;
+  font-size: 1.05rem;
+}
+
+.tile__org {
+  margin: 0.15rem 0 0;
+  color: var(--text-muted);
+}
+
+.tile__period {
+  margin: 0.4rem 0 0;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--text-muted);
 }
 
 /* ---------------------------------------------------------------------------
  * HUD portrait
  * ------------------------------------------------------------------------ */
 
-.hud {
-  margin: 0;
-  width: min(17rem, 100%);
-  justify-self: end;
+/* The portrait fills its bento tile, cropping to keep the face framed. */
+.tile--photo .hud__frame {
+  height: 100%;
 }
 
-@media (max-width: 860px) {
-  .hud {
-    justify-self: start;
-    width: min(14rem, 70%);
-  }
+.tile--photo .hud__img {
+  height: 100%;
+  object-fit: cover;
+  object-position: center 20%;
 }
 
 .hud__frame {
@@ -417,34 +610,6 @@ a {
   border-bottom: 2px solid var(--accent);
   border-right: 2px solid var(--accent);
   border-bottom-right-radius: var(--radius);
-}
-
-.hud__caption {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
-  margin-top: 0.6rem;
-  font-family: var(--font-mono);
-  font-size: 0.72rem;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: var(--text-muted);
-}
-
-.hud__caption-status {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
-  color: var(--text);
-}
-
-.hud__led {
-  width: 0.45rem;
-  height: 0.45rem;
-  border-radius: 50%;
-  background: var(--status);
-  box-shadow: 0 0 8px var(--status);
 }
 
 /* Decorative terminal window above the headline. */
@@ -550,49 +715,6 @@ a {
   color: var(--accent);
 }
 
-.hero__name {
-  font-size: clamp(2.2rem, 6vw, 3.5rem);
-  letter-spacing: -0.02em;
-  margin-bottom: 0.5rem;
-  /* Gradient-clipped headline: starts at full text colour so contrast stays
-     WCAG-safe, drifting towards the accent only at the tail end. */
-  background: linear-gradient(95deg, var(--text) 55%, var(--accent) 115%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  -webkit-text-fill-color: transparent;
-}
-
-.hero__title {
-  font-family: var(--font-mono);
-  font-size: clamp(1rem, 2.5vw, 1.2rem);
-  color: var(--accent);
-  margin-bottom: 0.25rem;
-}
-
-.hero__location {
-  color: var(--text-muted);
-  margin-bottom: 2rem;
-}
-
-/* Availability LED before the location — reads as a live status indicator. */
-.hero__location::before {
-  content: '';
-  display: inline-block;
-  width: 0.5rem;
-  height: 0.5rem;
-  margin-right: 0.5rem;
-  border-radius: 50%;
-  background: var(--status);
-  box-shadow: 0 0 8px var(--status);
-}
-
-.hero__actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.75rem;
-}
-
 .btn {
   display: inline-block;
   padding: 0.6rem 1.2rem;
@@ -636,93 +758,6 @@ a {
 .btn--primary:hover {
   filter: brightness(1.1);
   color: var(--accent-contrast);
-}
-
-/* ---------------------------------------------------------------------------
- * Status bar — SOC telemetry strip under the hero
- * ------------------------------------------------------------------------ */
-
-.statusbar {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  padding: 0.55rem 1.25rem;
-  border-block: 1px solid var(--border);
-  background: var(--bg-raised);
-  overflow: hidden;
-  font-family: var(--font-mono);
-  font-size: 0.8rem;
-  color: var(--text-muted);
-}
-
-/* Radar disc: centre blip, one range ring and crosshairs, all gradients. */
-.statusbar__radar {
-  position: relative;
-  flex: none;
-  width: 1.9rem;
-  height: 1.9rem;
-  border: 1px solid var(--panel-border);
-  border-radius: 50%;
-  overflow: hidden;
-  background:
-    radial-gradient(circle, var(--accent) 0 8%, transparent 9%),
-    radial-gradient(circle, transparent 0 52%, var(--grid-line) 53% 60%, transparent 61%),
-    linear-gradient(var(--grid-line), var(--grid-line)) center / 100% 1px no-repeat,
-    linear-gradient(90deg, var(--grid-line), var(--grid-line)) center / 1px 100% no-repeat;
-}
-
-.statusbar__sweep {
-  position: absolute;
-  inset: 0;
-  border-radius: 50%;
-  background: conic-gradient(
-    from 0deg,
-    color-mix(in srgb, var(--accent) 45%, transparent),
-    transparent 80deg 360deg
-  );
-}
-
-.statusbar__live {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
-  flex: none;
-  color: var(--text);
-  letter-spacing: 0.1em;
-}
-
-.statusbar__led {
-  width: 0.5rem;
-  height: 0.5rem;
-  border-radius: 50%;
-  background: var(--status);
-  box-shadow: 0 0 8px var(--status);
-}
-
-/* The feed fades out at both edges so lines slide in and out of nothing. */
-.statusbar__feed {
-  flex: 1;
-  overflow: hidden;
-  -webkit-mask-image: linear-gradient(90deg, transparent, #000 6% 94%, transparent);
-  mask-image: linear-gradient(90deg, transparent, #000 6% 94%, transparent);
-}
-
-.statusbar__track {
-  display: flex;
-  gap: 3rem;
-  width: max-content;
-}
-
-.statusbar__list {
-  display: flex;
-  gap: 3rem;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-.statusbar__item {
-  white-space: nowrap;
 }
 
 /* ---------------------------------------------------------------------------
@@ -916,7 +951,7 @@ main {
 .skill-group {
   background: var(--surface);
   border: 1px solid var(--border);
-  border-radius: var(--radius);
+  border-radius: var(--radius-lg);
   padding: 1.1rem 1.25rem;
 }
 
@@ -1016,7 +1051,7 @@ main {
   position: relative;
   background: var(--surface);
   border: 1px solid var(--border);
-  border-radius: var(--radius);
+  border-radius: var(--radius-lg);
   padding: 1.5rem;
   box-shadow: var(--shadow);
 }
@@ -1138,7 +1173,7 @@ main {
   flex-wrap: wrap;
   background: var(--surface);
   border: 1px solid var(--border);
-  border-radius: var(--radius);
+  border-radius: var(--radius-lg);
   padding: 1rem 1.25rem;
 }
 
@@ -1312,59 +1347,47 @@ main {
     animation: hud-scan 5s ease-in-out 1.5s infinite;
   }
 
-  /* Radar sweep and telemetry marquee — the "live console" motion. The
-     marquee shifts by exactly one list copy (half the track plus half the
-     3rem gap), so the loop wraps without a visible jump. */
-  .statusbar__sweep {
-    animation: radar-spin 3.2s linear infinite;
-  }
-
-  .statusbar__track {
-    animation: marquee 40s linear infinite;
-  }
-
-  /* Hero content rises line by line on load; `backwards` hides each line
-     during its delay so the sequence starts clean. */
-  .terminal,
-  .hero__name,
-  .hero__title,
-  .hero__location,
-  .hero__actions,
-  .hud {
+  /* Bento tiles rise in on load, staggered so the grid assembles itself
+     rather than snapping in all at once. `backwards` hides each tile during
+     its delay. */
+  .tile {
     animation-name: rise-in;
-    animation-duration: 0.6s;
+    animation-duration: 0.55s;
     animation-timing-function: ease-out;
     animation-fill-mode: backwards;
   }
 
-  .hero__name {
-    animation-delay: 90ms;
+  .tile--id {
+    animation-delay: 40ms;
   }
 
-  .hero__title {
+  .tile--globe {
+    animation-delay: 120ms;
+  }
+
+  .tile--photo {
     animation-delay: 180ms;
   }
 
-  .hero__location {
-    animation-delay: 260ms;
+  .tile--term {
+    animation-delay: 240ms;
   }
 
-  .hero__actions {
+  .tile--stats {
+    animation-delay: 300ms;
+  }
+
+  .tile--current {
     animation-delay: 340ms;
   }
 
-  .hud {
-    animation-delay: 200ms;
-  }
-
-  .hud__led,
-  .statusbar__led {
-    animation: led-pulse 2.6s ease-in-out infinite;
+  .tile--cta {
+    animation-delay: 380ms;
   }
 
   /* The availability LED breathes; the newest timeline dot pings like a
      fresh alert. Both are tiny, slow and opacity/shadow only. */
-  .hero__location::before {
+  .tile__led {
     animation: led-pulse 2.6s ease-in-out infinite;
   }
 
@@ -1408,18 +1431,6 @@ main {
     /* 110% of frame height below the top, expressed in the band's own
        percentage units (band is 18% tall → 100/0.18 ≈ 560, plus overshoot). */
     transform: translateY(620%);
-  }
-}
-
-@keyframes radar-spin {
-  to {
-    rotate: 1turn;
-  }
-}
-
-@keyframes marquee {
-  to {
-    transform: translateX(calc(-50% - 1.5rem));
   }
 }
 
