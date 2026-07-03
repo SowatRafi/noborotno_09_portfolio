@@ -8,6 +8,7 @@ export const projects = [
   {
     name: 'Real-Time Network Intrusion Detection System (NIDS)',
     stack: ['Python', 'Scapy', 'Nmap', 'scikit-learn'],
+    period: 'May 2025',
     repoUrl: 'https://github.com/SowatRafi/Real-Time-Intrusion-Detection-System-with-Python',
     highlights: [
       'Captures live traffic, detects anomalous patterns, and raises real-time alerts, mirroring SIEM-style detection and triage.',
@@ -17,6 +18,7 @@ export const projects = [
   {
     name: 'Discovr — Multi-Cloud Asset Discovery & Risk Assessment',
     stack: ['Python', 'Go', 'Azure SDK', 'AWS Boto3', 'Nmap'],
+    period: 'Oct 2025',
     repoUrl: 'https://github.com/SowatRafi/Discovr-Assest-Discovery',
     highlights: [
       'Discovers and risk-classifies assets across AWS, Azure, and GCP, surfacing exposed services and misconfigurations.',

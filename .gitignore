@@ -11,6 +11,11 @@ dist/
 *.md
 !README.md
 
+# Original photo masters — only the optimised portrait.jpg ships with the
+# site; committing these would publish the full-resolution files on Pages.
+public/Sowat.Rafi_WEB.jpg
+public/Sowat.Rafi_PRINT.jpg
+
 # Editor / OS noise
 .DS_Store
 Thumbs.db
