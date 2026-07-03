@@ -1,0 +1,12 @@
+# Dependencies and build output
+node_modules/
+dist/
+
+# Local tooling state — Claude Code permissions and installed skills are
+# machine-local developer tooling, not part of the website source.
+.claude/
+
+# Editor / OS noise
+.DS_Store
+Thumbs.db
+*.log
