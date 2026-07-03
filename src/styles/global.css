@@ -1327,7 +1327,8 @@ main {
    *   1.5s       first output prints
    *   1.9s       second prompt line appears
    *   2.0s–3.0s  "cat status.log" types (14 steps)
-   *   3.2s       status line prints; cursor starts blinking
+   *   3.2s       first status line prints
+   *   3.5s       relocation line prints; cursor starts blinking
    * Everything uses `backwards` fill so it stays hidden until its cue.
    */
   .terminal__cmd--one {
@@ -1350,8 +1351,12 @@ main {
     animation: print 0.15s steps(1, end) 3.2s backwards;
   }
 
+  .terminal__out--three {
+    animation: print 0.15s steps(1, end) 3.5s backwards;
+  }
+
   .terminal__line--cursor::after {
-    animation: cursor-blink 1.1s steps(2, jump-none) 3.2s infinite;
+    animation: cursor-blink 1.1s steps(2, jump-none) 3.5s infinite;
   }
 
   /* The scan line sweeps the portrait top to bottom on a slow loop. */
