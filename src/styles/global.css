@@ -286,14 +286,28 @@ a {
     radial-gradient(40rem 20rem at 0% 110%, var(--brand-blue-soft), transparent 75%);
 }
 
-/* One shared vanishing point so grid and panels read as a single 3D space. */
-.hero__scene {
+/* WebGL globe canvas: fills the hero, sits behind content, and is inert.
+   A right-biased mask keeps node density away from the left-hand text so the
+   headline and terminal stay high-contrast on any theme. */
+.hero__canvas {
   position: absolute;
   inset: 0;
   z-index: -1;
+  width: 100%;
+  height: 100%;
   pointer-events: none;
-  perspective: 60rem;
-  transform-style: preserve-3d;
+  -webkit-mask-image: radial-gradient(90% 95% at 66% 48%, #000 42%, transparent 88%);
+  mask-image: radial-gradient(90% 95% at 66% 48%, #000 42%, transparent 88%);
+}
+
+@media (max-width: 860px) {
+  /* Single-column layout: centre the globe and soften it so it reads as a
+     backdrop behind the stacked content rather than competing with it. */
+  .hero__canvas {
+    opacity: 0.6;
+    -webkit-mask-image: radial-gradient(90% 70% at 50% 32%, #000 20%, transparent 78%);
+    mask-image: radial-gradient(90% 70% at 50% 32%, #000 20%, transparent 78%);
+  }
 }
 
 .hero__content {
@@ -431,60 +445,6 @@ a {
   border-radius: 50%;
   background: var(--status);
   box-shadow: 0 0 8px var(--status);
-}
-
-/* Perspective grid floor: two crossed line gradients tilted away from the
-   viewer, faded out towards the horizon with a mask. The slide animation
-   moves the plane by exactly one cell so the loop is seamless. */
-.hero__grid {
-  position: absolute;
-  left: -20%;
-  right: -20%;
-  bottom: -35%;
-  height: 75%;
-  background-image:
-    linear-gradient(var(--grid-line) 1px, transparent 1px),
-    linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
-  background-size: 3.25rem 3.25rem;
-  transform: rotateX(64deg);
-  -webkit-mask-image: linear-gradient(to top, rgba(0, 0, 0, 0.9) 30%, transparent 95%);
-  mask-image: linear-gradient(to top, rgba(0, 0, 0, 0.9) 30%, transparent 95%);
-}
-
-/* Floating glass panels at different depths — abstract nods to dashboards and
-   log tiles, deliberately empty so they stay atmosphere, not kitsch. */
-.hero__panel {
-  position: absolute;
-  border: 1px solid var(--panel-border);
-  border-radius: var(--radius);
-  background: linear-gradient(135deg, var(--panel-fill), transparent 80%);
-  box-shadow: var(--glow);
-  backdrop-filter: blur(2px);
-}
-
-/* Positioned around the portrait column so they read as depth behind it. */
-.hero__panel--one {
-  width: 11rem;
-  height: 7rem;
-  right: 4%;
-  top: 10%;
-  transform: rotateX(12deg) rotateY(-22deg) rotateZ(3deg);
-}
-
-.hero__panel--two {
-  width: 7rem;
-  height: 4.5rem;
-  right: 30%;
-  top: 58%;
-  transform: rotateX(-8deg) rotateY(18deg) rotateZ(-4deg);
-}
-
-/* Panels are invisible on narrow screens' remaining width and would crowd the
-   headline — drop them, keep the grid floor. */
-@media (max-width: 720px) {
-  .hero__panel {
-    display: none;
-  }
 }
 
 /* Decorative terminal window above the headline. */
@@ -1303,24 +1263,12 @@ main {
  *
  * Every animation lives inside this opt-in block, so visitors who ask the OS
  * to reduce motion get a completely still page — the elements themselves
- * (grid, panels, cursor) stay visible, only their movement is removed.
+ * (portrait, cursor, telemetry) stay visible, only their movement is removed.
+ * The WebGL globe honours the same preference in JavaScript (it renders one
+ * static frame instead of looping).
  * ------------------------------------------------------------------------ */
 
 @media (prefers-reduced-motion: no-preference) {
-  /* Grid floor slides one full cell towards the viewer, then loops. The
-     translate rides along the already-tilted plane, so it reads as depth. */
-  .hero__grid {
-    animation: grid-flow 5s linear infinite;
-  }
-
-  .hero__panel--one {
-    animation: panel-drift 9s ease-in-out infinite alternate;
-  }
-
-  .hero__panel--two {
-    animation: panel-drift 11s ease-in-out infinite alternate-reverse;
-  }
-
   /*
    * Terminal session choreography. One shared timeline:
    *   0.5s–1.3s  "whoami" types (6 steps)
@@ -1429,18 +1377,6 @@ main {
   from {
     opacity: 0;
     transform: translateY(18px);
-  }
-}
-
-@keyframes grid-flow {
-  to {
-    transform: rotateX(64deg) translateY(3.25rem);
-  }
-}
-
-@keyframes panel-drift {
-  to {
-    translate: 0 -1.6rem;
   }
 }
 
