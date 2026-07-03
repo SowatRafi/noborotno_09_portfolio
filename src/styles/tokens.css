@@ -1,0 +1,103 @@
+/*
+ * Design tokens for both themes.
+ *
+ * Dark is the default (defined on :root with no conditions) because it is the
+ * site's primary design. Light mode is defined twice on purpose:
+ *
+ *   1. [data-theme='light']            — explicit visitor choice via the toggle
+ *   2. @media (prefers-color-scheme)   — system preference, only while no
+ *      explicit choice has been made (:root:not([data-theme]))
+ *
+ * CSS cannot compose "attribute OR media query" into one selector, so the two
+ * blocks must be kept in sync by hand — edit both when changing a light value.
+ * The benefit is that following the system preference needs zero JavaScript,
+ * which avoids any flash of the wrong theme and keeps the CSP free of inline
+ * scripts.
+ */
+
+:root {
+  /* color-scheme makes native UI (scrollbars, form controls) match the theme */
+  color-scheme: dark;
+
+  --bg: #0b1017;
+  --bg-raised: #101724;
+  --surface: #131c2b;
+  --border: #22304a;
+  --text: #dbe4ef;
+  --text-muted: #92a3b8;
+
+  /* Teal accent for interactive/highlight elements; the deep blue from the
+     resume (rgb(0, 70, 140)) is used as a supporting tone in gradients and
+     borders so the site visually matches the printed material. */
+  --accent: #2dd4bf;
+  --accent-contrast: #062822;
+  --brand-blue: rgb(0, 70, 140);
+  --brand-blue-soft: rgba(0, 70, 140, 0.35);
+
+  --badge-done-bg: rgba(45, 212, 191, 0.12);
+  --badge-done-text: #5eead4;
+  --badge-progress-bg: rgba(251, 191, 36, 0.12);
+  --badge-progress-text: #fcd34d;
+
+  --shadow: 0 1px 2px rgba(0, 0, 0, 0.4), 0 8px 24px rgba(0, 0, 0, 0.25);
+
+  /* System font stacks: no webfont downloads means no render-blocking font
+     requests and no layout shift — a large share of the Lighthouse budget. */
+  --font-sans: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+  --font-mono: ui-monospace, 'Cascadia Code', 'JetBrains Mono', Menlo, Consolas, monospace;
+
+  --radius: 10px;
+  --container-width: 66rem;
+}
+
+/* Light theme via explicit toggle choice — keep in sync with the media query
+   block below. */
+:root[data-theme='light'] {
+  color-scheme: light;
+
+  --bg: #f6f8fa;
+  --bg-raised: #ffffff;
+  --surface: #ffffff;
+  --border: #d7dfe9;
+  --text: #182230;
+  --text-muted: #48586c;
+
+  --accent: #0f766e;
+  --accent-contrast: #f0fdfa;
+  --brand-blue: rgb(0, 70, 140);
+  --brand-blue-soft: rgba(0, 70, 140, 0.18);
+
+  --badge-done-bg: rgba(15, 118, 110, 0.1);
+  --badge-done-text: #0f766e;
+  --badge-progress-bg: rgba(180, 118, 4, 0.12);
+  --badge-progress-text: #92610a;
+
+  --shadow: 0 1px 2px rgba(15, 35, 60, 0.08), 0 8px 24px rgba(15, 35, 60, 0.08);
+}
+
+/* Light theme via system preference, only while the visitor has not chosen
+   explicitly — keep in sync with the block above. */
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme]) {
+    color-scheme: light;
+
+    --bg: #f6f8fa;
+    --bg-raised: #ffffff;
+    --surface: #ffffff;
+    --border: #d7dfe9;
+    --text: #182230;
+    --text-muted: #48586c;
+
+    --accent: #0f766e;
+    --accent-contrast: #f0fdfa;
+    --brand-blue: rgb(0, 70, 140);
+    --brand-blue-soft: rgba(0, 70, 140, 0.18);
+
+    --badge-done-bg: rgba(15, 118, 110, 0.1);
+    --badge-done-text: #0f766e;
+    --badge-progress-bg: rgba(180, 118, 4, 0.12);
+    --badge-progress-text: #92610a;
+
+    --shadow: 0 1px 2px rgba(15, 35, 60, 0.08), 0 8px 24px rgba(15, 35, 60, 0.08);
+  }
+}
