@@ -17,4 +17,7 @@ export const profile = {
     'Skilled with Splunk (SPL), Wireshark, Autopsy, and TheHive; familiar with MITRE ATT&CK, NIST CSF, the Essential Eight, and the OWASP Top 10 for LLM Applications. Currently completing the TryHackMe AI Security Level 1 (AI1) and SOC Analyst Level 1 (SAL1) certifications, both expected in 2026.',
     'Available full-time, including rotating shift rosters and on-site attendance.',
   ],
+  resumeFile: 'Resume of Sowat H Rafi.pdf',
+  portraitFile: 'portrait.jpg',
+  portraitAlt: 'Portrait of Sowat Hossain Rafi',
 } as const satisfies Profile

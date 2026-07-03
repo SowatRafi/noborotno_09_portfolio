@@ -17,6 +17,11 @@ export interface Profile {
   readonly githubUrl: string
   /** Paragraphs of the professional summary, rendered in order. */
   readonly summary: readonly string[]
+  /** Resume filename inside public/ — components must URL-encode it. */
+  readonly resumeFile: string
+  /** Portrait filename inside public/, plus its accessible description. */
+  readonly portraitFile: string
+  readonly portraitAlt: string
 }
 
 export interface SkillGroup {
@@ -37,6 +42,8 @@ export interface Project {
   readonly stack: readonly string[]
   readonly repoUrl: string
   readonly highlights: readonly string[]
+  /** Completion date as shown on the resume, e.g. "May 2025". */
+  readonly period?: string
 }
 
 export interface EducationEntry {

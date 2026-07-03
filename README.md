@@ -7,8 +7,10 @@ Live site: <https://sowatrafi.github.io/noborotno_09_portfolio/>
 
 ## Updating the resume
 
-The "Download Resume" button serves `public/resume.pdf`. To update it, drop
-the new PDF over that file (same name, same location) and commit.
+The "Download Resume" button serves the PDF named by `resumeFile` in
+`src/data/profile.ts` (currently `public/Resume of Sowat H Rafi.pdf`). To
+update the resume, drop the new PDF over that file (same name, same location)
+and commit; to rename it, also change `resumeFile`.
 
 ## Local development
 
