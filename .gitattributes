@@ -1,0 +1,7 @@
+# Normalise line endings for text, but never touch binaries — line-ending
+# conversion corrupts a PDF's byte offsets.
+* text=auto
+*.pdf -text
+*.png -text
+*.jpg -text
+*.woff2 -text
