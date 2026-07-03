@@ -5,11 +5,10 @@ with **React 18 + Vite + TypeScript** and deployed to **GitHub Pages**.
 
 Live site: <https://sowatrafi.github.io/noborotno_09_portfolio/>
 
-## ⚠️ To-do after cloning
+## Updating the resume
 
-**Replace `public/resume.pdf` with the real resume.** The file currently in the
-repository is a one-page placeholder so the "Download Resume" button works —
-drop the actual PDF over it (same name, same location) and commit.
+The "Download Resume" button serves `public/resume.pdf`. To update it, drop
+the new PDF over that file (same name, same location) and commit.
 
 ## Local development
 
