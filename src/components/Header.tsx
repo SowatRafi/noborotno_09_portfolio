@@ -1,3 +1,4 @@
+import { useActiveSection } from '../hooks/useActiveSection'
 import { useTheme } from '../hooks/useTheme'
 
 /*
@@ -15,9 +16,12 @@ const NAV_ITEMS = [
   ['contact', 'Contact'],
 ] as const
 
+const NAV_IDS = NAV_ITEMS.map(([anchor]) => anchor)
+
 export function Header() {
   const { theme, toggle } = useTheme()
   const nextTheme = theme === 'dark' ? 'light' : 'dark'
+  const activeId = useActiveSection(NAV_IDS)
 
   return (
     <header className="header">
@@ -29,7 +33,14 @@ export function Header() {
           <ul className="header__links">
             {NAV_ITEMS.map(([anchor, label]) => (
               <li key={anchor}>
-                <a href={`#${anchor}`}>{label}</a>
+                {/* aria-current mirrors the visual highlight for AT users. */}
+                <a
+                  href={`#${anchor}`}
+                  className={activeId === anchor ? 'is-active' : undefined}
+                  aria-current={activeId === anchor ? 'true' : undefined}
+                >
+                  {label}
+                </a>
               </li>
             ))}
           </ul>
@@ -53,6 +64,12 @@ export function Header() {
           )}
         </button>
       </div>
+      {/*
+       * Reading-progress bar driven entirely by CSS scroll-driven animations —
+       * no scroll listener, no inline styles. Browsers without support simply
+       * never display it (see the @supports rule in global.css).
+       */}
+      <div className="scroll-progress" aria-hidden="true" />
     </header>
   )
 }

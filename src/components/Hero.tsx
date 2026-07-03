@@ -24,9 +24,24 @@ export function Hero() {
         <div className="hero__panel hero__panel--three" />
       </div>
       <div className="container hero__content">
-        <p className="hero__kicker" aria-hidden="true">
-          <span className="hero__prompt">~$</span> whoami
-        </p>
+        {/*
+         * Decorative terminal window replacing the plain kicker line. The
+         * typed command is pure CSS (steps animation over a fixed ch width),
+         * so the markup stays static and aria-hidden keeps it out of the
+         * accessibility tree — the real introduction is the h1 below.
+         */}
+        <div className="terminal" aria-hidden="true">
+          <div className="terminal__bar">
+            <span className="terminal__dot terminal__dot--close" />
+            <span className="terminal__dot terminal__dot--min" />
+            <span className="terminal__dot terminal__dot--max" />
+            <span className="terminal__host">sowat@soc-melbourne:~</span>
+          </div>
+          <p className="terminal__line">
+            <span className="hero__prompt">~$</span>{' '}
+            <span className="terminal__cmd">whoami</span>
+          </p>
+        </div>
         <h1 className="hero__name">{profile.name}</h1>
         <p className="hero__title">{profile.titleLine}</p>
         <p className="hero__location">{profile.location}</p>

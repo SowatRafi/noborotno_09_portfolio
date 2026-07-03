@@ -46,9 +46,10 @@
      tones used by the hero's perspective grid and floating panels. */
   --shadow-lift: 0 2px 4px rgba(0, 0, 0, 0.45), 0 18px 44px rgba(0, 0, 0, 0.4);
   --glow: 0 0 24px rgba(45, 212, 191, 0.16);
-  --grid-line: rgba(45, 212, 191, 0.13);
+  --grid-line: rgba(45, 212, 191, 0.2);
   --panel-fill: rgba(0, 70, 140, 0.16);
   --panel-border: rgba(45, 212, 191, 0.3);
+  --status: #4ade80;
 
   /* System font stacks: no webfont downloads means no render-blocking font
      requests and no layout shift — a large share of the Lighthouse budget. */
@@ -85,9 +86,10 @@
 
   --shadow-lift: 0 2px 4px rgba(15, 35, 60, 0.1), 0 18px 44px rgba(15, 35, 60, 0.16);
   --glow: 0 0 24px rgba(15, 118, 110, 0.14);
-  --grid-line: rgba(15, 118, 110, 0.16);
+  --grid-line: rgba(15, 118, 110, 0.22);
   --panel-fill: rgba(0, 70, 140, 0.08);
   --panel-border: rgba(15, 118, 110, 0.3);
+  --status: #16a34a;
 }
 
 /* Light theme via system preference, only while the visitor has not chosen
@@ -117,8 +119,9 @@
 
     --shadow-lift: 0 2px 4px rgba(15, 35, 60, 0.1), 0 18px 44px rgba(15, 35, 60, 0.16);
     --glow: 0 0 24px rgba(15, 118, 110, 0.14);
-    --grid-line: rgba(15, 118, 110, 0.16);
+    --grid-line: rgba(15, 118, 110, 0.22);
     --panel-fill: rgba(0, 70, 140, 0.08);
     --panel-border: rgba(15, 118, 110, 0.3);
+    --status: #16a34a;
   }
 }
