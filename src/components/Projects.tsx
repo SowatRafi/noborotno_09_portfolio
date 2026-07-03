@@ -9,6 +9,9 @@ export function Projects() {
         {projects.map((project) => (
           <article className="card" key={project.name}>
             <h3 className="card__title">{project.name}</h3>
+            {project.period !== undefined && (
+              <p className="card__period">{project.period}</p>
+            )}
             <ul className="tag-list tag-list--stack" aria-label="Technology stack">
               {project.stack.map((tech) => (
                 <li className="tag tag--stack" key={tech}>
