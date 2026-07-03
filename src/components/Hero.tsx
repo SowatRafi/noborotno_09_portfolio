@@ -1,5 +1,6 @@
 import { profile } from '../data/profile'
 import { ExternalLink } from './ExternalLink'
+import { HeroBackground } from './HeroBackground'
 
 export function Hero() {
   /*
@@ -14,16 +15,12 @@ export function Hero() {
   return (
     <section id="top" className="hero" aria-label="Introduction">
       {/*
-       * Decorative 3D scene: a perspective grid floor plus floating glass
-       * panels, all drawn in CSS. aria-hidden and pointer-events: none keep it
-       * invisible to assistive technology and inert to interaction — it is
-       * atmosphere only and must never gate or obscure content.
+       * Real-time WebGL network globe behind the hero — a rotating sphere of
+       * threat-map nodes. Decorative and inert (see HeroBackground); it never
+       * gates or obscures content, and degrades to the CSS gradient below when
+       * WebGL is unavailable or motion is reduced.
        */}
-      <div className="hero__scene" aria-hidden="true">
-        <div className="hero__grid" />
-        <div className="hero__panel hero__panel--one" />
-        <div className="hero__panel hero__panel--two" />
-      </div>
+      <HeroBackground />
 
       <div className="container hero__content hero__layout">
         <div className="hero__intro">
