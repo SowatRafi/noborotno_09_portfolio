@@ -33,8 +33,7 @@ export function Footer() {
           </li>
         </ul>
         <p className="footer__note">
-          © {new Date().getFullYear()} {profile.name} · Built with React + Vite · No
-          trackers, no analytics, no cookies.
+          © {new Date().getFullYear()} {profile.name}
         </p>
       </div>
     </footer>
