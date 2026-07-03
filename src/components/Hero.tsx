@@ -52,9 +52,13 @@ export function Hero() {
                 <span className="hero__prompt">~$</span>{' '}
                 <span className="terminal__cmd terminal__cmd--two">cat status.log</span>
               </p>
-              <p className="terminal__line terminal__out terminal__out--two terminal__line--cursor">
+              <p className="terminal__line terminal__out terminal__out--two">
                 <span className="terminal__ok">[ OK ]</span> open to SOC &amp; AI
-                security roles — Melbourne
+                security roles
+              </p>
+              <p className="terminal__line terminal__out terminal__out--three terminal__line--cursor">
+                <span className="terminal__ok">[ OK ]</span> available to relocate
+                anywhere in Australia
               </p>
             </div>
           </div>
