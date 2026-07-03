@@ -55,7 +55,7 @@ export function Hero() {
               </p>
               <p className="terminal__line terminal__out terminal__out--three terminal__line--cursor">
                 <span className="terminal__ok">[ OK ]</span> available to relocate
-                anywhere in Australia
+                anywhere in the world
               </p>
             </div>
           </div>
