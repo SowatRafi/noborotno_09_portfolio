@@ -1,0 +1,56 @@
+# Build and deploy to GitHub Pages on every push to main.
+#
+# One-time setup in the repository settings:
+#   Settings → Pages → Build and deployment → Source: "GitHub Actions"
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  # Allow manual re-deploys from the Actions tab without an empty commit.
+  workflow_dispatch:
+
+# Least-privilege permissions: the job can read the repo and write to Pages,
+# nothing else. id-token is required by the deploy-pages OIDC handshake.
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Never let two deploys race each other; keep the newest.
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      # npm ci (not install) so the build uses exactly the committed lockfile —
+      # reproducible builds and no silent dependency drift.
+      - run: npm ci
+
+      - run: npm run build
+
+      - uses: actions/configure-pages@v5
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
