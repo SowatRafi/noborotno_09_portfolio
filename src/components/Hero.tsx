@@ -11,7 +11,19 @@ export function Hero() {
 
   return (
     <section id="top" className="hero" aria-label="Introduction">
-      <div className="container">
+      {/*
+       * Decorative 3D scene: a perspective grid floor plus floating glass
+       * panels, all drawn in CSS. aria-hidden and pointer-events: none keep it
+       * invisible to assistive technology and inert to interaction — it is
+       * atmosphere only and must never gate or obscure content.
+       */}
+      <div className="hero__scene" aria-hidden="true">
+        <div className="hero__grid" />
+        <div className="hero__panel hero__panel--one" />
+        <div className="hero__panel hero__panel--two" />
+        <div className="hero__panel hero__panel--three" />
+      </div>
+      <div className="container hero__content">
         <p className="hero__kicker" aria-hidden="true">
           <span className="hero__prompt">~$</span> whoami
         </p>
