@@ -1,0 +1,20 @@
+import type { Profile } from './types'
+
+/*
+ * The phone number is deliberately absent everywhere in this codebase: this is
+ * a public website and publishing it would invite scraping and spam. Contact
+ * is email and professional profiles only.
+ */
+export const profile = {
+  name: 'Sowat Hossain Rafi',
+  titleLine: 'Graduate SOC Analyst | AI Security Analyst',
+  location: 'Melbourne, Australia (open to relocation)',
+  email: 'sowad.rafi@icloud.com',
+  linkedinUrl: 'https://www.linkedin.com/in/sowat-hossain-rafi',
+  githubUrl: 'https://github.com/SowatRafi',
+  summary: [
+    'Master of Cybersecurity graduate with hands-on experience in SIEM monitoring, alert triage, phishing investigation, and digital forensics from academic SOC simulations and the Telstra virtual experience program, plus current industry experience as an AI Engineer Intern building ML features in Python.',
+    'Skilled with Splunk (SPL), Wireshark, Autopsy, and TheHive; familiar with MITRE ATT&CK, NIST CSF, the Essential Eight, and the OWASP Top 10 for LLM Applications. Currently completing the TryHackMe AI Security Level 1 (AI1) and SOC Analyst Level 1 (SAL1) certifications, both expected in 2026.',
+    'Available full-time, including rotating shift rosters and on-site attendance.',
+  ],
+} as const satisfies Profile
