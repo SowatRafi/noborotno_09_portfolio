@@ -6,6 +6,11 @@ dist/
 # machine-local developer tooling, not part of the website source.
 .claude/
 
+# Working notes — every markdown file except the README is local-only and
+# must never appear in the repository or its history.
+*.md
+!README.md
+
 # Editor / OS noise
 .DS_Store
 Thumbs.db
