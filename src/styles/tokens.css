@@ -26,29 +26,29 @@
   --text: #dbe4ef;
   --text-muted: #92a3b8;
 
-  /* Teal accent for interactive/highlight elements; the deep blue from the
-     resume (rgb(0, 70, 140)) is used as a supporting tone in gradients and
-     borders so the site visually matches the printed material. */
-  --accent: #2dd4bf;
-  --accent-contrast: #062822;
-  --brand-blue: rgb(0, 70, 140);
-  --brand-blue-soft: rgba(0, 70, 140, 0.35);
+  /* Bottle-green accent inspired by the Bangladeshi flag's green field, with a
+     flag-red disc used only as a single decorative glow behind the portrait —
+     an inspiration, never the flag itself. --brand-blue keeps its name but now
+     carries a deep-green supporting tone for gradients and borders. */
+  --accent: #10b981;
+  --accent-contrast: #04231a;
+  --brand-blue: #047857;
+  --brand-blue-soft: rgba(4, 120, 87, 0.35);
 
-  --badge-done-bg: rgba(45, 212, 191, 0.12);
-  --badge-done-text: #5eead4;
+  --flag-red: #f42a41;
+  --flag-red-soft: rgba(244, 42, 65, 0.3);
+
+  --badge-done-bg: rgba(16, 185, 129, 0.13);
+  --badge-done-text: #6ee7b7;
   --badge-progress-bg: rgba(251, 191, 36, 0.12);
   --badge-progress-text: #fcd34d;
 
   --shadow: 0 1px 2px rgba(0, 0, 0, 0.4), 0 8px 24px rgba(0, 0, 0, 0.25);
 
-  /* Depth system for the 3D treatment: a stronger elevation for lifted cards,
-     an accent glow that reads as light rather than colour, and the translucent
-     tones used by the hero's perspective grid and floating panels. */
+  /* Elevation plus an accent glow that reads as light rather than colour. */
   --shadow-lift: 0 2px 4px rgba(0, 0, 0, 0.45), 0 18px 44px rgba(0, 0, 0, 0.4);
-  --glow: 0 0 24px rgba(45, 212, 191, 0.16);
-  --grid-line: rgba(45, 212, 191, 0.2);
-  --panel-fill: rgba(0, 70, 140, 0.16);
-  --panel-border: rgba(45, 212, 191, 0.3);
+  --glow: 0 0 24px rgba(16, 185, 129, 0.16);
+  --panel-border: rgba(16, 185, 129, 0.3);
   --status: #4ade80;
 
   /* System font stacks: no webfont downloads means no render-blocking font
@@ -73,23 +73,24 @@
   --text: #182230;
   --text-muted: #48586c;
 
-  --accent: #0f766e;
-  --accent-contrast: #f0fdfa;
-  --brand-blue: rgb(0, 70, 140);
-  --brand-blue-soft: rgba(0, 70, 140, 0.18);
+  --accent: #047857;
+  --accent-contrast: #ecfdf5;
+  --brand-blue: #065f46;
+  --brand-blue-soft: rgba(6, 95, 70, 0.18);
 
-  --badge-done-bg: rgba(15, 118, 110, 0.1);
-  --badge-done-text: #0f766e;
+  --flag-red: #d81f33;
+  --flag-red-soft: rgba(216, 31, 51, 0.15);
+
+  --badge-done-bg: rgba(4, 120, 87, 0.1);
+  --badge-done-text: #047857;
   --badge-progress-bg: rgba(180, 118, 4, 0.12);
   --badge-progress-text: #92610a;
 
   --shadow: 0 1px 2px rgba(15, 35, 60, 0.08), 0 8px 24px rgba(15, 35, 60, 0.08);
 
   --shadow-lift: 0 2px 4px rgba(15, 35, 60, 0.1), 0 18px 44px rgba(15, 35, 60, 0.16);
-  --glow: 0 0 24px rgba(15, 118, 110, 0.14);
-  --grid-line: rgba(15, 118, 110, 0.22);
-  --panel-fill: rgba(0, 70, 140, 0.08);
-  --panel-border: rgba(15, 118, 110, 0.3);
+  --glow: 0 0 24px rgba(4, 120, 87, 0.14);
+  --panel-border: rgba(4, 120, 87, 0.3);
   --status: #16a34a;
 }
 
@@ -106,23 +107,24 @@
     --text: #182230;
     --text-muted: #48586c;
 
-    --accent: #0f766e;
-    --accent-contrast: #f0fdfa;
-    --brand-blue: rgb(0, 70, 140);
-    --brand-blue-soft: rgba(0, 70, 140, 0.18);
+    --accent: #047857;
+    --accent-contrast: #ecfdf5;
+    --brand-blue: #065f46;
+    --brand-blue-soft: rgba(6, 95, 70, 0.18);
 
-    --badge-done-bg: rgba(15, 118, 110, 0.1);
-    --badge-done-text: #0f766e;
+    --flag-red: #d81f33;
+    --flag-red-soft: rgba(216, 31, 51, 0.15);
+
+    --badge-done-bg: rgba(4, 120, 87, 0.1);
+    --badge-done-text: #047857;
     --badge-progress-bg: rgba(180, 118, 4, 0.12);
     --badge-progress-text: #92610a;
 
     --shadow: 0 1px 2px rgba(15, 35, 60, 0.08), 0 8px 24px rgba(15, 35, 60, 0.08);
 
     --shadow-lift: 0 2px 4px rgba(15, 35, 60, 0.1), 0 18px 44px rgba(15, 35, 60, 0.16);
-    --glow: 0 0 24px rgba(15, 118, 110, 0.14);
-    --grid-line: rgba(15, 118, 110, 0.22);
-    --panel-fill: rgba(0, 70, 140, 0.08);
-    --panel-border: rgba(15, 118, 110, 0.3);
+    --glow: 0 0 24px rgba(4, 120, 87, 0.14);
+    --panel-border: rgba(4, 120, 87, 0.3);
     --status: #16a34a;
   }
 }
