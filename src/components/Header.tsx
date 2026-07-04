@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { useActiveSection } from '../hooks/useActiveSection'
 import { useTheme } from '../hooks/useTheme'
 
@@ -22,14 +23,45 @@ export function Header() {
   const { theme, toggle } = useTheme()
   const nextTheme = theme === 'dark' ? 'light' : 'dark'
   const activeId = useActiveSection(NAV_IDS)
+  /*
+   * On phones the seven sections don't fit a bar, so the nav collapses into a
+   * toggled dropdown. On desktop the menu is always visible and this state is
+   * ignored (the button is hidden by CSS).
+   */
+  const [menuOpen, setMenuOpen] = useState(false)
 
   return (
     <header className="header">
       <div className="header__inner container">
         <a className="header__brand" href="#top" aria-label="Back to top">
-          <span className="header__prompt" aria-hidden="true">~$</span> sowat.rafi
+          <span className="header__prompt" aria-hidden="true">
+            ~$
+          </span>{' '}
+          sowat.rafi
         </a>
-        <nav className="header__nav" aria-label="Section navigation">
+
+        <button
+          type="button"
+          className="header__menu-btn"
+          aria-label={menuOpen ? 'Close navigation menu' : 'Open navigation menu'}
+          aria-expanded={menuOpen}
+          aria-controls="site-nav"
+          onClick={() => setMenuOpen((open) => !open)}
+        >
+          <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+            {menuOpen ? (
+              <path d="M6 6l12 12M18 6L6 18" />
+            ) : (
+              <path d="M3 6h18M3 12h18M3 18h18" />
+            )}
+          </svg>
+        </button>
+
+        <nav
+          id="site-nav"
+          className={`header__nav${menuOpen ? ' header__nav--open' : ''}`}
+          aria-label="Section navigation"
+        >
           <ul className="header__links">
             {NAV_ITEMS.map(([anchor, label]) => (
               <li key={anchor}>
@@ -38,6 +70,7 @@ export function Header() {
                   href={`#${anchor}`}
                   className={activeId === anchor ? 'is-active' : undefined}
                   aria-current={activeId === anchor ? 'true' : undefined}
+                  onClick={() => setMenuOpen(false)}
                 >
                   {label}
                 </a>
@@ -45,6 +78,7 @@ export function Header() {
             ))}
           </ul>
         </nav>
+
         <button
           type="button"
           className="theme-toggle"
