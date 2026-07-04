@@ -3,7 +3,6 @@ import { Certifications } from './components/Certifications'
 import { Experience } from './components/Experience'
 import { Footer } from './components/Footer'
 import { Header } from './components/Header'
-import { Hero } from './components/Hero'
 import { Projects } from './components/Projects'
 import { ProfileRail } from './components/ProfileRail'
 import { Publication } from './components/Publication'
@@ -17,10 +16,10 @@ export default function App() {
         Skip to content
       </a>
       <Header />
-      <Hero />
       {/* Two-column shell: a sticky profile rail (the one portrait, always in
-          view) beside the scrolling content sections. */}
-      <div className="layout">
+          view) beside the scrolling content sections. id="top" is the header
+          brand's "back to top" target now that the hero banner is gone. */}
+      <div id="top" className="layout">
         <ProfileRail />
         <main id="main" className="content">
           <About />

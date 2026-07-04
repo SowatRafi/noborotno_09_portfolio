@@ -328,48 +328,6 @@ a {
 }
 
 /* ---------------------------------------------------------------------------
- * Hero band — a slim decorative banner: the 3D green particle sphere over a
- * restrained green + red wash. The Bangladeshi flag is referenced only
- * indirectly (green dominant, red accent) — no literal flag, disc or map.
- * ------------------------------------------------------------------------ */
-
-.hero {
-  position: relative;
-  overflow: hidden;
-  isolation: isolate;
-  min-height: clamp(9rem, 18vw, 13rem);
-  border-bottom: 1px solid var(--border);
-  /* Green pool on the left, a soft red accent on the right — the flag colours,
-     dissolved into atmosphere rather than drawn as shapes. */
-  background:
-    radial-gradient(28rem 22rem at 34% 45%, var(--brand-blue-soft), transparent 68%),
-    radial-gradient(24rem 20rem at 82% 42%, var(--flag-red-soft), transparent 70%);
-}
-
-/* The 3D green particle sphere, centred behind the wash. */
-.hero__canvas {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  -webkit-mask-image: radial-gradient(circle at 42% 50%, #000 52%, transparent 82%);
-  mask-image: radial-gradient(circle at 42% 50%, #000 52%, transparent 82%);
-}
-
-@media (max-width: 720px) {
-  .hero {
-    min-height: 6.5rem;
-  }
-
-  .hero__canvas {
-    opacity: 0.9;
-    -webkit-mask-image: radial-gradient(circle at 40% 50%, #000 50%, transparent 80%);
-    mask-image: radial-gradient(circle at 40% 50%, #000 50%, transparent 80%);
-  }
-}
-
-/* ---------------------------------------------------------------------------
  * Layout — persistent profile rail + scrolling content
  *
  * The single portrait lives in a sticky rail so it stays visible as the
