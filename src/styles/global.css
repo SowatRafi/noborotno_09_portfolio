@@ -270,163 +270,104 @@ a {
 }
 
 /* ---------------------------------------------------------------------------
- * Hero
+ * Layout — persistent profile rail + scrolling content
+ *
+ * The single portrait lives in a sticky rail so it stays visible as the
+ * visitor moves through every section. On narrow screens the rail becomes a
+ * normal block at the top and the sticky header keeps the nav reachable.
  * ------------------------------------------------------------------------ */
 
-.bento {
+.layout {
+  display: grid;
+  grid-template-columns: 19rem minmax(0, 1fr);
+  gap: 2.75rem;
+  align-items: start;
   max-width: var(--container-width);
   margin-inline: auto;
-  padding: 2.25rem 1.25rem 3rem;
-  display: grid;
-  gap: 0.9rem;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  grid-auto-rows: minmax(5rem, auto);
-  grid-template-areas:
-    'id     id     globe   globe'
-    'id     id     globe   globe'
-    'photo  term   term    current'
-    'photo  stats  cta     current';
+  padding: 2.25rem 1.25rem 0;
 }
 
-/* Tablet: two columns, tiles reflow into a taller stack. */
-@media (max-width: 900px) {
-  .bento {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    grid-template-areas:
-      'id      id'
-      'globe   globe'
-      'photo   current'
-      'term    term'
-      'stats   cta';
-  }
-}
-
-/* Phone: single column, one tile per row in reading order. */
-@media (max-width: 560px) {
-  .bento {
+@media (max-width: 860px) {
+  .layout {
     grid-template-columns: 1fr;
-    grid-template-areas:
-      'id'
-      'globe'
-      'photo'
-      'term'
-      'stats'
-      'current'
-      'cta';
+    gap: 1.5rem;
   }
 }
 
-/* Shared bento surface. */
-.tile {
+.rail {
+  position: sticky;
+  top: 4.5rem; /* clears the sticky header + a little breathing room */
+  align-self: start;
+}
+
+@media (max-width: 860px) {
+  .rail {
+    position: static;
+  }
+}
+
+.rail__portrait {
   position: relative;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: 0.5rem;
-  padding: 1.35rem;
-  background: var(--surface);
+  margin: 0 0 1.4rem;
+  width: 100%;
+  max-width: 14.5rem;
+  aspect-ratio: 4 / 5;
+}
+
+/* Flag-inspired accent: a single off-centre red disc glows behind the
+   portrait, peeking past its top-right corner — a nod to the Bangladeshi
+   flag without ever drawing the flag. It sits behind the photo (z-index 0)
+   and is not clipped, so the glow reads around the frame. */
+.rail__portrait::before {
+  content: '';
+  position: absolute;
+  z-index: 0;
+  width: 85%;
+  height: 85%;
+  right: -16%;
+  top: -14%;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--flag-red-soft), transparent 68%);
+  pointer-events: none;
+}
+
+.rail__img {
+  position: relative;
+  z-index: 1;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 18%;
   border: 1px solid var(--border);
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow);
-  transition:
-    transform 0.2s ease-out,
-    box-shadow 0.2s ease-out,
-    border-color 0.2s ease-out;
 }
 
-@media (hover: hover) {
-  .tile:hover {
-    border-color: var(--panel-border);
-    box-shadow: var(--shadow-lift), var(--glow);
-  }
-}
-
-.tile--id {
-  grid-area: id;
-  gap: 0.35rem;
-  background:
-    radial-gradient(32rem 20rem at 115% -40%, var(--brand-blue-soft), transparent 70%),
-    var(--surface);
-}
-
-.tile--photo {
-  grid-area: photo;
-  min-height: 14rem;
-  padding: 0;
-  border: 0;
-  background: transparent;
-  box-shadow: none;
-}
-
-.tile--globe {
-  grid-area: globe;
-  min-height: 15rem;
-  padding: 0;
-}
-
-.tile--term {
-  grid-area: term;
-  padding: 0;
-  border: 0;
-  background: transparent;
-  box-shadow: none;
-}
-
-.tile--stats {
-  grid-area: stats;
-}
-
-.tile--current {
-  grid-area: current;
-}
-
-.tile--cta {
-  grid-area: cta;
-  flex-direction: row;
-  flex-wrap: wrap;
-  align-content: center;
-  gap: 0.6rem;
-}
-
-/* Identity tile */
-.tile__kicker {
+.rail__name {
   margin: 0;
-  font-family: var(--font-mono);
-  color: var(--text-muted);
-  font-size: 0.9rem;
-}
-
-.tile__name {
-  margin: 0;
-  font-size: clamp(2rem, 4.5vw, 3.1rem);
-  line-height: 1.05;
+  font-size: clamp(1.55rem, 2.6vw, 1.95rem);
+  line-height: 1.12;
   letter-spacing: -0.02em;
-  /* Gradient-clipped headline: starts at full text colour so contrast stays
-     WCAG-safe, drifting towards the accent only at the tail end. */
-  background: linear-gradient(95deg, var(--text) 55%, var(--accent) 115%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  -webkit-text-fill-color: transparent;
 }
 
-.tile__title {
-  margin: 0.4rem 0 0;
+.rail__title {
+  margin: 0.45rem 0 0;
   font-family: var(--font-mono);
+  font-size: 0.9rem;
   color: var(--accent);
-  font-size: clamp(0.95rem, 2vw, 1.15rem);
 }
 
-.tile__loc {
+.rail__loc {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  margin: 0.55rem 0 0;
+  margin: 0.7rem 0 0;
   color: var(--text-muted);
+  font-size: 0.92rem;
 }
 
-.tile__led {
+.rail__led {
   width: 0.55rem;
   height: 0.55rem;
   flex: none;
@@ -435,280 +376,52 @@ a {
   box-shadow: 0 0 8px var(--status);
 }
 
-/* Globe tile — the WebGL canvas fills it; a corner badge labels it. */
-.hero__canvas {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  -webkit-mask-image: radial-gradient(circle at 50% 47%, #000 70%, transparent 92%);
-  mask-image: radial-gradient(circle at 50% 47%, #000 70%, transparent 92%);
-}
-
-.tile__badge {
-  position: absolute;
-  left: 0.9rem;
-  bottom: 0.85rem;
-  z-index: 1;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
-  padding: 0.28rem 0.6rem;
-  border: 1px solid var(--border);
-  border-radius: 999px;
-  background: color-mix(in srgb, var(--surface) 70%, transparent);
-  backdrop-filter: blur(4px);
-  font-family: var(--font-mono);
-  font-size: 0.7rem;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-  color: var(--text-muted);
-}
-
-/* Stats tile */
-.stats {
+.rail__status {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 0.7rem 0.9rem;
-  width: 100%;
-  margin: 0;
+  gap: 0.45rem;
+  margin: 1.25rem 0 0;
   padding: 0;
   list-style: none;
 }
 
-.stats__item {
-  display: flex;
-  flex-direction: column;
-}
-
-.stats__value {
-  font-family: var(--font-mono);
-  font-size: 1.55rem;
-  font-weight: 600;
-  line-height: 1;
-  color: var(--accent);
-}
-
-.stats__label {
-  margin-top: 0.2rem;
-  font-size: 0.72rem;
-  color: var(--text-muted);
-}
-
-/* Current-role tile */
-.tile__eyebrow {
-  margin: 0;
-  font-family: var(--font-mono);
-  font-size: 0.72rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--accent);
-}
-
-.tile__role {
-  margin: 0.3rem 0 0;
-  font-weight: 600;
-  font-size: 1.05rem;
-}
-
-.tile__org {
-  margin: 0.15rem 0 0;
-  color: var(--text-muted);
-}
-
-.tile__period {
-  margin: 0.4rem 0 0;
-  font-family: var(--font-mono);
-  font-size: 0.8rem;
-  color: var(--text-muted);
-}
-
-/* ---------------------------------------------------------------------------
- * HUD portrait
- * ------------------------------------------------------------------------ */
-
-/* The portrait fills its bento tile, cropping to keep the face framed. */
-.tile--photo .hud__frame {
-  height: 100%;
-}
-
-.tile--photo .hud__img {
-  height: 100%;
-  object-fit: cover;
-  object-position: center 20%;
-}
-
-.hud__frame {
+.rail__status li {
   position: relative;
-  overflow: hidden;
-  border: 1px solid var(--panel-border);
-  border-radius: var(--radius);
-  box-shadow: var(--shadow), var(--glow);
-}
-
-.hud__img {
-  display: block;
-  width: 100%;
-  height: auto;
-}
-
-/* Scan sweep: a translucent band with a bright trailing edge that travels
-   down the portrait. Parked off-frame when motion is reduced. */
-.hud__scan {
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 0;
-  height: 18%;
-  transform: translateY(-110%);
-  background:
-    linear-gradient(
-      to bottom,
-      transparent,
-      color-mix(in srgb, var(--accent) 16%, transparent) 82%,
-      color-mix(in srgb, var(--accent) 65%, transparent) 100%
-    );
-  pointer-events: none;
-}
-
-/* Corner brackets, always on — the HUD look. */
-.hud__corner {
-  position: absolute;
-  width: 1.1rem;
-  height: 1.1rem;
-  pointer-events: none;
-}
-
-.hud__corner--tl {
-  top: 0;
-  left: 0;
-  border-top: 2px solid var(--accent);
-  border-left: 2px solid var(--accent);
-  border-top-left-radius: var(--radius);
-}
-
-.hud__corner--tr {
-  top: 0;
-  right: 0;
-  border-top: 2px solid var(--accent);
-  border-right: 2px solid var(--accent);
-  border-top-right-radius: var(--radius);
-}
-
-.hud__corner--bl {
-  bottom: 0;
-  left: 0;
-  border-bottom: 2px solid var(--accent);
-  border-left: 2px solid var(--accent);
-  border-bottom-left-radius: var(--radius);
-}
-
-.hud__corner--br {
-  bottom: 0;
-  right: 0;
-  border-bottom: 2px solid var(--accent);
-  border-right: 2px solid var(--accent);
-  border-bottom-right-radius: var(--radius);
-}
-
-/* Decorative terminal window above the headline. */
-.terminal {
-  display: block;
-  max-width: 26rem;
-  margin-bottom: 1.75rem;
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  background: color-mix(in srgb, var(--surface) 88%, transparent);
-  box-shadow: var(--shadow);
-  font-family: var(--font-mono);
+  padding-left: 1.1rem;
   font-size: 0.9rem;
-}
-
-.terminal__bar {
-  display: flex;
-  align-items: center;
-  gap: 0.45rem;
-  padding: 0.5rem 0.85rem;
-  border-bottom: 1px solid var(--border);
-}
-
-.terminal__dot {
-  width: 0.65rem;
-  height: 0.65rem;
-  border-radius: 50%;
-}
-
-/* Fixed traffic-light hues on purpose: they are universal terminal chrome
-   and read correctly on both themes at this muted opacity. */
-.terminal__dot--close {
-  background: rgba(255, 95, 86, 0.85);
-}
-
-.terminal__dot--min {
-  background: rgba(255, 189, 46, 0.85);
-}
-
-.terminal__dot--max {
-  background: rgba(39, 201, 63, 0.85);
-}
-
-.terminal__host {
-  margin-left: 0.35rem;
-  color: var(--text-muted);
-  font-size: 0.78rem;
-}
-
-.terminal__body {
-  display: grid;
-  gap: 0.3rem;
-  padding: 0.7rem 0.85rem 0.8rem;
-}
-
-.terminal__line {
-  margin: 0;
   color: var(--text-muted);
 }
 
-/* Command "output" lines print in the standard text colour; the [ OK ]
-   marker uses the status green, exactly like a real console. */
-.terminal__out {
-  color: var(--text);
-}
-
-.terminal__ok {
-  color: var(--status);
-  font-weight: 600;
-}
-
-/* Typed commands: each has a fixed ch measure matching its text so the CSS
-   steps() animation can sweep the width without any JavaScript. */
-.terminal__cmd {
-  display: inline-block;
-  overflow: hidden;
-  white-space: nowrap;
-  vertical-align: bottom;
-  color: var(--text);
-}
-
-.terminal__cmd--one {
-  width: 6ch; /* "whoami" */
-}
-
-.terminal__cmd--two {
-  width: 14ch; /* "cat status.log" */
-}
-
-/* Block cursor at the end of the final line. Static by default; it only
-   blinks for visitors who allow motion (see the animation block below). */
-.terminal__line--cursor::after {
+.rail__status li::before {
   content: '';
-  display: inline-block;
-  width: 0.55em;
-  height: 1.05em;
-  margin-left: 0.15em;
-  vertical-align: text-bottom;
+  position: absolute;
+  left: 0;
+  top: 0.5em;
+  width: 0.45rem;
+  height: 0.45rem;
+  border-radius: 50%;
   background: var(--accent);
+}
+
+.rail__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-top: 1.5rem;
+}
+
+.rail__actions .btn {
+  flex: 1 1 auto;
+  text-align: center;
+}
+
+/* The resume button spans the rail for emphasis. */
+.rail__actions .btn--primary {
+  flex-basis: 100%;
+}
+
+/* The content column owns the main landmark and holds every section. */
+.content {
+  min-width: 0;
 }
 
 .hero__prompt {
@@ -770,13 +483,18 @@ main {
 }
 
 .section {
-  max-width: var(--container-width);
-  margin-inline: auto;
-  padding: 4rem 1.25rem 2.5rem;
+  /* Sections live inside the content column of the .layout grid, which already
+     provides the max width, centring and side padding — so here they simply
+     fill that column. The first section skips the divider (the rail sits
+     alongside it, so a top border would look orphaned). */
+  padding: 2.75rem 0;
   counter-increment: section;
-  /* Hairline separator makes section boundaries unmistakable — part of the
-     fix for short sections visually merging into the next one. */
   border-top: 1px solid var(--border);
+}
+
+.section:first-child {
+  padding-top: 0.5rem;
+  border-top: 0;
 }
 
 .section__title {
@@ -1297,97 +1015,47 @@ main {
  * Motion
  *
  * Every animation lives inside this opt-in block, so visitors who ask the OS
- * to reduce motion get a completely still page — the elements themselves
- * (portrait, cursor, telemetry) stay visible, only their movement is removed.
- * The WebGL globe honours the same preference in JavaScript (it renders one
- * static frame instead of looping).
+ * to reduce motion get a completely still page — the portrait, headings and
+ * content all stay visible, only their movement is removed.
  * ------------------------------------------------------------------------ */
 
 @media (prefers-reduced-motion: no-preference) {
-  /*
-   * Terminal session choreography. One shared timeline:
-   *   0.5s–1.3s  "whoami" types (6 steps)
-   *   1.5s       first output prints
-   *   1.9s       second prompt line appears
-   *   2.0s–3.0s  "cat status.log" types (14 steps)
-   *   3.2s       first status line prints
-   *   3.5s       relocation line prints; cursor starts blinking
-   * Everything uses `backwards` fill so it stays hidden until its cue.
-   */
-  .terminal__cmd--one {
-    animation: typing 0.8s steps(6, end) 0.5s backwards;
-  }
-
-  .terminal__out--one {
-    animation: print 0.15s steps(1, end) 1.5s backwards;
-  }
-
-  .terminal__row--two {
-    animation: print 0.15s steps(1, end) 1.9s backwards;
-  }
-
-  .terminal__cmd--two {
-    animation: typing 1s steps(14, end) 2s backwards;
-  }
-
-  .terminal__out--two {
-    animation: print 0.15s steps(1, end) 3.2s backwards;
-  }
-
-  .terminal__out--three {
-    animation: print 0.15s steps(1, end) 3.5s backwards;
-  }
-
-  .terminal__line--cursor::after {
-    animation: cursor-blink 1.1s steps(2, jump-none) 3.5s infinite;
-  }
-
-  /* The scan line sweeps the portrait top to bottom on a slow loop. */
-  .hud__scan {
-    animation: hud-scan 5s ease-in-out 1.5s infinite;
-  }
-
-  /* Bento tiles rise in on load, staggered so the grid assembles itself
-     rather than snapping in all at once. `backwards` hides each tile during
-     its delay. */
-  .tile {
+  /* The profile rail and its details rise in on load, lightly staggered. */
+  .rail__portrait,
+  .rail__name,
+  .rail__title,
+  .rail__loc,
+  .rail__status,
+  .rail__actions {
     animation-name: rise-in;
-    animation-duration: 0.55s;
+    animation-duration: 0.5s;
     animation-timing-function: ease-out;
     animation-fill-mode: backwards;
   }
 
-  .tile--id {
-    animation-delay: 40ms;
+  .rail__name {
+    animation-delay: 60ms;
   }
 
-  .tile--globe {
-    animation-delay: 120ms;
+  .rail__title {
+    animation-delay: 110ms;
   }
 
-  .tile--photo {
-    animation-delay: 180ms;
+  .rail__loc {
+    animation-delay: 150ms;
   }
 
-  .tile--term {
-    animation-delay: 240ms;
+  .rail__status {
+    animation-delay: 200ms;
   }
 
-  .tile--stats {
-    animation-delay: 300ms;
-  }
-
-  .tile--current {
-    animation-delay: 340ms;
-  }
-
-  .tile--cta {
-    animation-delay: 380ms;
+  .rail__actions {
+    animation-delay: 250ms;
   }
 
   /* The availability LED breathes; the newest timeline dot pings like a
      fresh alert. Both are tiny, slow and opacity/shadow only. */
-  .tile__led {
+  .rail__led {
     animation: led-pulse 2.6s ease-in-out infinite;
   }
 
@@ -1400,37 +1068,6 @@ main {
   from {
     opacity: 0;
     transform: translateY(18px);
-  }
-}
-
-@keyframes cursor-blink {
-  50% {
-    opacity: 0;
-  }
-}
-
-@keyframes typing {
-  from {
-    width: 0;
-  }
-}
-
-/* Console lines appear in one step — printed, not faded. */
-@keyframes print {
-  from {
-    opacity: 0;
-  }
-}
-
-@keyframes hud-scan {
-  from {
-    transform: translateY(-110%);
-  }
-
-  to {
-    /* 110% of frame height below the top, expressed in the band's own
-       percentage units (band is 18% tall → 100/0.18 ≈ 560, plus overshoot). */
-    transform: translateY(620%);
   }
 }
 
