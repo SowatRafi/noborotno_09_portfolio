@@ -270,157 +270,66 @@ a {
 }
 
 /* ---------------------------------------------------------------------------
- * Hero band — 3D particle sphere (green) + red orb, flag-inspired
+ * Hero band — a visual banner: 3D green particle sphere + the fixed flag
+ * emblem (red disc + yellow Bangladesh map), inspired by the 1971 flag.
  * ------------------------------------------------------------------------ */
 
 .hero {
   position: relative;
   overflow: hidden;
   isolation: isolate;
-  padding-block: clamp(3.25rem, 8vw, 6rem);
+  min-height: clamp(13rem, 26vw, 19rem);
   border-bottom: 1px solid var(--border);
-  background: radial-gradient(42rem 30rem at 76% 22%, var(--brand-blue-soft), transparent 70%);
+  background: radial-gradient(40rem 26rem at 60% 34%, var(--brand-blue-soft), transparent 70%);
 }
 
-.hero__backdrop {
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  pointer-events: none;
-}
-
-/* The green particle sphere. Masked to the right so the headline on the left
-   stays high-contrast on both themes. */
+/* The 3D green particle sphere fills the band, biased to the left of the
+   emblem so both flag colours read clearly. */
 .hero__canvas {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
-  -webkit-mask-image: radial-gradient(circle at 67% 48%, #000 58%, transparent 86%);
-  mask-image: radial-gradient(circle at 67% 48%, #000 58%, transparent 86%);
+  pointer-events: none;
+  -webkit-mask-image: radial-gradient(circle at 39% 50%, #000 54%, transparent 84%);
+  mask-image: radial-gradient(circle at 39% 50%, #000 54%, transparent 84%);
 }
 
-/* The flag-red "circle": a glowing orb in front of the green sphere, offset
-   like the flag's off-centre disc — clearly present, but a dimensional orb,
-   never a flat flag. */
-.hero__orb {
+/* Fixed flag emblem: red disc with a yellow Bangladesh silhouette. Stationary
+   by design — a stable, recognisable mark, not a floating orb. */
+.flagmark {
   position: absolute;
-  top: 15%;
-  right: 13%;
-  width: clamp(6rem, 12.5vw, 10.5rem);
+  top: 50%;
+  right: clamp(6%, 10vw, 14%);
+  transform: translateY(-50%);
+  width: clamp(6.5rem, 15vw, 11rem);
   aspect-ratio: 1;
-  border-radius: 50%;
-  background: radial-gradient(
-    circle at 38% 34%,
-    color-mix(in srgb, var(--flag-red) 90%, white 10%) 0%,
-    var(--flag-red) 44%,
-    color-mix(in srgb, var(--flag-red) 55%, transparent) 66%,
-    transparent 72%
-  );
-  filter: drop-shadow(0 0 28px color-mix(in srgb, var(--flag-red) 55%, transparent));
+  filter: drop-shadow(0 10px 26px rgba(0, 0, 0, 0.32));
 }
 
-.hero__inner {
-  position: relative;
+.flagmark__circle {
+  fill: var(--flag-red);
 }
 
-.hero__kicker {
-  margin: 0 0 0.5rem;
-  font-family: var(--font-mono);
-  color: var(--text-muted);
+.flagmark__map {
+  fill: var(--flag-gold);
 }
 
-.hero__prompt {
-  color: var(--accent);
-}
-
-.hero__name {
-  margin: 0;
-  font-size: clamp(2.3rem, 7vw, 4rem);
-  line-height: 1.04;
-  letter-spacing: -0.02em;
-  background: linear-gradient(95deg, var(--text) 52%, var(--accent) 112%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  -webkit-text-fill-color: transparent;
-}
-
-.hero__title {
-  margin: 0.6rem 0 0;
-  font-family: var(--font-mono);
-  font-size: clamp(1rem, 2.6vw, 1.35rem);
-  color: var(--accent);
-}
-
-.hero__avail {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 0.5rem;
-  margin: 1.15rem 0 0;
-  color: var(--text-muted);
-  font-size: 0.95rem;
-}
-
-.hero__dot {
-  width: 0.6rem;
-  height: 0.6rem;
-  flex: none;
-  border-radius: 50%;
-}
-
-.hero__dot--green {
-  background: var(--status);
-  box-shadow: 0 0 8px var(--status);
-}
-
-.hero__dot--red {
-  background: var(--flag-red);
-  box-shadow: 0 0 8px color-mix(in srgb, var(--flag-red) 70%, transparent);
-}
-
-.hero__sep {
-  width: 1px;
-  height: 1rem;
-  margin-inline: 0.4rem;
-  background: var(--border);
-}
-
-.hero__actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.7rem;
-  margin-top: 1.85rem;
-}
-
-/* --- Hero on phones: shorter band, orb tucked to a corner, no divider --- */
+/* --- Hero on phones: shorter band, emblem a touch smaller --- */
 @media (max-width: 720px) {
+  .hero {
+    min-height: 9.5rem;
+  }
+
   .hero__canvas {
-    opacity: 0.85;
-    -webkit-mask-image: radial-gradient(circle at 50% 30%, #000 52%, transparent 82%);
-    mask-image: radial-gradient(circle at 50% 30%, #000 52%, transparent 82%);
+    opacity: 0.9;
+    -webkit-mask-image: radial-gradient(circle at 33% 50%, #000 52%, transparent 82%);
+    mask-image: radial-gradient(circle at 33% 50%, #000 52%, transparent 82%);
   }
 
-  .hero__orb {
-    top: 3%;
-    right: 5%;
-    width: clamp(3rem, 15vw, 5rem);
-  }
-}
-
-@media (max-width: 560px) {
-  .hero__sep {
-    display: none;
-  }
-
-  .hero__avail {
-    gap: 0.4rem 0.6rem;
-  }
-
-  .hero__actions .btn {
-    flex: 1 1 8rem;
-    text-align: center;
+  .flagmark {
+    right: 9%;
+    width: clamp(5rem, 24vw, 7.5rem);
   }
 }
 
@@ -460,20 +369,25 @@ a {
     position: static;
   }
 
-  /* Mobile is a single column, so the hero already carries the name, title,
-     availability and CTAs — the rail drops those duplicates and keeps only the
-     one portrait as a visual anchor above the content. */
-  .rail__name,
-  .rail__title,
-  .rail__loc,
-  .rail__status,
-  .rail__actions {
-    display: none;
+  /* Single column: the portrait sits centred above the terminal. The child
+     selector outranks the base rule below regardless of source order. */
+  .rail > .rail__portrait {
+    margin-inline: auto;
+    max-width: 14rem;
   }
 
-  .rail__portrait {
-    margin: 0 auto;
-    max-width: 12rem;
+  /* Roomier, easier-to-tap contact/resume links on touch screens. */
+  .term__body {
+    font-size: 0.9rem;
+  }
+
+  .term__links {
+    gap: 0.5rem 1.1rem;
+  }
+
+  .term__link {
+    display: inline-block;
+    padding-block: 0.25rem;
   }
 }
 
@@ -481,14 +395,12 @@ a {
   position: relative;
   margin: 0 0 1.4rem;
   width: 100%;
-  max-width: 14.5rem;
+  max-width: 13.5rem;
   aspect-ratio: 4 / 5;
 }
 
-/* Flag-inspired accent: a single off-centre red disc glows behind the
-   portrait, peeking past its top-right corner — a nod to the Bangladeshi
-   flag without ever drawing the flag. It sits behind the photo (z-index 0)
-   and is not clipped, so the glow reads around the frame. */
+/* A soft red disc glows behind the portrait's top-right corner — the flag red
+   echoed near the photo, not clipped so the glow reads around the frame. */
 .rail__portrait::before {
   content: '';
   position: absolute;
@@ -515,88 +427,129 @@ a {
   box-shadow: var(--shadow);
 }
 
-.rail__name {
-  margin: 0;
-  font-size: clamp(1.55rem, 2.6vw, 1.95rem);
-  line-height: 1.12;
-  letter-spacing: -0.02em;
+/* --- Animated terminal (identity + contact), shown under the portrait --- */
+.term {
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: color-mix(in srgb, var(--surface) 92%, transparent);
+  box-shadow: var(--shadow);
+  font-family: var(--font-mono);
 }
 
-.rail__title {
-  margin: 0.45rem 0 0;
-  font-family: var(--font-mono);
-  font-size: 0.9rem;
+.term__bar {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.5rem 0.75rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.term__dot {
+  width: 0.6rem;
+  height: 0.6rem;
+  border-radius: 50%;
+}
+
+.term__dot--close {
+  background: rgba(255, 95, 86, 0.9);
+}
+
+.term__dot--min {
+  background: rgba(255, 189, 46, 0.9);
+}
+
+.term__dot--max {
+  background: rgba(39, 201, 63, 0.9);
+}
+
+.term__host {
+  margin-left: 0.3rem;
+  font-size: 0.72rem;
+  color: var(--text-muted);
+}
+
+.term__body {
+  padding: 0.8rem 0.85rem 0.95rem;
+  font-size: 0.85rem;
+  line-height: 1.5;
+}
+
+/* Command echo lines carry a green shell prompt. */
+.term__cmd {
+  margin: 0.6rem 0 0.1rem;
+  color: var(--text);
+}
+
+.term__cmd:first-child {
+  margin-top: 0;
+}
+
+.term__cmd::before {
+  content: '~$ ';
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.term__name {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: 1.2rem;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+}
+
+.term__role {
+  margin: 0.1rem 0 0;
+  font-size: 0.8rem;
   color: var(--accent);
 }
 
-.rail__loc {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  margin: 0.7rem 0 0;
-  color: var(--text-muted);
-  font-size: 0.92rem;
-}
-
-.rail__led {
-  width: 0.55rem;
-  height: 0.55rem;
-  flex: none;
-  border-radius: 50%;
-  background: var(--status);
-  box-shadow: 0 0 8px var(--status);
-}
-
-.rail__status {
-  display: grid;
-  gap: 0.45rem;
-  margin: 1.25rem 0 0;
-  padding: 0;
-  list-style: none;
-}
-
-.rail__status li {
-  position: relative;
-  padding-left: 1.1rem;
-  font-size: 0.9rem;
+.term__out {
+  margin: 0;
   color: var(--text-muted);
 }
 
-.rail__status li::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 0.5em;
-  width: 0.45rem;
-  height: 0.45rem;
-  border-radius: 50%;
-  background: var(--accent);
+.term__ok {
+  color: var(--status);
 }
 
-.rail__actions {
+.term__links {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.6rem;
-  margin-top: 1.5rem;
+  gap: 0.3rem 0.9rem;
 }
 
-.rail__actions .btn {
-  flex: 1 1 auto;
-  text-align: center;
+.term__link {
+  color: var(--text);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
 }
 
-/* The resume button spans the rail for emphasis. */
-.rail__actions .btn--primary {
-  flex-basis: 100%;
+.term__link:hover {
+  color: var(--accent);
+  border-bottom-color: var(--accent);
+}
+
+.term__link--strong {
+  color: var(--accent);
+  font-weight: 600;
+}
+
+/* Blinking block cursor after the final command line. */
+.term__cmd--last::after {
+  content: '';
+  display: inline-block;
+  width: 0.5em;
+  height: 1em;
+  margin-left: 0.15em;
+  vertical-align: text-bottom;
+  background: var(--accent);
 }
 
 /* The content column owns the main landmark and holds every section. */
 .content {
   min-width: 0;
-}
-
-.hero__prompt {
-  color: var(--accent);
 }
 
 .btn {
@@ -1192,78 +1145,55 @@ main {
  * ------------------------------------------------------------------------ */
 
 @media (prefers-reduced-motion: no-preference) {
-  /* The red orb drifts and gently breathes over the rotating green sphere. */
-  .hero__orb {
-    animation: orb-float 7s ease-in-out infinite alternate;
+  /* The portrait rises in, then the terminal boots up line by line. */
+  .rail__portrait {
+    animation: rise-in 0.5s ease-out backwards;
   }
 
-  /* Hero introduction rises in line by line on load. */
-  .hero__kicker,
-  .hero__name,
-  .hero__title,
-  .hero__avail,
-  .hero__actions {
-    animation-name: rise-in;
-    animation-duration: 0.6s;
-    animation-timing-function: ease-out;
-    animation-fill-mode: backwards;
+  .term__body > * {
+    animation: rise-in 0.4s ease-out backwards;
   }
 
-  .hero__name {
-    animation-delay: 80ms;
+  .term__body > *:nth-child(1) {
+    animation-delay: 0.15s;
+  }
+  .term__body > *:nth-child(2) {
+    animation-delay: 0.26s;
+  }
+  .term__body > *:nth-child(3) {
+    animation-delay: 0.34s;
+  }
+  .term__body > *:nth-child(4) {
+    animation-delay: 0.46s;
+  }
+  .term__body > *:nth-child(5) {
+    animation-delay: 0.56s;
+  }
+  .term__body > *:nth-child(6) {
+    animation-delay: 0.68s;
+  }
+  .term__body > *:nth-child(7) {
+    animation-delay: 0.78s;
+  }
+  .term__body > *:nth-child(8) {
+    animation-delay: 0.9s;
+  }
+  .term__body > *:nth-child(9) {
+    animation-delay: 1s;
+  }
+  .term__body > *:nth-child(10) {
+    animation-delay: 1.12s;
+  }
+  .term__body > *:nth-child(11) {
+    animation-delay: 1.22s;
   }
 
-  .hero__title {
-    animation-delay: 170ms;
+  /* Cursor starts blinking once the terminal has finished booting. */
+  .term__cmd--last::after {
+    animation: cursor-blink 1.1s steps(2, jump-none) 1.35s infinite;
   }
 
-  .hero__avail {
-    animation-delay: 250ms;
-  }
-
-  .hero__actions {
-    animation-delay: 330ms;
-  }
-
-  /* The profile rail and its details rise in on load, lightly staggered. */
-  .rail__portrait,
-  .rail__name,
-  .rail__title,
-  .rail__loc,
-  .rail__status,
-  .rail__actions {
-    animation-name: rise-in;
-    animation-duration: 0.5s;
-    animation-timing-function: ease-out;
-    animation-fill-mode: backwards;
-  }
-
-  .rail__name {
-    animation-delay: 60ms;
-  }
-
-  .rail__title {
-    animation-delay: 110ms;
-  }
-
-  .rail__loc {
-    animation-delay: 150ms;
-  }
-
-  .rail__status {
-    animation-delay: 200ms;
-  }
-
-  .rail__actions {
-    animation-delay: 250ms;
-  }
-
-  /* The availability LED breathes; the newest timeline dot pings like a
-     fresh alert. Both are tiny, slow and opacity/shadow only. */
-  .rail__led {
-    animation: led-pulse 2.6s ease-in-out infinite;
-  }
-
+  /* The newest timeline dot pings like a fresh alert. */
   .timeline__item:first-child::before {
     animation: dot-ping 2.6s ease-out infinite;
   }
@@ -1276,20 +1206,9 @@ main {
   }
 }
 
-@keyframes orb-float {
-  from {
-    transform: translateY(-0.7rem) scale(0.97);
-  }
-
-  to {
-    transform: translateY(0.7rem) scale(1.04);
-  }
-}
-
-@keyframes led-pulse {
+@keyframes cursor-blink {
   50% {
-    opacity: 0.45;
-    box-shadow: 0 0 3px var(--status);
+    opacity: 0;
   }
 }
 

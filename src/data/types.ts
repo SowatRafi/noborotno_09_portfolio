@@ -17,6 +17,10 @@ export interface Profile {
   readonly githubUrl: string
   /** Paragraphs of the professional summary, rendered in order. */
   readonly summary: readonly string[]
+  /** City line for the terminal `pwd` output (no parenthetical). */
+  readonly city: string
+  /** One-line availability for the terminal `cat status` output. */
+  readonly availability: string
   /** Resume filename inside public/ — components must URL-encode it. */
   readonly resumeFile: string
   /** Portrait filename inside public/, plus its accessible description. */
