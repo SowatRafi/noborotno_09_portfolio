@@ -7,7 +7,8 @@ import { ExternalLink } from './ExternalLink'
  * section; on narrow screens it becomes a normal block at the top of the page
  * and the sticky header keeps the navigation reachable.
  *
- * This holds the site's one and only photo, and the sole <h1>.
+ * This holds the site's one and only photo. The sole <h1> lives in the hero,
+ * so the name here is a caption, not a heading.
  */
 export function ProfileRail() {
   const resumeHref = `${import.meta.env.BASE_URL}${encodeURIComponent(profile.resumeFile)}`
@@ -26,7 +27,7 @@ export function ProfileRail() {
         />
       </figure>
 
-      <h1 className="rail__name">{profile.name}</h1>
+      <p className="rail__name">{profile.name}</p>
       <p className="rail__title">{profile.titleLine}</p>
       <p className="rail__loc">
         <span className="rail__led" aria-hidden="true" />
