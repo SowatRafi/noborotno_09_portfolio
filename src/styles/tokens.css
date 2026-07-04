@@ -37,6 +37,7 @@
 
   --flag-red: #f42a41;
   --flag-red-soft: rgba(244, 42, 65, 0.3);
+  --flag-gold: #f4c700;
 
   --badge-done-bg: rgba(16, 185, 129, 0.13);
   --badge-done-text: #6ee7b7;
@@ -73,13 +74,16 @@
   --text: #182230;
   --text-muted: #48586c;
 
-  --accent: #047857;
+  /* Bright mode keeps the flag identity: the official bottle green as the
+     accent, and the same flag red + gold emblem colours as dark mode. */
+  --accent: #006a4e;
   --accent-contrast: #ecfdf5;
   --brand-blue: #065f46;
   --brand-blue-soft: rgba(6, 95, 70, 0.18);
 
-  --flag-red: #d81f33;
-  --flag-red-soft: rgba(216, 31, 51, 0.15);
+  --flag-red: #f42a41;
+  --flag-red-soft: rgba(244, 42, 65, 0.16);
+  --flag-gold: #f4c700;
 
   --badge-done-bg: rgba(4, 120, 87, 0.1);
   --badge-done-text: #047857;
@@ -107,13 +111,14 @@
     --text: #182230;
     --text-muted: #48586c;
 
-    --accent: #047857;
+    --accent: #006a4e;
     --accent-contrast: #ecfdf5;
     --brand-blue: #065f46;
     --brand-blue-soft: rgba(6, 95, 70, 0.18);
 
-    --flag-red: #d81f33;
-    --flag-red-soft: rgba(216, 31, 51, 0.15);
+    --flag-red: #f42a41;
+    --flag-red-soft: rgba(244, 42, 65, 0.16);
+    --flag-gold: #f4c700;
 
     --badge-done-bg: rgba(4, 120, 87, 0.1);
     --badge-done-text: #047857;
