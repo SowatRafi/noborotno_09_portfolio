@@ -375,9 +375,11 @@ a {
 }
 
 /* The text column is spare (name + origin chip only), so centre that block
-   vertically; the contact row keeps its place at the bottom edge. */
+   both ways — vertically against the portrait and horizontally within the
+   column; the contact row keeps its place at the bottom edge. */
 .hero-split__content > div {
   margin-block: auto;
+  text-align: center;
 }
 
 @media (min-width: 768px) {
@@ -398,10 +400,16 @@ a {
   display: block;
   width: 5rem;
   height: 4px;
-  margin: 1.25rem 0;
+  margin: 1.25rem auto;
   border-radius: 999px;
-  /* Both flag accents, kept subtle. */
-  background: linear-gradient(90deg, var(--accent), var(--flag-red));
+  /* The flag's exact colours, mirrored: bottle green at both ends, the red
+     of the disc glowing at the centre. */
+  background: linear-gradient(
+    90deg,
+    var(--flag-green),
+    var(--flag-red),
+    var(--flag-green)
+  );
 }
 
 /* Origin line — "BUILT IN <coordinates of Bangladesh>" typed out like the
