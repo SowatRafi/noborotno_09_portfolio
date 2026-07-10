@@ -58,7 +58,10 @@ function ContactIcon({ type }: { type: 'github' | 'linkedin' | 'email' }) {
 
 export function HeroSection() {
   const reduce = useReducedMotion()
-  const typedOrigin = useHumanTyped(profile.originLine)
+  /* The name writes itself first, like a person signing in; the origin line
+     waits and starts only once the name is finished. */
+  const name = useHumanTyped(profile.name, { startDelayMs: 400 })
+  const origin = useHumanTyped(profile.originLine, { startDelayMs: 350, enabled: name.done })
   const portraitHref = `${import.meta.env.BASE_URL}${profile.portraitFile}`
 
   return (
@@ -72,8 +75,21 @@ export function HeroSection() {
     >
       <div className="hero-split__content">
         <div>
+          {/* Screen readers and search engines get the real name; the typed
+              span is decorative chrome written on top of it, and its caret
+              disappears once the name is finished. */}
           <m.h1 className="hero-split__title" variants={staggerItem}>
-            {profile.name}
+            <span className="visually-hidden">{profile.name}</span>
+            <span
+              className={
+                name.done
+                  ? 'hero-split__title-typed hero-split__title-typed--done'
+                  : 'hero-split__title-typed'
+              }
+              aria-hidden="true"
+            >
+              {name.typed}
+            </span>
           </m.h1>
 
           <m.span className="hero-split__rule" variants={staggerItem} aria-hidden="true" />
@@ -83,7 +99,7 @@ export function HeroSection() {
           <m.p className="hero-split__origin" variants={staggerItem}>
             <span className="visually-hidden">{profile.originLine}</span>
             <span className="hero-split__origin-typed" aria-hidden="true">
-              {typedOrigin}
+              {origin.typed}
             </span>
           </m.p>
         </div>
