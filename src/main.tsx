@@ -3,7 +3,7 @@ import { createRoot } from 'react-dom/client'
 // Self-hosted variable fonts (bundled by Vite, served from 'self' so the strict
 // CSP font-src stays intact — no external Google Fonts request). font-display:
 // swap is built in, so text renders immediately with the system fallback.
-import '@fontsource-variable/space-grotesk/wght.css'
+import '@fontsource-variable/ibm-plex-sans/wght.css'
 import '@fontsource-variable/jetbrains-mono/wght.css'
 import App from './App'
 import { themeManager } from './theme/ThemeManager'
