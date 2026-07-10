@@ -37,6 +37,9 @@
 
   --flag-red: #f42a41;
   --flag-red-soft: rgba(244, 42, 65, 0.3);
+  /* The flag's exact bottle green — used as a fixed chip background (hero
+     origin line), so it stays identical in both themes. */
+  --flag-green: #006a4e;
 
   --badge-done-bg: rgba(16, 185, 129, 0.13);
   --badge-done-text: #6ee7b7;
@@ -89,6 +92,7 @@
 
   --flag-red: #f42a41;
   --flag-red-soft: rgba(244, 42, 65, 0.16);
+  --flag-green: #006a4e;
 
   --badge-done-bg: rgba(4, 120, 87, 0.1);
   --badge-done-text: #047857;
@@ -123,6 +127,7 @@
 
     --flag-red: #f42a41;
     --flag-red-soft: rgba(244, 42, 65, 0.16);
+    --flag-green: #006a4e;
 
     --badge-done-bg: rgba(4, 120, 87, 0.1);
     --badge-done-text: #047857;
