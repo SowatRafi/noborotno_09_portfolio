@@ -1,23 +1,29 @@
+import { m } from 'framer-motion'
 import { profile } from '../data/profile'
 import { ExternalLink } from './ExternalLink'
 
 /*
- * Animated bash-style terminal shown under the portrait in the rail. The
- * command lines type themselves on a continuous loop (see .term__typed in the
- * motion block) with a blinking cursor, so the terminal is always alive; the
- * outputs stay static and readable. It presents the identity as shell
- * commands: whoami, pwd, status, contact and resume.
+ * Animated bash-style terminal in the rail. It floats as a 3D card — a
+ * continuous gentle tilt on the X and Y axes inside a perspective stage — while
+ * the command lines type themselves on a loop (see .term__typed) with a
+ * blinking cursor. The 3D float is a Framer transform, so it is automatically
+ * dropped for prefers-reduced-motion visitors via the app-level MotionConfig.
  *
  * The prompt/command lines are decorative (aria-hidden); the outputs carry the
- * real content — including the site's sole <h1> (the whoami name) and the
- * genuine contact links — so nothing meaningful is lost to assistive tech.
+ * real content — including the whoami name echo and the genuine contact links.
  */
 export function Terminal() {
   const resumeHref = `${import.meta.env.BASE_URL}${encodeURIComponent(profile.resumeFile)}`
 
   return (
-    <div className="term" aria-label="Profile">
-      <div className="term__bar" aria-hidden="true">
+    <div className="term-stage">
+      <m.div
+        className="term"
+        aria-label="Profile"
+        animate={{ rotateY: [-6, 6, -6], rotateX: [3, -3, 3] }}
+        transition={{ duration: 9, ease: 'easeInOut', repeat: Infinity }}
+      >
+        <div className="term__bar" aria-hidden="true">
         <span className="term__dot term__dot--close" />
         <span className="term__dot term__dot--min" />
         <span className="term__dot term__dot--max" />
@@ -65,7 +71,8 @@ export function Terminal() {
             ↓ resume.pdf
           </a>
         </p>
-      </div>
+        </div>
+      </m.div>
     </div>
   )
 }
