@@ -1,4 +1,4 @@
-import { m } from 'framer-motion'
+import { m, MotionConfig } from 'framer-motion'
 import { profile } from '../data/profile'
 import { ExternalLink } from './ExternalLink'
 
@@ -17,13 +17,17 @@ export function Terminal() {
 
   return (
     <div className="term-stage">
-      <m.div
-        className="term"
-        aria-label="Profile"
-        animate={{ rotateY: [-6, 6, -6], rotateX: [3, -3, 3] }}
-        transition={{ duration: 9, ease: 'easeInOut', repeat: Infinity }}
-      >
-        <div className="term__bar" aria-hidden="true">
+      {/* reducedMotion="never" overrides the app-level "user" setting for this
+          subtree only: the owner wants the terminal to keep floating even when
+          the OS asks to reduce motion. Everything else still honours it. */}
+      <MotionConfig reducedMotion="never">
+        <m.div
+          className="term"
+          aria-label="Profile"
+          animate={{ rotateY: [-6, 6, -6], rotateX: [3, -3, 3] }}
+          transition={{ duration: 9, ease: 'easeInOut', repeat: Infinity }}
+        >
+          <div className="term__bar" aria-hidden="true">
         <span className="term__dot term__dot--close" />
         <span className="term__dot term__dot--min" />
         <span className="term__dot term__dot--max" />
@@ -73,6 +77,7 @@ export function Terminal() {
         </p>
         </div>
       </m.div>
+      </MotionConfig>
     </div>
   )
 }
