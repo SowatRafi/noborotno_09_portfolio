@@ -3,11 +3,16 @@ import { useEffect, useState } from 'react'
 /*
  * Types a line of text ONCE with a human keystroke feel — uneven per-key
  * cadence and the occasional slip onto a neighbouring key that gets
- * backspaced and corrected. The owner explicitly wants a single typing pass
- * (not a loop), with the red-disc cursor left blinking afterwards. Same
- * treatment as the rail terminal, and like the terminal it deliberately
+ * backspaced and corrected — then flips `done` (after a short beat with the
+ * cursor still blinking). The owner wants a single typing pass, not a loop.
+ * Same treatment as the rail terminal, and like the terminal it deliberately
  * ignores prefers-reduced-motion: the owner wants these small, localised
  * text reveals alive on every device (his own OS has Reduce Motion on).
+ *
+ * `done` lets the caller sequence reveals (the hero types the NAME first,
+ * then starts the origin line once the name is done) and style the finished
+ * state (the name's caret disappears; the origin line's red disc keeps
+ * blinking regardless — that is a CSS choice, not driven by `done`).
  */
 
 /* A plausible adjacent key per letter/digit, so typos look like slips of the
@@ -30,38 +35,58 @@ const randomBetween = (min: number, max: number) => min + Math.random() * (max -
 
 const sleep = (ms: number) => new Promise<void>((resolve) => setTimeout(resolve, ms))
 
-export function useHumanTyped(text: string): string {
-  const [typed, setTyped] = useState('')
+export interface HumanTyped {
+  readonly typed: string
+  readonly done: boolean
+}
+
+interface HumanTypedOptions {
+  /** Wait this long after mount (or after `enabled` flips true) before typing. */
+  readonly startDelayMs?: number
+  /** When false the line stays empty and never types — used to hold the origin
+      line until the name has finished. */
+  readonly enabled?: boolean
+}
+
+export function useHumanTyped(text: string, options: HumanTypedOptions = {}): HumanTyped {
+  const { startDelayMs = 900, enabled = true } = options
+  const [state, setState] = useState<HumanTyped>({ typed: '', done: false })
 
   useEffect(() => {
+    if (!enabled) return
     let cancelled = false
 
     const run = async () => {
-      /* Let the hero settle before the "operator" starts typing. */
-      await sleep(900)
+      /* Let the hero settle (or wait for the previous line) before typing. */
+      await sleep(startDelayMs)
       let current = ''
       for (const key of text) {
         if (cancelled) return
         const slip = neighbourOf(key)
         if (slip !== undefined && Math.random() < 0.05) {
           current += slip
-          setTyped(current)
+          setState({ typed: current, done: false })
           await sleep(randomBetween(230, 430))
           current = current.slice(0, -1)
-          setTyped(current)
+          setState({ typed: current, done: false })
           await sleep(randomBetween(90, 190))
         }
         current += key
-        setTyped(current)
+        setState({ typed: current, done: false })
         await sleep(key === ' ' ? randomBetween(130, 260) : randomBetween(50, 150))
       }
+
+      /* Let the cursor blink a beat on the finished line, then mark it done. */
+      await sleep(600)
+      if (cancelled) return
+      setState({ typed: current, done: true })
     }
 
     void run()
     return () => {
       cancelled = true
     }
-  }, [text])
+  }, [text, startDelayMs, enabled])
 
-  return typed
+  return state
 }
