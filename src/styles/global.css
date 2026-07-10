@@ -655,10 +655,10 @@ main {
    The prefers-reduced-motion block below turns it off entirely. */
 .reveal {
   opacity: 0;
-  transform: translateY(14px);
+  transform: translateY(30px);
   transition:
-    opacity 0.55s ease-out,
-    transform 0.55s ease-out;
+    opacity 0.45s ease-out,
+    transform 0.45s var(--ease-bold);
 }
 
 .reveal--visible {
@@ -678,7 +678,7 @@ main {
   .reveal--visible .skill-group,
   .reveal--visible .cert,
   .reveal--visible .timeline__item {
-    animation: rise-in 0.5s ease-out backwards;
+    animation: rise-in 0.42s var(--ease-bold) backwards;
   }
 
   .reveal--visible .card-grid > :nth-child(2),
@@ -721,7 +721,7 @@ main {
   /* The heading leads each section in: the title rises, then its green-to-red
      rule draws itself out from the left. */
   .reveal--visible .section__title {
-    animation: rise-in 0.5s ease-out backwards;
+    animation: rise-in 0.42s var(--ease-bold) backwards;
   }
 
   .reveal .section__title::after {
@@ -731,7 +731,7 @@ main {
 
   .reveal--visible .section__title::after {
     transform: scaleX(1);
-    transition: transform 0.55s ease-out 0.2s;
+    transition: transform 0.4s var(--ease-bold) 0.06s;
   }
 
   /* The About block has no cards to stagger, so its own text cascades in:
@@ -740,7 +740,7 @@ main {
   .reveal--visible .about__summary > p,
   .reveal--visible .about__education-title,
   .reveal--visible .about__education-list > li {
-    animation: rise-in 0.5s ease-out backwards;
+    animation: rise-in 0.42s var(--ease-bold) backwards;
   }
 
   .reveal--visible .about__summary > p:nth-child(2) {
@@ -1189,7 +1189,7 @@ main {
 @media (prefers-reduced-motion: no-preference) {
   /* The portrait rises in on load. */
   .rail__portrait {
-    animation: rise-in 0.5s ease-out backwards;
+    animation: rise-in 0.42s var(--ease-bold) backwards;
   }
 
   /*
@@ -1228,9 +1228,8 @@ main {
 @keyframes rise-in {
   from {
     opacity: 0;
-    /* A touch more travel plus a slight scale reads as a more deliberate,
-       polished entrance than a plain fade-up. */
-    transform: translateY(24px) scale(0.985);
+    /* Bolder travel and a deeper scale so items visibly spring into place. */
+    transform: translateY(42px) scale(0.94);
   }
 }
 
