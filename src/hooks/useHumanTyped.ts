@@ -3,12 +3,11 @@ import { useEffect, useState } from 'react'
 /*
  * Types a line of text ONCE with a human keystroke feel — uneven per-key
  * cadence and the occasional slip onto a neighbouring key that gets
- * backspaced and corrected — then settles for good (`done` flips true so the
- * caller can style the finished state, e.g. stop the cursor blinking). The
- * owner explicitly wants a single pass, not a loop. Same treatment as the
- * rail terminal, and like the terminal it deliberately ignores
- * prefers-reduced-motion: the owner wants these small, localised text
- * reveals alive on every device (his own OS has Reduce Motion on).
+ * backspaced and corrected. The owner explicitly wants a single typing pass
+ * (not a loop), with the red-disc cursor left blinking afterwards. Same
+ * treatment as the rail terminal, and like the terminal it deliberately
+ * ignores prefers-reduced-motion: the owner wants these small, localised
+ * text reveals alive on every device (his own OS has Reduce Motion on).
  */
 
 /* A plausible adjacent key per letter/digit, so typos look like slips of the
@@ -31,13 +30,8 @@ const randomBetween = (min: number, max: number) => min + Math.random() * (max -
 
 const sleep = (ms: number) => new Promise<void>((resolve) => setTimeout(resolve, ms))
 
-export interface HumanTyped {
-  readonly typed: string
-  readonly done: boolean
-}
-
-export function useHumanTyped(text: string): HumanTyped {
-  const [state, setState] = useState<HumanTyped>({ typed: '', done: false })
+export function useHumanTyped(text: string): string {
+  const [typed, setTyped] = useState('')
 
   useEffect(() => {
     let cancelled = false
@@ -51,21 +45,16 @@ export function useHumanTyped(text: string): HumanTyped {
         const slip = neighbourOf(key)
         if (slip !== undefined && Math.random() < 0.05) {
           current += slip
-          setState({ typed: current, done: false })
+          setTyped(current)
           await sleep(randomBetween(230, 430))
           current = current.slice(0, -1)
-          setState({ typed: current, done: false })
+          setTyped(current)
           await sleep(randomBetween(90, 190))
         }
         current += key
-        setState({ typed: current, done: false })
+        setTyped(current)
         await sleep(key === ' ' ? randomBetween(130, 260) : randomBetween(50, 150))
       }
-
-      /* The cursor blinks for a last beat, then the line settles for good. */
-      await sleep(1400)
-      if (cancelled) return
-      setState({ typed: current, done: true })
     }
 
     void run()
@@ -74,5 +63,5 @@ export function useHumanTyped(text: string): HumanTyped {
     }
   }, [text])
 
-  return state
+  return typed
 }

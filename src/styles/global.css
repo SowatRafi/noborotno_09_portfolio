@@ -1180,17 +1180,12 @@ main {
  * <MotionConfig reducedMotion="never"> around it.
  *
  * The hero origin line shares the same deliberate override: its typing is JS
- * timers too (useHumanTyped), and its red-disc cursor blinks here, ungated.
- * It types a single pass; once done the blink stops and the red disc settles
- * solid — a full stop in flag red.
+ * timers too (useHumanTyped, a single pass), and its red-disc cursor keeps
+ * blinking afterwards — the owner wants the red dot alive.
  */
 .term__typed--live::after,
 .hero-split__origin-typed::after {
   animation: cursor-blink 1.1s steps(2, jump-none) infinite;
-}
-
-.hero-split__origin-typed--done::after {
-  animation: none;
 }
 
 @media (prefers-reduced-motion: no-preference) {
