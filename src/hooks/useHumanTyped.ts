@@ -1,15 +1,14 @@
 import { useEffect, useState } from 'react'
 
 /*
- * Types a line of text on a continuous loop with a human keystroke feel:
- * write it (uneven per-key cadence, the occasional slip onto a neighbouring
- * key that gets backspaced and corrected), let it sit long enough to read,
- * erase it the way a held backspace does — a slow first few deletes, then
- * the key-repeat kicks in — pause at the empty line, and write it again with
- * fresh random timings. The same treatment as the rail terminal, and like
- * the terminal it deliberately ignores prefers-reduced-motion: the owner
- * wants these small, localised text reveals alive on every device (his own
- * OS has Reduce Motion on).
+ * Types a line of text ONCE with a human keystroke feel — uneven per-key
+ * cadence and the occasional slip onto a neighbouring key that gets
+ * backspaced and corrected — then settles for good (`done` flips true so the
+ * caller can style the finished state, e.g. stop the cursor blinking). The
+ * owner explicitly wants a single pass, not a loop. Same treatment as the
+ * rail terminal, and like the terminal it deliberately ignores
+ * prefers-reduced-motion: the owner wants these small, localised text
+ * reveals alive on every device (his own OS has Reduce Motion on).
  */
 
 /* A plausible adjacent key per letter/digit, so typos look like slips of the
@@ -32,8 +31,13 @@ const randomBetween = (min: number, max: number) => min + Math.random() * (max -
 
 const sleep = (ms: number) => new Promise<void>((resolve) => setTimeout(resolve, ms))
 
-export function useHumanTyped(text: string): string {
-  const [typed, setTyped] = useState('')
+export interface HumanTyped {
+  readonly typed: string
+  readonly done: boolean
+}
+
+export function useHumanTyped(text: string): HumanTyped {
+  const [state, setState] = useState<HumanTyped>({ typed: '', done: false })
 
   useEffect(() => {
     let cancelled = false
@@ -41,41 +45,27 @@ export function useHumanTyped(text: string): string {
     const run = async () => {
       /* Let the hero settle before the "operator" starts typing. */
       await sleep(900)
-      while (!cancelled) {
-        /* Write the line. */
-        let current = ''
-        for (const key of text) {
-          if (cancelled) return
-          const slip = neighbourOf(key)
-          if (slip !== undefined && Math.random() < 0.05) {
-            current += slip
-            setTyped(current)
-            await sleep(randomBetween(230, 430))
-            current = current.slice(0, -1)
-            setTyped(current)
-            await sleep(randomBetween(90, 190))
-          }
-          current += key
-          setTyped(current)
-          await sleep(key === ' ' ? randomBetween(130, 260) : randomBetween(50, 150))
-        }
-
-        /* Let the finished line sit and be read. */
-        await sleep(randomBetween(6500, 9500))
-
-        /* Hold backspace: deliberate first deletes, then the repeat rate. */
-        let deleted = 0
-        while (current.length > 0) {
-          if (cancelled) return
+      let current = ''
+      for (const key of text) {
+        if (cancelled) return
+        const slip = neighbourOf(key)
+        if (slip !== undefined && Math.random() < 0.05) {
+          current += slip
+          setState({ typed: current, done: false })
+          await sleep(randomBetween(230, 430))
           current = current.slice(0, -1)
-          deleted += 1
-          setTyped(current)
-          await sleep(deleted < 3 ? randomBetween(140, 220) : randomBetween(24, 60))
+          setState({ typed: current, done: false })
+          await sleep(randomBetween(90, 190))
         }
-
-        /* A beat at the empty line, then write it again. */
-        await sleep(randomBetween(700, 1300))
+        current += key
+        setState({ typed: current, done: false })
+        await sleep(key === ' ' ? randomBetween(130, 260) : randomBetween(50, 150))
       }
+
+      /* The cursor blinks for a last beat, then the line settles for good. */
+      await sleep(1400)
+      if (cancelled) return
+      setState({ typed: current, done: true })
     }
 
     void run()
@@ -84,5 +74,5 @@ export function useHumanTyped(text: string): string {
     }
   }, [text])
 
-  return typed
+  return state
 }

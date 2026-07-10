@@ -58,7 +58,7 @@ function ContactIcon({ type }: { type: 'github' | 'linkedin' | 'email' }) {
 
 export function HeroSection() {
   const reduce = useReducedMotion()
-  const typedOrigin = useHumanTyped(profile.originLine)
+  const origin = useHumanTyped(profile.originLine)
   const portraitHref = `${import.meta.env.BASE_URL}${profile.portraitFile}`
 
   return (
@@ -82,8 +82,15 @@ export function HeroSection() {
               decorative chrome on top of it. */}
           <m.p className="hero-split__origin" variants={staggerItem}>
             <span className="visually-hidden">{profile.originLine}</span>
-            <span className="hero-split__origin-typed" aria-hidden="true">
-              {typedOrigin}
+            <span
+              className={
+                origin.done
+                  ? 'hero-split__origin-typed hero-split__origin-typed--done'
+                  : 'hero-split__origin-typed'
+              }
+              aria-hidden="true"
+            >
+              {origin.typed}
             </span>
           </m.p>
         </div>
