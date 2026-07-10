@@ -22,6 +22,8 @@ export const profile = {
   originLine: 'BUILT IN 24.2644°N, 89.9181°E',
   city: 'Melbourne, Australia',
   availability: 'Available to relocate worldwide',
+  contactLead:
+    'The fastest way to reach me is email. I am based at 37°48′51″S 144°57′47″E and open to relocation anywhere in the world.',
   resumeFile: 'Resume of Sowat H Rafi.pdf',
   portraitFile: 'portrait.jpg',
   portraitAlt: 'Portrait of Sowat Hossain Rafi',
