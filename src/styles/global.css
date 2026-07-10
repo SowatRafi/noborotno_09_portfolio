@@ -651,122 +651,9 @@ main {
   background: linear-gradient(90deg, var(--accent), var(--flag-red));
 }
 
-/* Scroll-reveal: content starts slightly offset and fades in when observed.
-   The prefers-reduced-motion block below turns it off entirely. */
-.reveal {
-  opacity: 0;
-  transform: translateY(30px);
-  transition:
-    opacity 0.45s ease-out,
-    transform 0.45s var(--ease-bold);
-}
-
-.reveal--visible {
-  opacity: 1;
-  transform: none;
-}
-
-/*
- * Staggered card entrance inside a revealed section. Implemented as an
- * animation (not a transition) so the per-item delay never leaks into the
- * hover-tilt transitions defined further down. `backwards` keeps each item
- * hidden during its delay. nth-child covers the largest real grid (6 items);
- * anything later simply appears with the section fade, which is fine.
- */
-@media (prefers-reduced-motion: no-preference) {
-  .reveal--visible .card,
-  .reveal--visible .skill-group,
-  .reveal--visible .cert,
-  .reveal--visible .timeline__item {
-    animation: rise-in 0.42s var(--ease-bold) backwards;
-  }
-
-  .reveal--visible .card-grid > :nth-child(2),
-  .reveal--visible .skills-grid > :nth-child(2),
-  .reveal--visible .cert-list > :nth-child(2),
-  .reveal--visible .timeline > :nth-child(2) {
-    animation-delay: 70ms;
-  }
-
-  .reveal--visible .card-grid > :nth-child(3),
-  .reveal--visible .skills-grid > :nth-child(3),
-  .reveal--visible .cert-list > :nth-child(3),
-  .reveal--visible .timeline > :nth-child(3) {
-    animation-delay: 140ms;
-  }
-
-  .reveal--visible .card-grid > :nth-child(4),
-  .reveal--visible .skills-grid > :nth-child(4),
-  .reveal--visible .cert-list > :nth-child(4),
-  .reveal--visible .timeline > :nth-child(4) {
-    animation-delay: 210ms;
-  }
-
-  .reveal--visible .card-grid > :nth-child(5),
-  .reveal--visible .skills-grid > :nth-child(5),
-  .reveal--visible .cert-list > :nth-child(5),
-  .reveal--visible .timeline > :nth-child(5) {
-    animation-delay: 280ms;
-  }
-
-  .reveal--visible .card-grid > :nth-child(n + 6),
-  .reveal--visible .skills-grid > :nth-child(n + 6),
-  .reveal--visible .cert-list > :nth-child(n + 6),
-  .reveal--visible .timeline > :nth-child(n + 6) {
-    animation-delay: 350ms;
-  }
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  /* The heading leads each section in: the title rises, then its green-to-red
-     rule draws itself out from the left. */
-  .reveal--visible .section__title {
-    animation: rise-in 0.42s var(--ease-bold) backwards;
-  }
-
-  .reveal .section__title::after {
-    transform: scaleX(0);
-    transform-origin: left;
-  }
-
-  .reveal--visible .section__title::after {
-    transform: scaleX(1);
-    transition: transform 0.4s var(--ease-bold) 0.06s;
-  }
-
-  /* The About block has no cards to stagger, so its own text cascades in:
-     the summary paragraphs, then the education entries. These containers are
-     not part of the grid stagger above, so their delays don't nest. */
-  .reveal--visible .about__summary > p,
-  .reveal--visible .about__education-title,
-  .reveal--visible .about__education-list > li {
-    animation: rise-in 0.42s var(--ease-bold) backwards;
-  }
-
-  .reveal--visible .about__summary > p:nth-child(2) {
-    animation-delay: 90ms;
-  }
-
-  .reveal--visible .about__summary > p:nth-child(3) {
-    animation-delay: 180ms;
-  }
-
-  .reveal--visible .about__education-title {
-    animation-delay: 120ms;
-  }
-
-  .reveal--visible .about__education-list > li:nth-child(2) {
-    animation-delay: 220ms;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .reveal {
-    opacity: 1;
-    transform: none;
-    transition: none;
-  }
-}
+/* Section scroll-reveal and per-item stagger are handled by Framer Motion
+   (src/lib/motion.ts + the motion.* components), reduced-motion-safe via the
+   app-level <MotionConfig reducedMotion="user">. */
 
 /* ---------------------------------------------------------------------------
  * About
@@ -1133,13 +1020,12 @@ main {
 }
 
 /* ---------------------------------------------------------------------------
- * Interactive depth — 3D tilt and lift
+ * Interactive depth — hover feedback
  *
- * Hover-only devices with motion allowed get a perspective tilt on every card
- * surface. Guarded by (hover: hover) so touch devices never get sticky hover
- * transforms, and by prefers-reduced-motion because a tilt is pure motion.
- * Odd/even cards tilt in opposite directions so a grid feels hand-arranged
- * rather than stamped.
+ * The lift on hover is driven by Framer Motion (whileHover) so it never fights
+ * the reveal transforms Framer already sets inline. CSS handles only the
+ * non-transform feedback — elevation, border and the small tag nudge — which
+ * would otherwise be overridden by those inline transforms.
  * ------------------------------------------------------------------------ */
 
 @media (hover: hover) and (prefers-reduced-motion: no-preference) {
@@ -1147,7 +1033,6 @@ main {
   .skill-group,
   .cert {
     transition:
-      transform 0.22s ease-out,
       box-shadow 0.22s ease-out,
       border-color 0.22s ease-out;
   }
@@ -1155,15 +1040,8 @@ main {
   .card:hover,
   .skill-group:hover,
   .cert:hover {
-    transform: perspective(50rem) rotateX(1.5deg) rotateY(-1.75deg) translateY(-0.35rem);
     box-shadow: var(--shadow-lift), var(--glow);
     border-color: var(--panel-border);
-  }
-
-  .card:nth-child(even):hover,
-  .skill-group:nth-child(even):hover,
-  .cert:nth-child(even):hover {
-    transform: perspective(50rem) rotateX(1.5deg) rotateY(1.75deg) translateY(-0.35rem);
   }
 
   .tag {

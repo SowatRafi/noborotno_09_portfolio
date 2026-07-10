@@ -22,7 +22,14 @@ const BASE_PATH = '/noborotno_09_portfolio/'
  * The policy itself is strict: no inline scripts or styles are allowed, which
  * neutralises most XSS payloads even if one ever found an injection point.
  * The production bundle satisfies this because Vite emits external .js/.css
- * files only, and no component uses the style={} attribute.
+ * files only — the served HTML carries no inline <script>/<style> or style
+ * attributes.
+ *
+ * Framer Motion animates by setting each element's styles through the CSSOM
+ * (element.style.*) at runtime. That is NOT an HTML inline style, so CSP's
+ * style-src does not govern it — the policy stays 'self' with no
+ * 'unsafe-inline', and still blocks any inline style/script an attacker tries
+ * to inject via markup. The clean-audit and strict-CSP guarantees hold.
  */
 const CSP_POLICY = [
   "default-src 'self'",
