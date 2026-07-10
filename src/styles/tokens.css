@@ -51,10 +51,12 @@
   --panel-border: rgba(16, 185, 129, 0.3);
   --status: #4ade80;
 
-  /* System font stacks: no webfont downloads means no render-blocking font
-     requests and no layout shift — a large share of the Lighthouse budget. */
-  --font-sans: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
-  --font-mono: ui-monospace, 'Cascadia Code', 'JetBrains Mono', Menlo, Consolas, monospace;
+  /* Inter for UI/body and JetBrains Mono for the terminal + labels — both
+     self-hosted variable fonts (see main.tsx), so there is no external request
+     and font-display: swap avoids invisible text. System stacks stay as the
+     fallback while the fonts load. */
+  --font-sans: 'Inter Variable', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'JetBrains Mono Variable', ui-monospace, 'Cascadia Code', Menlo, Consolas, monospace;
 
   --radius: 10px;
   --radius-lg: 16px;

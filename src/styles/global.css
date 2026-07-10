@@ -509,12 +509,6 @@ a {
     position: static;
   }
 
-  /* Compact centred portrait above the terminal, keeping the preamble short. */
-  .rail > .rail__portrait {
-    margin: 0 auto 1.1rem;
-    width: 9.5rem;
-  }
-
   /* Roomier, easier-to-tap contact/resume links on touch screens. */
   .term__links {
     gap: 0.5rem 1.1rem;
@@ -526,50 +520,24 @@ a {
   }
 }
 
-.rail__portrait {
-  position: relative;
-  margin: 0 0 1.4rem;
-  width: 100%;
-  max-width: 13.5rem;
-  aspect-ratio: 4 / 5;
+/* --- Animated terminal: a 3D card floating in a perspective stage --- */
+.term-stage {
+  /* The stage gives the terminal its depth; the padding leaves room for the
+     tilt so the floating card never clips or nudges a scrollbar. */
+  perspective: 1200px;
+  padding: 0.5rem;
 }
 
-/* A soft red disc glows behind the portrait's top-right corner — the flag red
-   echoed near the photo, not clipped so the glow reads around the frame. */
-.rail__portrait::before {
-  content: '';
-  position: absolute;
-  z-index: 0;
-  width: 85%;
-  height: 85%;
-  right: -16%;
-  top: -14%;
-  border-radius: 50%;
-  background: radial-gradient(circle, var(--flag-red-soft), transparent 68%);
-  pointer-events: none;
-}
-
-.rail__img {
-  position: relative;
-  z-index: 1;
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center 18%;
-  border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow);
-}
-
-/* --- Animated terminal (identity + contact), shown under the portrait --- */
 .term {
   overflow: hidden;
   border: 1px solid var(--border);
   border-radius: var(--radius);
   background: color-mix(in srgb, var(--surface) 92%, transparent);
-  box-shadow: var(--shadow);
+  box-shadow: var(--shadow-lift);
   font-family: var(--font-mono);
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+  will-change: transform;
 }
 
 .term__bar {
@@ -1209,15 +1177,11 @@ main {
  * ------------------------------------------------------------------------ */
 
 @media (prefers-reduced-motion: no-preference) {
-  /* The portrait rises in on load. */
-  .rail__portrait {
-    animation: rise-in 0.42s var(--ease-bold) backwards;
-  }
-
   /*
    * The terminal is always alive: each command line types itself (a clip-path
    * reveal), holds, then clears and retypes, cascaded across the five commands
    * on a shared 9s loop. The outputs stay static and readable throughout.
+   * (The 3D floating tilt is a Framer transform on .term, not CSS.)
    */
   .term__typed {
     animation: type 9s ease-in-out infinite;
