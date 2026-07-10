@@ -1,4 +1,6 @@
+import { m } from 'framer-motion'
 import { experience } from '../data/experience'
+import { staggerContainer, staggerItem, staggerViewport } from '../lib/motion'
 import { Section } from './Section'
 
 export function Experience() {
@@ -6,9 +8,19 @@ export function Experience() {
     <Section id="experience" title="Experience">
       {/* An ordered list because the entries are chronological — the order is
           meaningful to screen readers, not just visual. */}
-      <ol className="timeline">
+      <m.ol
+        className="timeline"
+        variants={staggerContainer}
+        initial="hidden"
+        whileInView="show"
+        viewport={staggerViewport}
+      >
         {experience.map((entry) => (
-          <li className="timeline__item" key={`${entry.role}-${entry.period}`}>
+          <m.li
+            className="timeline__item"
+            key={`${entry.role}-${entry.period}`}
+            variants={staggerItem}
+          >
             <div className="timeline__header">
               <h3 className="timeline__role">{entry.role}</h3>
               <p className="timeline__meta">
@@ -24,9 +36,9 @@ export function Experience() {
                 <li key={highlight}>{highlight}</li>
               ))}
             </ul>
-          </li>
+          </m.li>
         ))}
-      </ol>
+      </m.ol>
     </Section>
   )
 }

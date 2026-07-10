@@ -1,13 +1,26 @@
+import { m } from 'framer-motion'
 import { projects } from '../data/projects'
+import { hoverLift, staggerContainer, staggerItem, staggerViewport } from '../lib/motion'
 import { ExternalLink } from './ExternalLink'
 import { Section } from './Section'
 
 export function Projects() {
   return (
     <Section id="projects" title="Projects">
-      <div className="card-grid">
+      <m.div
+        className="card-grid"
+        variants={staggerContainer}
+        initial="hidden"
+        whileInView="show"
+        viewport={staggerViewport}
+      >
         {projects.map((project) => (
-          <article className="card" key={project.name}>
+          <m.article
+            className="card"
+            key={project.name}
+            variants={staggerItem}
+            whileHover={hoverLift}
+          >
             <h3 className="card__title">{project.name}</h3>
             {project.period !== undefined && (
               <p className="card__period">{project.period}</p>
@@ -31,9 +44,9 @@ export function Projects() {
             >
               View on GitHub →
             </ExternalLink>
-          </article>
+          </m.article>
         ))}
-      </div>
+      </m.div>
     </Section>
   )
 }

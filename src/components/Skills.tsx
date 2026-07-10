@@ -1,4 +1,6 @@
+import { m } from 'framer-motion'
 import { skillGroups } from '../data/skills'
+import { hoverLift, staggerContainer, staggerItem, staggerViewport } from '../lib/motion'
 import { Section } from './Section'
 
 /*
@@ -9,9 +11,20 @@ import { Section } from './Section'
 export function Skills() {
   return (
     <Section id="skills" title="Skills">
-      <div className="skills-grid">
+      <m.div
+        className="skills-grid"
+        variants={staggerContainer}
+        initial="hidden"
+        whileInView="show"
+        viewport={staggerViewport}
+      >
         {skillGroups.map((group) => (
-          <div className="skill-group" key={group.title}>
+          <m.div
+            className="skill-group"
+            key={group.title}
+            variants={staggerItem}
+            whileHover={hoverLift}
+          >
             <h3 className="skill-group__title">{group.title}</h3>
             <ul className="tag-list">
               {group.skills.map((skill) => (
@@ -20,9 +33,9 @@ export function Skills() {
                 </li>
               ))}
             </ul>
-          </div>
+          </m.div>
         ))}
-      </div>
+      </m.div>
     </Section>
   )
 }
