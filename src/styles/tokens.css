@@ -51,11 +51,11 @@
   --panel-border: rgba(16, 185, 129, 0.3);
   --status: #4ade80;
 
-  /* Inter for UI/body and JetBrains Mono for the terminal + labels — both
-     self-hosted variable fonts (see main.tsx), so there is no external request
-     and font-display: swap avoids invisible text. System stacks stay as the
-     fallback while the fonts load. */
-  --font-sans: 'Inter Variable', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  /* Space Grotesk for UI/headings/body and JetBrains Mono for the terminal +
+     labels — both self-hosted variable fonts (see main.tsx), so there is no
+     external request and font-display: swap avoids invisible text. System
+     stacks stay as the fallback while the fonts load. */
+  --font-sans: 'Space Grotesk Variable', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
   --font-mono: 'JetBrains Mono Variable', ui-monospace, 'Cascadia Code', Menlo, Consolas, monospace;
 
   --radius: 10px;
