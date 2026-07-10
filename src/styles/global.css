@@ -717,6 +717,49 @@ main {
   }
 }
 
+@media (prefers-reduced-motion: no-preference) {
+  /* The heading leads each section in: the title rises, then its green-to-red
+     rule draws itself out from the left. */
+  .reveal--visible .section__title {
+    animation: rise-in 0.5s ease-out backwards;
+  }
+
+  .reveal .section__title::after {
+    transform: scaleX(0);
+    transform-origin: left;
+  }
+
+  .reveal--visible .section__title::after {
+    transform: scaleX(1);
+    transition: transform 0.55s ease-out 0.2s;
+  }
+
+  /* The About block has no cards to stagger, so its own text cascades in:
+     the summary paragraphs, then the education entries. These containers are
+     not part of the grid stagger above, so their delays don't nest. */
+  .reveal--visible .about__summary > p,
+  .reveal--visible .about__education-title,
+  .reveal--visible .about__education-list > li {
+    animation: rise-in 0.5s ease-out backwards;
+  }
+
+  .reveal--visible .about__summary > p:nth-child(2) {
+    animation-delay: 90ms;
+  }
+
+  .reveal--visible .about__summary > p:nth-child(3) {
+    animation-delay: 180ms;
+  }
+
+  .reveal--visible .about__education-title {
+    animation-delay: 120ms;
+  }
+
+  .reveal--visible .about__education-list > li:nth-child(2) {
+    animation-delay: 220ms;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .reveal {
     opacity: 1;
@@ -1185,7 +1228,9 @@ main {
 @keyframes rise-in {
   from {
     opacity: 0;
-    transform: translateY(18px);
+    /* A touch more travel plus a slight scale reads as a more deliberate,
+       polished entrance than a plain fade-up. */
+    transform: translateY(24px) scale(0.985);
   }
 }
 
