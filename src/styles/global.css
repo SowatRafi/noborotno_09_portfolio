@@ -603,16 +603,8 @@ a {
   vertical-align: bottom;
 }
 
-.term__name {
-  margin: 0;
-  font-family: var(--font-sans);
-  font-size: 1.2rem;
-  line-height: 1.2;
-  letter-spacing: -0.01em;
-}
-
 .term__role {
-  margin: 0.1rem 0 0;
+  margin: 0;
   font-size: 0.8rem;
   color: var(--accent);
 }
