@@ -18,13 +18,16 @@ import { ExternalLink } from './ExternalLink'
  * so the card keeps its full height through the clear/retype cycle.
  *
  * The prompt/command lines are decorative (aria-hidden); the outputs carry the
- * real content — including the whoami name echo and the genuine contact links
- * (all of which are also permanently available in the footer).
+ * real content — the role, city, availability and the genuine contact links
+ * (all of which are also permanently available in the hero and footer). The
+ * name itself deliberately does NOT appear here: the hero's <h1> right beside
+ * the rail already carries it, and repeating it was redundant clutter.
  */
 
-/* The session script. `clear` is the loop point: it has no output and resets
-   the screen. These strings are terminal chrome, not site content. */
-const COMMANDS = ['whoami', 'pwd', 'cat status.txt', 'ls contact/', 'open resume.pdf', 'clear'] as const
+/* The session script. `exit` is the loop point: bash answers it with
+   `logout`, then the screen resets and a fresh session begins. These strings
+   are terminal chrome, not site content. */
+const COMMANDS = ['whoami', 'pwd', 'cat status.txt', 'ls contact/', 'open resume.pdf', 'exit'] as const
 
 /* A plausible adjacent key for each letter, so typos look like slips of the
    finger rather than random noise. */
@@ -63,12 +66,12 @@ export function Terminal() {
       while (!cancelled) {
         for (let index = 0; index < COMMANDS.length && !cancelled; index += 1) {
           const command = COMMANDS[index]
-          const isClear = command === 'clear'
+          const isExit = command === 'exit'
 
           setShell({ active: index, typed: '', printed: false })
-          /* Think at the fresh prompt — a long idle before `clear`, so the
+          /* Think at the fresh prompt — a long idle before `exit`, so the
              finished session stays readable for a while. */
-          await sleep(isClear ? randomBetween(6500, 9500) : randomBetween(450, 1300))
+          await sleep(isExit ? randomBetween(6500, 9500) : randomBetween(450, 1300))
 
           let typed = ''
           for (const key of command) {
@@ -92,8 +95,9 @@ export function Terminal() {
           await sleep(randomBetween(280, 650))
           if (cancelled) return
           setShell({ active: index, typed, printed: true })
-          /* Read the output before moving to the next prompt. */
-          await sleep(isClear ? randomBetween(300, 550) : randomBetween(750, 1500))
+          /* Read the output before moving on — after `exit` the shell shows
+             its `logout` farewell for a beat, then the screen resets. */
+          await sleep(isExit ? randomBetween(1100, 1700) : randomBetween(750, 1500))
         }
       }
     }
@@ -140,8 +144,8 @@ export function Terminal() {
         <p className={cmdClass(0)} aria-hidden="true">
           <span className={typedClass(0)}>{typedText(0)}</span>
         </p>
-        {/* The sole <h1> lives in the hero; this is a styled echo, not a heading. */}
-        <p className={outClass(0, 'term__name')}>{profile.name}</p>
+        {/* whoami answers with the role only — the name already lives in the
+            hero's <h1> next to the rail, so echoing it here was redundant. */}
         <p className={outClass(0, 'term__role')}>{profile.titleLine}</p>
 
         <p className={cmdClass(1)} aria-hidden="true">
@@ -180,6 +184,10 @@ export function Terminal() {
 
         <p className={cmdClass(5)} aria-hidden="true">
           <span className={typedClass(5)}>{typedText(5)}</span>
+        </p>
+        {/* bash's real farewell to `exit` — chrome, not content. */}
+        <p className={outClass(5, 'term__out')} aria-hidden="true">
+          logout
         </p>
         </div>
       </m.div>
