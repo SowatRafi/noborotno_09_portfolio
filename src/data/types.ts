@@ -19,6 +19,8 @@ export interface Profile {
   readonly summary: readonly string[]
   /** One-line positioning statement for the hero subtitle. */
   readonly tagline: string
+  /** Origin line typed out in the hero — Bangladesh's coordinates. */
+  readonly originLine: string
   /** City line for the terminal `pwd` output (no parenthetical). */
   readonly city: string
   /** One-line availability for the terminal `cat status` output. */

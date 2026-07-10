@@ -1,5 +1,6 @@
 import { m, useReducedMotion } from 'framer-motion'
 import { profile } from '../data/profile'
+import { useHumanTyped } from '../hooks/useHumanTyped'
 import { staggerContainer, staggerItem } from '../lib/motion'
 import { ExternalLink } from './ExternalLink'
 
@@ -8,10 +9,13 @@ import { ExternalLink } from './ExternalLink'
  * Tailwind/shadcn — plain CSS with the site's design tokens, and Framer's
  * lightweight m.* components (LazyMotion strict) instead of motion.*.
  *
- * The text column staggers in on load; the portrait panel is revealed with the
- * original clip-path wipe. Content comes from src/data/profile (never hard-
- * coded here), the contact row is GitHub / LinkedIn / Email only (no phone or
- * address), and this section carries the site's sole <h1>.
+ * The text column is deliberately spare — just the name (the site's sole
+ * <h1>) and a typed origin line in the exact Bangladesh flag colours (white
+ * on bottle green #006a4e, red disc #f42a41 as the cursor). The role, city,
+ * availability, tagline and resume all live in the terminal and About right
+ * below, so repeating them here was redundant. The portrait panel is revealed
+ * with the original clip-path wipe; the contact row is GitHub / LinkedIn /
+ * Email only (no phone or address).
  */
 
 const REVEAL_START = 'polygon(100% 0, 100% 0, 100% 100%, 100% 100%)'
@@ -54,7 +58,7 @@ function ContactIcon({ type }: { type: 'github' | 'linkedin' | 'email' }) {
 
 export function HeroSection() {
   const reduce = useReducedMotion()
-  const resumeHref = `${import.meta.env.BASE_URL}${encodeURIComponent(profile.resumeFile)}`
+  const typedOrigin = useHumanTyped(profile.originLine)
   const portraitHref = `${import.meta.env.BASE_URL}${profile.portraitFile}`
 
   return (
@@ -68,29 +72,20 @@ export function HeroSection() {
     >
       <div className="hero-split__content">
         <div>
-          <m.p className="hero-split__eyebrow" variants={staggerItem}>
-            {profile.location}
-          </m.p>
-
           <m.h1 className="hero-split__title" variants={staggerItem}>
             {profile.name}
           </m.h1>
 
           <m.span className="hero-split__rule" variants={staggerItem} aria-hidden="true" />
 
-          <m.p className="hero-split__role" variants={staggerItem}>
-            {profile.titleLine}
+          {/* Screen readers get the finished line; the typed replay is
+              decorative chrome on top of it. */}
+          <m.p className="hero-split__origin" variants={staggerItem}>
+            <span className="visually-hidden">{profile.originLine}</span>
+            <span className="hero-split__origin-typed" aria-hidden="true">
+              {typedOrigin}
+            </span>
           </m.p>
-
-          <m.p className="hero-split__subtitle" variants={staggerItem}>
-            {profile.tagline}
-          </m.p>
-
-          <m.div className="hero-split__actions" variants={staggerItem}>
-            <a className="btn btn--primary" href={resumeHref} download>
-              Download Resume
-            </a>
-          </m.div>
         </div>
 
         <m.footer className="hero-split__footer" variants={staggerItem}>
