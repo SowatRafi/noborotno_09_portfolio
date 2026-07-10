@@ -19,7 +19,7 @@ export const profile = {
   ],
   tagline:
     'Master of Cybersecurity graduate specialising in SIEM monitoring, incident response, digital forensics, and AI/LLM security.',
-  originLine: 'BUILT IN 23.6850°N, 90.3563°E',
+  originLine: 'BUILT IN 24.2507°N, 89.9151°E',
   city: 'Melbourne, Australia',
   availability: 'Available to relocate worldwide',
   resumeFile: 'Resume of Sowat H Rafi.pdf',
