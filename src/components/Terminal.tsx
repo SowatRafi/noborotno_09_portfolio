@@ -28,7 +28,8 @@ export function Terminal() {
         <p className="term__cmd" aria-hidden="true">
           <span className="term__typed term__typed--1">whoami</span>
         </p>
-        <h1 className="term__name">{profile.name}</h1>
+        {/* The sole <h1> lives in the hero; this is a styled echo, not a heading. */}
+        <p className="term__name">{profile.name}</p>
         <p className="term__role">{profile.titleLine}</p>
 
         <p className="term__cmd" aria-hidden="true">
