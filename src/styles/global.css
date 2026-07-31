@@ -1065,6 +1065,16 @@ main {
 
 .card__summary {
   margin-bottom: 1.25rem;
+  /* Measured at 86 characters per line on a 1265px window, well past the 60-75
+     the eye tracks comfortably — the wider the card, the harder its own
+     summary is to read. ch caps the measure without fixing the card's width,
+     so narrow cards are unaffected.
+
+     55, not 68: `ch` is the width of "0", which in IBM Plex Sans is 0.6em —
+     noticeably wider than the average lowercase letter. 68ch measured out at
+     86 real characters, so the unit flatters itself by about a quarter. 55ch
+     lands on ~70. Re-measure with a Range if the font ever changes. */
+  max-width: 55ch;
 }
 
 .publication__links {
@@ -1239,6 +1249,35 @@ main {
   font-family: var(--font-mono);
   font-size: 0.95rem;
 }
+
+/* ---------------------------------------------------------------------------
+ * Touch targets
+ *
+ * These links are comfortable at 21-24px with a mouse, but a finger needs 44px
+ * (WCAG 2.5.5, Apple HIG, Material). Measured before this rule on a 375px
+ * phone: hero contacts 24px, card links 24px, footer links 21px.
+ *
+ * Gated on `pointer: coarse` rather than a width breakpoint, because this is
+ * about the input device, not the screen size — a touch laptop needs it at
+ * 1400px and a mouse-driven small window does not. Desktop keeps its tighter
+ * typographic rhythm untouched.
+ * ------------------------------------------------------------------------ */
+
+@media (pointer: coarse) {
+  .hero-split__contact,
+  .card__link,
+  .footer__link {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+  }
+}
+
+/* Note: .footer__links keeps its 0.5rem row gap. Zeroing it here (an earlier
+   attempt) would have let the taller hit areas butt against each other —
+   8px is the minimum separation between touch targets, and 0.5rem is exactly
+   that. Enlarging targets without checking their spacing just moves the
+   problem. */
 
 .footer__note {
   color: var(--text-muted);
