@@ -40,9 +40,9 @@ export interface SpeakingEngagement {
   readonly session: string
   /** The umbrella event the session sits inside. */
   readonly event: string
-  /** Stated plainly so the card can never be mistaken for one attended. */
+  /** Stated plainly so the card can never be mistaken for one attended, and
+      names the organisation he delivers it for. */
   readonly role: string
-  readonly host: string
   readonly location: string
   /** Machine-readable start for <time datetime>; also decides the badge. */
   readonly startIso: string

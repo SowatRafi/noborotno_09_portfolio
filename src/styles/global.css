@@ -367,31 +367,32 @@ a {
   color: var(--text);
   border-bottom: 1px solid var(--border);
   /*
-   * Now that nothing tall sits inside it, the hero needs its own height or the
-   * page opens on a thin strip of text rather than something that reads as a
-   * title card — it collapsed to 277px at 767px before this.
+   * Enough height to read as a title card, not so much that it is mostly void.
+   * This was min(76vh, 40rem) — inherited from when a portrait filled the
+   * other half — which left a 608px box holding a name, a rule and a chip,
+   * with 170px of nothing between the chip and the contact row. 24rem puts it
+   * at 384px with the cluster centred.
    *
-   * One rule at every width: it used to apply only above 768px because the
-   * portrait gave the panel body below that. Still shorter than the old
-   * text + photo stack everywhere, and the vh term keeps it from taking over a
-   * short landscape window.
+   * The vh term still keeps it off a short landscape window, and min-height is
+   * a floor, so tall content is never clipped.
    */
-  min-height: min(76vh, 40rem);
+  min-height: min(48vh, 24rem);
 }
 
 .hero-split__content {
   display: flex;
   flex: 1;
   flex-direction: column;
-  justify-content: space-between;
+  /* One centred cluster — name, rule, chip, contacts. This was
+     space-between, which pinned the contact row to the bottom edge so it
+     could sit opposite the portrait; with the photo gone that just opened a
+     170px hole in the middle of the hero. */
+  justify-content: center;
   gap: 2.5rem;
   padding: 2.5rem 1.25rem;
 }
 
-/* The hero is spare (name + origin chip only), so centre that block both ways;
-   the contact row keeps its place at the bottom edge. */
 .hero-split__content > div {
-  margin-block: auto;
   text-align: center;
 }
 

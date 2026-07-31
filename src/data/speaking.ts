@@ -12,8 +12,10 @@ import type { SpeakingEngagement } from './types'
 export const speaking = {
   session: 'Workshop 2 · SECURE',
   event: 'AI in Practice: Agent → Secure → Industry',
-  role: 'Presenter',
-  host: 'AVA Training, with Unwind AI and Great Monkey Lab',
+  /* Owner's wording (2026-07-31): he is delivering the training on behalf of
+     AVA Training, the organisation hosting the series. Stated on the card so
+     the affiliation is not left to inference. */
+  role: 'Trainer, on behalf of AVA Training',
   location: 'Melbourne CBD — exact venue announced closer to the date',
   startIso: '2026-08-23T13:00:00+10:00',
   dateLabel: 'Sunday 23 August 2026, 1–4pm AEST',
