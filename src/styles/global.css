@@ -545,6 +545,17 @@ a {
    * than the subject; the height has to follow the width.
    */
   aspect-ratio: 4 / 3;
+  /*
+   * ...but the ratio must not let the photo run away with the screen. 26rem
+   * caps it as the panel widens toward the 768px split; 60vh caps it on a
+   * short landscape window, where the ratio alone would make the image taller
+   * than the viewport.
+   *
+   * Past either cap the ratio no longer holds and object-fit starts cropping
+   * again — deliberately accepted. Below about 555px wide (every common phone)
+   * neither cap binds and the frame is still whole.
+   */
+  max-height: min(26rem, 60vh);
   background: var(--surface);
 }
 
