@@ -9,6 +9,7 @@ import { Projects } from './components/Projects'
 import { ProfileRail } from './components/ProfileRail'
 import { Publication } from './components/Publication'
 import { Skills } from './components/Skills'
+import { Speaking } from './components/Speaking'
 
 export default function App() {
   return (
@@ -37,6 +38,11 @@ export default function App() {
             <About />
             <Skills />
             <Experience />
+            {/* Sits directly after Experience: delivering a workshop on
+                prompt injection and safe-AI policy is professional evidence
+                for the AI-security roles this site targets, so it reads
+                before the project list rather than after it. */}
+            <Speaking />
             <Projects />
             <Publication />
             <Certifications />

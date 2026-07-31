@@ -42,6 +42,26 @@ export interface Profile {
   readonly portraitWebp: readonly { readonly file: string; readonly width: number }[]
 }
 
+export interface SpeakingEngagement {
+  /** The specific session being delivered, e.g. "Workshop 2 · SECURE". */
+  readonly session: string
+  /** The umbrella event the session sits inside. */
+  readonly event: string
+  /** Stated plainly so the card can never be mistaken for one attended. */
+  readonly role: string
+  readonly host: string
+  readonly location: string
+  /** Machine-readable start for <time datetime>; also decides the badge. */
+  readonly startIso: string
+  /** Written out in full — "23/08/26" is ambiguous across locales. */
+  readonly dateLabel: string
+  readonly summary: string
+  readonly ticketUrl: string
+  /** Shown for transparency; ticketUrl already applies it. */
+  readonly discountCode: string
+  readonly discountNote: string
+}
+
 export interface SkillGroup {
   readonly title: string
   readonly skills: readonly string[]

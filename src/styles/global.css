@@ -1078,6 +1078,84 @@ main {
 }
 
 /* ---------------------------------------------------------------------------
+ * Speaking — reuses .card, .badge and .card__link; only the head row, the
+ * meta line and the discount chip are new.
+ * ------------------------------------------------------------------------ */
+
+.speaking__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.5rem 1rem;
+}
+
+.speaking__head .publication__venue {
+  margin: 0.3rem 0 0;
+}
+
+.speaking__when {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin: 0.75rem 0 1rem;
+}
+
+.speaking__cta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem 1.25rem;
+  margin: 0;
+}
+
+/* Unlike the reference links elsewhere ("View on GitHub"), this one is a real
+   action, so it gets a 44px touch target. Outlined rather than filled: the
+   card has to read as a credential, not an advertisement. The margin-top reset
+   undoes .card__link's push-to-bottom, which would drop it off this row's
+   shared baseline. */
+.speaking__cta .card__link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  margin-top: 0;
+  padding: 0 1rem;
+  border: 1px solid var(--accent);
+  border-radius: var(--radius);
+  /* Deliberately no transition on colour. This section starts below the fold
+     with Framer holding it hidden until it scrolls into view, and a
+     transition on a theme-dependent colour leaves the never-painted element
+     stuck on the old theme's accent after a theme switch. Every other link on
+     the site changes instantly too, so this also stays consistent. */
+}
+
+.speaking__cta .card__link:hover {
+  background: var(--accent);
+  /* Page background on the accent fill: dark-on-green in the dark theme,
+     light-on-bottle-green in the light one. Both clear 4.5:1. */
+  color: var(--bg);
+  text-decoration: none;
+}
+
+.speaking__discount {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.speaking__code {
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  padding: 0.15rem 0.45rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  /* Page background on a surface-coloured card reads as an inset chip in both
+     themes without needing a token of its own. */
+  background: var(--bg);
+  color: var(--accent);
+  overflow-wrap: anywhere;
+}
+
+/* ---------------------------------------------------------------------------
  * Certifications
  * ------------------------------------------------------------------------ */
 
