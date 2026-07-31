@@ -14,10 +14,11 @@ html {
   scroll-padding-top: 4.5rem; /* keep section headings clear of the sticky header */
 }
 
-/* The phone header is a single compact row (brand + hamburger + toggle); the
-   nav dropdown closes on tap before scrolling, so this modest offset is enough
-   to keep target headings clear of the sticky header. */
-@media (max-width: 720px) {
+/* The collapsed header is a single compact row (brand + hamburger + toggle);
+   the nav dropdown closes on tap before scrolling, so this modest offset is
+   enough to keep target headings clear of the sticky header.
+   Breakpoint kept in step with the .header__menu-btn block below. */
+@media (max-width: 899px) {
   html {
     scroll-padding-top: 4.25rem;
   }
@@ -199,12 +200,18 @@ a {
 }
 
 /*
- * Phone header: one compact row (brand + hamburger + theme toggle). The nav
- * collapses into a dropdown panel that expands only when toggled, so the
+ * Collapsed header: one compact row (brand + hamburger + theme toggle). The
+ * nav collapses into a dropdown panel that expands only when toggled, so the
  * sticky header stays short and every section is reachable with a big tap
  * target — no cramped horizontal-scroll bar.
+ *
+ * 899px, not 720px: laid out side by side the brand, the eight nav links and
+ * the theme toggle need 884px, so anything narrower than that pushed the bar
+ * past the viewport and put a horizontal scrollbar on the page. Measure again
+ * if a nav item is ever added or renamed — this number is the bar's real
+ * width, not a guess. (Was 720px, which overflowed from 721px up.)
  */
-@media (max-width: 720px) {
+@media (max-width: 899px) {
   .header__menu-btn {
     display: inline-flex;
   }
