@@ -546,16 +546,18 @@ a {
    */
   aspect-ratio: 4 / 3;
   /*
-   * ...but the ratio must not let the photo run away with the screen. 26rem
+   * ...but the ratio must not let the photo run away with the screen. 31rem
    * caps it as the panel widens toward the 768px split; 60vh caps it on a
    * short landscape window, where the ratio alone would make the image taller
-   * than the viewport.
+   * than the viewport (540px of photo on a 400px screen).
    *
-   * Past either cap the ratio no longer holds and object-fit starts cropping
-   * again — deliberately accepted. Below about 555px wide (every common phone)
-   * neither cap binds and the frame is still whole.
+   * 31rem is chosen, not round: it is the shallowest the panel can be at 767px
+   * while still showing the chin. Below ~661px neither cap binds and the frame
+   * is whole with nothing discarded; from 661 to 767 the ratio gives way and
+   * object-fit trims 2-10px off the top of the hair, which is accepted. Drop
+   * this number and the chin starts going instead.
    */
-  max-height: min(26rem, 60vh);
+  max-height: min(31rem, 60vh);
   background: var(--surface);
 }
 
