@@ -29,28 +29,10 @@ export interface Profile {
   readonly contactLead: string
   /** Resume filename inside public/ — components must URL-encode it. */
   readonly resumeFile: string
-  /** Portrait filename inside public/, plus its accessible description. */
-  readonly portraitFile: string
-  readonly portraitAlt: string
-  /**
-   * Modern renditions of the portrait, smallest first, each with the intrinsic
-   * width the browser needs to pick between them. AVIF is offered first (same
-   * photo, noticeably fewer bytes), then WebP; the JPEG above stays as the
-   * fallback for anything that can decode neither.
+  /*
+   * No portrait fields: the owner removed his photo from the site entirely on
+   * 2026-07-31. The hero is type-led now. Don't reintroduce one without asking.
    */
-  readonly portraitAvif: readonly { readonly file: string; readonly width: number }[]
-  readonly portraitWebp: readonly { readonly file: string; readonly width: number }[]
-  /**
-   * Below the 768px split the hero panel is a short full-width band, so the
-   * tall portrait above would have most of its height cropped away by
-   * object-fit and thrown out. These are pre-cropped to that band's shape.
-   * One width only: 640 is the master's full width, so there is nothing
-   * larger to offer a high-DPR phone.
-   */
-  readonly portraitMobile: {
-    readonly avif: string
-    readonly webp: string
-  }
 }
 
 export interface SpeakingEngagement {

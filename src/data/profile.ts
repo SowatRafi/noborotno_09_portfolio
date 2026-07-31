@@ -25,21 +25,4 @@ export const profile = {
   contactLead:
     'The fastest way to reach me is email. I am based at 37°48′51″S 144°57′47″E and open to relocation anywhere in the world.',
   resumeFile: 'Resume of Sowat H Rafi.pdf',
-  portraitFile: 'portrait.jpg',
-  portraitAlt: 'Portrait of Sowat Hossain Rafi',
-  portraitAvif: [
-    { file: 'portrait-480.avif', width: 480 },
-    { file: 'portrait.avif', width: 640 },
-  ],
-  portraitWebp: [
-    { file: 'portrait-480.webp', width: 480 },
-    { file: 'portrait.webp', width: 640 },
-  ],
-  /* 640x480, cropped from y=48 of the master so the top of the hair clears the
-     frame and the chin stays well inside. 4:3 because that is almost exactly
-     the shape of the mobile panel at the 360-390px widths most phones report. */
-  portraitMobile: {
-    avif: 'portrait-mobile.avif',
-    webp: 'portrait-mobile.webp',
-  },
 } as const satisfies Profile

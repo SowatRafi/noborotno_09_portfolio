@@ -349,9 +349,12 @@ a {
 }
 
 /* ---------------------------------------------------------------------------
- * Hero (split) — adapted 21st.dev hero: text column + clip-path portrait.
- * Plain CSS + design tokens (no Tailwind); the clip-path reveal is animated by
- * Framer Motion on .hero-split__media.
+ * Hero — type-led, single centred column. Plain CSS + design tokens.
+ *
+ * This was a two-column split (text + clip-path portrait) until the owner
+ * removed the photo entirely. The "split" class names are kept because they
+ * are load-bearing across the component and carry no cost; the layout itself
+ * is now one column.
  * ------------------------------------------------------------------------ */
 
 .hero-split {
@@ -363,13 +366,17 @@ a {
   background: var(--bg);
   color: var(--text);
   border-bottom: 1px solid var(--border);
-}
-
-@media (min-width: 768px) {
-  .hero-split {
-    flex-direction: row;
-    min-height: min(76vh, 40rem);
-  }
+  /*
+   * Now that nothing tall sits inside it, the hero needs its own height or the
+   * page opens on a thin strip of text rather than something that reads as a
+   * title card — it collapsed to 277px at 767px before this.
+   *
+   * One rule at every width: it used to apply only above 768px because the
+   * portrait gave the panel body below that. Still shorter than the old
+   * text + photo stack everywhere, and the vh term keeps it from taking over a
+   * short landscape window.
+   */
+  min-height: min(76vh, 40rem);
 }
 
 .hero-split__content {
@@ -381,9 +388,8 @@ a {
   padding: 2.5rem 1.25rem;
 }
 
-/* The text column is spare (name + origin chip only), so centre that block
-   both ways — vertically against the portrait and horizontally within the
-   column; the contact row keeps its place at the bottom edge. */
+/* The hero is spare (name + origin chip only), so centre that block both ways;
+   the contact row keeps its place at the bottom edge. */
 .hero-split__content > div {
   margin-block: auto;
   text-align: center;
@@ -508,7 +514,11 @@ a {
 @media (min-width: 640px) {
   .hero-split__footer {
     grid-template-columns: repeat(3, auto);
-    justify-content: start;
+    /* Centred, not start-aligned: the row used to sit under a narrow text
+       column beside the portrait, where flush-left read fine. Now that the
+       column is the full page, left-aligned links under a centred name look
+       like a mistake. */
+    justify-content: center;
     gap: 1.75rem;
   }
 }
@@ -531,68 +541,12 @@ a {
   color: var(--accent);
 }
 
-.hero-split__media {
-  position: relative;
-  width: 100%;
-  /*
-   * Matches portrait-mobile.avif's 4:3 exactly, so object-fit has nothing left
-   * to crop and the whole head stays in frame at every phone width.
-   *
-   * This was `min-height: 18rem` — a fixed height on a fluid width, which meant
-   * the panel grew wider without growing taller. By 767px it was a 2.66:1 slot
-   * showing a 240px-tall window onto a face that needs about 410px, so it cut
-   * the photo off at the mouth. No object-position can rescue a window shorter
-   * than the subject; the height has to follow the width.
-   */
-  aspect-ratio: 4 / 3;
-  /*
-   * ...but the ratio must not let the photo run away with the screen. 31rem
-   * caps it as the panel widens toward the 768px split; 60vh caps it on a
-   * short landscape window, where the ratio alone would make the image taller
-   * than the viewport (540px of photo on a 400px screen).
-   *
-   * 31rem is chosen, not round: it is the shallowest the panel can be at 767px
-   * while still showing the chin. Below ~661px neither cap binds and the frame
-   * is whole with nothing discarded; from 661 to 767 the ratio gives way and
-   * object-fit trims 2-10px off the top of the hair, which is accepted. Drop
-   * this number and the chin starts going instead.
-   */
-  max-height: min(31rem, 60vh);
-  background: var(--surface);
-}
-
-@media (min-width: 768px) {
-  .hero-split__media {
-    width: 42%;
-    /* Side by side the panel takes its height from the row, not from the
-       photo, so the ratio above has to be released. */
-    aspect-ratio: auto;
-    align-self: stretch;
-  }
-}
-
-/* <picture> only exists to offer the WebP sources; it must not add a line box
-   of its own to the panel that the portrait is absolutely positioned inside. */
-.hero-split__media picture {
-  display: contents;
-}
-
-.hero-split__img {
-  position: absolute;
-  inset: 0;
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center 18%;
-}
-
 /* ---------------------------------------------------------------------------
  * Layout — persistent profile rail + scrolling content
  *
- * The single portrait lives in a sticky rail so it stays visible as the
- * visitor moves through every section. On narrow screens the rail becomes a
- * normal block at the top and the sticky header keeps the nav reachable.
+ * The terminal lives in a sticky rail so it stays visible as the visitor moves
+ * through every section. On narrow screens the rail becomes a normal block at
+ * the top and the sticky header keeps the nav reachable.
  * ------------------------------------------------------------------------ */
 
 .layout {
@@ -1333,8 +1287,8 @@ main {
  * Motion
  *
  * Every animation lives inside this opt-in block, so visitors who ask the OS
- * to reduce motion get a completely still page — the portrait, headings and
- * content all stay visible, only their movement is removed.
+ * to reduce motion get a completely still page — headings and content all stay
+ * visible, only their movement is removed.
  * ------------------------------------------------------------------------ */
 
 /*

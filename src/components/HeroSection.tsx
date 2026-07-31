@@ -1,33 +1,25 @@
-import { m, useReducedMotion } from 'framer-motion'
+import { m } from 'framer-motion'
 import { profile } from '../data/profile'
 import { useHumanTyped } from '../hooks/useHumanTyped'
 import { staggerContainer, staggerItem } from '../lib/motion'
 import { ExternalLink } from './ExternalLink'
 
 /*
- * Split hero adapted from a 21st.dev component to this project's stack: no
- * Tailwind/shadcn — plain CSS with the site's design tokens, and Framer's
+ * Type-led hero: plain CSS with the site's design tokens, and Framer's
  * lightweight m.* components (LazyMotion strict) instead of motion.*.
  *
- * The text column is deliberately spare — just the name (the site's sole
- * <h1>) and a typed origin line in the exact Bangladesh flag colours (white
- * on bottle green #006a4e, red disc #f42a41 as the cursor). The role, city,
- * availability, tagline and resume all live in the terminal and About right
- * below, so repeating them here was redundant. The portrait panel is revealed
- * with the original clip-path wipe; the contact row is GitHub / LinkedIn /
+ * It is deliberately spare — just the name (the site's sole <h1>) and a typed
+ * origin line in the exact Bangladesh flag colours (white on bottle green
+ * #006a4e, red disc #f42a41 as the cursor). The role, city, availability,
+ * tagline and resume all live in the terminal and About right below, so
+ * repeating them here was redundant. The contact row is GitHub / LinkedIn /
  * Email only (no phone or address).
+ *
+ * It began life as a two-column split adapted from 21st.dev, with a portrait
+ * panel revealed by a clip-path wipe. The owner removed the photo entirely, so
+ * the text column now stands alone across the full width and the class names
+ * keep the historical "split" prefix.
  */
-
-const REVEAL_START = 'polygon(100% 0, 100% 0, 100% 100%, 100% 100%)'
-const REVEAL_END = 'polygon(18% 0, 100% 0, 100% 100%, 0% 100%)'
-
-/* Both kept in step with .hero-split__media in global.css, which splits the
-   hero into two columns at 768px. Change one, change the other. */
-const PORTRAIT_SIZES = '(min-width: 768px) 42vw, 100vw'
-const PORTRAIT_MOBILE_MEDIA = '(max-width: 767px)'
-
-const srcSet = (variants: readonly { readonly file: string; readonly width: number }[]) =>
-  variants.map((v) => `${import.meta.env.BASE_URL}${v.file} ${v.width}w`).join(', ')
 
 function ContactIcon({ type }: { type: 'github' | 'linkedin' | 'email' }) {
   const paths = {
@@ -65,12 +57,10 @@ function ContactIcon({ type }: { type: 'github' | 'linkedin' | 'email' }) {
 }
 
 export function HeroSection() {
-  const reduce = useReducedMotion()
   /* The name writes itself first, like a person signing in; the origin line
      waits and starts only once the name is finished. */
   const name = useHumanTyped(profile.name, { startDelayMs: 400 })
   const origin = useHumanTyped(profile.originLine, { startDelayMs: 350, enabled: name.done })
-  const portraitHref = `${import.meta.env.BASE_URL}${profile.portraitFile}`
 
   return (
     <m.section
@@ -86,8 +76,8 @@ export function HeroSection() {
           {/* The ghost span holds the finished name at its final size but
               invisible, stacked in the same grid cell as the typed one.
               Without it the heading starts one line tall and jumps to two the
-              moment the name wraps, shoving the portrait down the page — the
-              single largest layout shift on the site.
+              moment the name wraps, shoving everything below it down the page
+              — this was the single largest layout shift on the site.
 
               Both spans are decorative, so the heading carries the real name as
               its accessible name instead of a third copy in the markup. */}
@@ -134,44 +124,6 @@ export function HeroSection() {
           </a>
         </m.footer>
       </div>
-
-      <m.div
-        className="hero-split__media"
-        initial={{ clipPath: reduce ? REVEAL_END : REVEAL_START }}
-        animate={{ clipPath: REVEAL_END }}
-        transition={{ duration: 1.1, ease: 'circOut' }}
-      >
-        {/* Best format the browser admits to understanding, with the JPEG left
-            as the <img> src so anything older still gets the photo. `sizes`
-            mirrors the CSS: the panel is the full viewport width until the hero
-            splits into two columns at 768px, and 42% of it after that. */}
-        <picture>
-          {/* Phones first: below the split the panel is a short full-width
-              band, and the tall portrait would have roughly 350px of its
-              height cropped off and discarded. The pre-cropped pair is the
-              same photo at the band's shape — a third of the bytes. */}
-          <source
-            media={PORTRAIT_MOBILE_MEDIA}
-            type="image/avif"
-            srcSet={`${import.meta.env.BASE_URL}${profile.portraitMobile.avif}`}
-          />
-          <source
-            media={PORTRAIT_MOBILE_MEDIA}
-            type="image/webp"
-            srcSet={`${import.meta.env.BASE_URL}${profile.portraitMobile.webp}`}
-          />
-          <source type="image/avif" srcSet={srcSet(profile.portraitAvif)} sizes={PORTRAIT_SIZES} />
-          <source type="image/webp" srcSet={srcSet(profile.portraitWebp)} sizes={PORTRAIT_SIZES} />
-          <img
-            className="hero-split__img"
-            src={portraitHref}
-            alt={profile.portraitAlt}
-            width="640"
-            height="800"
-            decoding="async"
-          />
-        </picture>
-      </m.div>
     </m.section>
   )
 }

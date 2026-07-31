@@ -5,8 +5,8 @@ import { Terminal } from './Terminal'
  * stays visible while the visitor scrolls through every section; on narrow
  * screens it becomes a normal block above the content.
  *
- * The single portrait lives in the hero — the rail no longer duplicates it, so
- * this is just the terminal.
+ * This is just the terminal. The site carries no photograph at all — the owner
+ * removed his portrait on 2026-07-31.
  */
 export function ProfileRail() {
   return (

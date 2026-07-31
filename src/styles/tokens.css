@@ -26,10 +26,11 @@
   --text: #dbe4ef;
   --text-muted: #92a3b8;
 
-  /* Bottle-green accent inspired by the Bangladeshi flag's green field, with a
-     flag-red disc used only as a single decorative glow behind the portrait —
-     an inspiration, never the flag itself. --brand-blue keeps its name but now
-     carries a deep-green supporting tone for gradients and borders. */
+  /* Bottle-green accent inspired by the Bangladeshi flag's green field, with
+     flag red kept as a restrained accent (heading underlines, the hero rule,
+     the origin chip's cursor) — an inspiration, never the flag itself.
+     --brand-blue keeps its name but now carries a deep-green supporting tone
+     for gradients and borders. */
   --accent: #10b981;
   --accent-contrast: #04231a;
   --brand-blue: #047857;
