@@ -10,8 +10,12 @@ export const certifications: readonly Certification[] = [
   {
     name: 'AI Security Level 1 (AI1) Certification',
     issuer: 'TryHackMe',
+    /* Still in-progress: "expected Aug 2026" is a projection, not a pass.
+       Move to 'completed' (and drop `expected`) only once it is actually
+       awarded — the whole point of the typed status is that this card cannot
+       quietly overstate. */
     status: 'in-progress',
-    expected: 'expected 2026',
+    expected: 'expected Aug 2026',
     topics: 'Prompt injection, data poisoning / RAG defence, AI supply-chain security',
   },
   {
