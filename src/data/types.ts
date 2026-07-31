@@ -40,6 +40,17 @@ export interface Profile {
    */
   readonly portraitAvif: readonly { readonly file: string; readonly width: number }[]
   readonly portraitWebp: readonly { readonly file: string; readonly width: number }[]
+  /**
+   * Below the 768px split the hero panel is a short full-width band, so the
+   * tall portrait above would have most of its height cropped away by
+   * object-fit and thrown out. These are pre-cropped to that band's shape.
+   * One width only: 640 is the master's full width, so there is nothing
+   * larger to offer a high-DPR phone.
+   */
+  readonly portraitMobile: {
+    readonly avif: string
+    readonly webp: string
+  }
 }
 
 export interface SpeakingEngagement {

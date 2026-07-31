@@ -35,4 +35,11 @@ export const profile = {
     { file: 'portrait-480.webp', width: 480 },
     { file: 'portrait.webp', width: 640 },
   ],
+  /* 640x480, cropped from y=48 of the master so the top of the hair clears the
+     frame and the chin stays well inside. 4:3 because that is almost exactly
+     the shape of the mobile panel at the 360-390px widths most phones report. */
+  portraitMobile: {
+    avif: 'portrait-mobile.avif',
+    webp: 'portrait-mobile.webp',
+  },
 } as const satisfies Profile

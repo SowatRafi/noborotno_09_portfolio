@@ -21,8 +21,10 @@ import { ExternalLink } from './ExternalLink'
 const REVEAL_START = 'polygon(100% 0, 100% 0, 100% 100%, 100% 100%)'
 const REVEAL_END = 'polygon(18% 0, 100% 0, 100% 100%, 0% 100%)'
 
-/* Kept in step with .hero-split__media in global.css. */
+/* Both kept in step with .hero-split__media in global.css, which splits the
+   hero into two columns at 768px. Change one, change the other. */
 const PORTRAIT_SIZES = '(min-width: 768px) 42vw, 100vw'
+const PORTRAIT_MOBILE_MEDIA = '(max-width: 767px)'
 
 const srcSet = (variants: readonly { readonly file: string; readonly width: number }[]) =>
   variants.map((v) => `${import.meta.env.BASE_URL}${v.file} ${v.width}w`).join(', ')
@@ -144,6 +146,20 @@ export function HeroSection() {
             mirrors the CSS: the panel is the full viewport width until the hero
             splits into two columns at 768px, and 42% of it after that. */}
         <picture>
+          {/* Phones first: below the split the panel is a short full-width
+              band, and the tall portrait would have roughly 350px of its
+              height cropped off and discarded. The pre-cropped pair is the
+              same photo at the band's shape — a third of the bytes. */}
+          <source
+            media={PORTRAIT_MOBILE_MEDIA}
+            type="image/avif"
+            srcSet={`${import.meta.env.BASE_URL}${profile.portraitMobile.avif}`}
+          />
+          <source
+            media={PORTRAIT_MOBILE_MEDIA}
+            type="image/webp"
+            srcSet={`${import.meta.env.BASE_URL}${profile.portraitMobile.webp}`}
+          />
           <source type="image/avif" srcSet={srcSet(profile.portraitAvif)} sizes={PORTRAIT_SIZES} />
           <source type="image/webp" srcSet={srcSet(profile.portraitWebp)} sizes={PORTRAIT_SIZES} />
           <img
