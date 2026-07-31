@@ -33,7 +33,12 @@ export function Header() {
   return (
     <header className="header">
       <div className="header__inner container">
-        <a className="header__brand" href="#top" aria-label="Back to top">
+        {/* WCAG 2.5.3 (Label in Name): the accessible name has to start with
+            the label a speech-input user can actually see and say, so it leads
+            with the visible "sowat.rafi" and only then explains the link. The
+            "~$" prompt is decorative and stays hidden — nobody can pronounce
+            it. */}
+        <a className="header__brand" href="#top" aria-label="sowat.rafi — back to top">
           <span className="header__prompt" aria-hidden="true">
             ~$
           </span>{' '}

@@ -127,9 +127,12 @@ export function Terminal() {
           subtree only: the owner wants the terminal to keep floating even when
           the OS asks to reduce motion. Everything else still honours it. */}
       <MotionConfig reducedMotion="never">
+        {/* No aria-label here: ARIA forbids naming a plain <div> that carries
+            no role, and the card needs no name of its own — the surrounding
+            <aside className="rail"> is already labelled "Profile", and the
+            session's output lines are read as ordinary text inside it. */}
         <m.div
           className="term"
-          aria-label="Profile"
           animate={{ rotateY: [-6, 6, -6], rotateX: [3, -3, 3] }}
           transition={{ duration: 9, ease: 'easeInOut', repeat: Infinity }}
         >
