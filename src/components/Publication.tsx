@@ -1,6 +1,7 @@
 import { m } from 'framer-motion'
 import { publication } from '../data/publication'
 import { hoverLift, staggerItem, staggerViewport } from '../lib/motion'
+import { Chevron } from './Chevron'
 import { ExternalLink } from './ExternalLink'
 import { Section } from './Section'
 
@@ -25,7 +26,8 @@ export function Publication() {
             DOI: {publication.doi}
           </ExternalLink>
           <ExternalLink className="card__link" href={publication.repoUrl}>
-            Source on GitHub →
+            Source on GitHub
+            <Chevron />
           </ExternalLink>
         </p>
       </m.article>

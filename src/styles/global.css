@@ -1056,6 +1056,17 @@ main {
   text-decoration: underline;
 }
 
+/* Sits where the old "→" character did: the gap it used to get from a space,
+   and a nudge off the baseline so it centres against lower-case text rather
+   than sitting on the line. */
+.link-chevron {
+  margin-left: 0.4em;
+  vertical-align: -0.09em;
+  /* The chevron is an affordance, not part of the label — never let it be the
+     thing that wraps onto a line by itself. */
+  flex-shrink: 0;
+}
+
 .card--publication {
   max-width: 46rem;
 }

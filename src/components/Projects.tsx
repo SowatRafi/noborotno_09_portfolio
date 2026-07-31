@@ -1,6 +1,7 @@
 import { m } from 'framer-motion'
 import { projects } from '../data/projects'
 import { hoverLift, staggerContainer, staggerItem, staggerViewport } from '../lib/motion'
+import { Chevron } from './Chevron'
 import { ExternalLink } from './ExternalLink'
 import { Section } from './Section'
 
@@ -42,7 +43,8 @@ export function Projects() {
               href={project.repoUrl}
               aria-label={`View ${project.name} on GitHub`}
             >
-              View on GitHub →
+              View on GitHub
+              <Chevron />
             </ExternalLink>
           </m.article>
         ))}

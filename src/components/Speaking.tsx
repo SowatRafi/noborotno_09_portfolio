@@ -1,6 +1,7 @@
 import { m } from 'framer-motion'
 import { speaking } from '../data/speaking'
 import { hoverLift, staggerItem, staggerViewport } from '../lib/motion'
+import { Chevron } from './Chevron'
 import { ExternalLink } from './ExternalLink'
 import { Section } from './Section'
 
@@ -49,7 +50,8 @@ export function Speaking() {
 
         <p className="speaking__cta">
           <ExternalLink className="card__link" href={speaking.ticketUrl}>
-            Event details &amp; tickets →
+            Event details &amp; tickets
+            <Chevron />
           </ExternalLink>
           {/* The code is shown for transparency, not to be copied — the link
               above already carries it as a query parameter. */}
