@@ -43,6 +43,47 @@ const CSP_POLICY = [
   "form-action 'self'",
 ].join('; ')
 
+/*
+ * The two webfonts are discovered only after the browser has downloaded and
+ * parsed the stylesheet that declares them, so the text of the hero (the LCP
+ * element) waits on a two-step request chain and then reflows when the real
+ * font swaps in. Preloading starts both downloads alongside the stylesheet
+ * instead of after it.
+ *
+ * Only the `latin` subsets are preloaded: the other subsets are gated behind
+ * unicode-range and this site's copy never reaches for them, so preloading
+ * those would download bytes the page will not use. The filenames carry a
+ * content hash, so they are read out of the emitted bundle rather than
+ * hard-coded.
+ */
+const PRELOADED_FONT = /-latin-wght-normal-[\w-]+\.woff2$/
+
+function preloadFontsAtBuild(): PluginOption {
+  return {
+    name: 'preload-latin-fonts',
+    apply: 'build',
+    // Runs before the CSP plugin so that its own head-prepend lands on top and
+    // the policy stays the very first thing in <head>.
+    enforce: 'pre',
+    transformIndexHtml(_html, ctx) {
+      const fonts = Object.keys(ctx.bundle ?? {}).filter((file) => PRELOADED_FONT.test(file))
+      return fonts.map((file) => ({
+        tag: 'link',
+        attrs: {
+          rel: 'preload',
+          as: 'font',
+          type: 'font/woff2',
+          href: `${BASE_PATH}${file}`,
+          // Fonts are always fetched in CORS mode, even same-origin ones; a
+          // preload without this flag is discarded and fetched a second time.
+          crossorigin: '',
+        },
+        injectTo: 'head-prepend',
+      }))
+    },
+  }
+}
+
 function injectCspAtBuild(): PluginOption {
   return {
     name: 'inject-csp-meta',
@@ -61,10 +102,19 @@ function injectCspAtBuild(): PluginOption {
 
 export default defineConfig({
   base: BASE_PATH,
-  plugins: [react(), injectCspAtBuild()],
+  plugins: [react(), preloadFontsAtBuild(), injectCspAtBuild()],
   build: {
     // Fail loudly if the bundle ever grows past what a content site needs —
     // a lean bundle is part of the Lighthouse performance budget.
     chunkSizeWarningLimit: 250,
+    /*
+     * Never inline an asset as a data: URI. Vite's default is to inline
+     * anything under 4 kB, which silently swallowed one small font subset
+     * (JetBrains Mono cyrillic-ext) into the stylesheet as base64 — and
+     * `font-src 'self'` blocks data: fonts, so the browser logged a CSP
+     * violation on every page load. Emitting every asset as a real file keeps
+     * the strict policy intact and keeps the render-blocking CSS lean.
+     */
+    assetsInlineLimit: 0,
   },
 })
