@@ -799,7 +799,12 @@ main {
 
 .about {
   display: grid;
-  grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+  /* 4fr, not 3fr: at 3fr the summary ran ~50 characters per line, short enough
+     to read as choppy. 4fr lands on 60 — and the section gets *shorter*
+     (533px → 487px), because a wider column needs fewer lines. Measured past
+     this too: 5fr and 7fr buy no extra characters but do squeeze the education
+     column into wrapping, making the section taller again. */
+  grid-template-columns: minmax(0, 4fr) minmax(0, 2fr);
   gap: 2.5rem;
 }
 
@@ -1266,10 +1271,20 @@ main {
 @media (pointer: coarse) {
   .hero-split__contact,
   .card__link,
-  .footer__link {
+  .footer__link,
+  .term__link {
     display: inline-flex;
     align-items: center;
     min-height: 44px;
+  }
+
+  /* The terminal's links include the resume download, which is the only route
+     to the CV anywhere on the site — the one target that must not be fiddly.
+     Its row gap has to come up with the targets: 0.5rem leaves 44px hit areas
+     8px apart, which is the floor rather than comfortable, and the terminal
+     stacks them on a narrow rail. */
+  .term__links {
+    gap: 0.75rem 1.1rem;
   }
 }
 
