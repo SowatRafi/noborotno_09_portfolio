@@ -860,15 +860,30 @@ main {
 .skills-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(19rem, 1fr));
-  gap: 1rem;
+  /*
+   * Ten bordered cards made this the tallest section on the site by more than
+   * double — 1165px of chrome around content that is already visually
+   * structured. Dropping the cards takes it to 946px (-19%) and the spacing
+   * does the grouping instead.
+   *
+   * The gaps are load-bearing now, so they are measured, not picked: 1.75rem
+   * between rows gives 28px against the 8px between chips inside a group, a
+   * 3.5x ratio that reads as grouping. 2.5rem between columns restores roughly
+   * the 56px the old card padding used to provide. Going wider (3rem) squeezes
+   * the columns enough that chips wrap more and the section grows back to
+   * 986px.
+   */
+  gap: 1.75rem 2.5rem;
 }
 
-.skill-group {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
-  padding: 1.1rem 1.25rem;
-}
+/*
+ * `.skill-group` deliberately has no rule of its own. It used to be a card
+ * (surface fill, border, radius, 1.1rem padding); that chrome is what made the
+ * section 1165px tall. The accent-coloured mono title below delimits each
+ * group and the chips carry their own border and raised fill, so the content
+ * still reads as structured without a box drawn around every cluster. The
+ * class stays in the markup as Framer's stagger target.
+ */
 
 .skill-group__title {
   font-family: var(--font-mono);
