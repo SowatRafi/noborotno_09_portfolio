@@ -534,14 +534,26 @@ a {
 .hero-split__media {
   position: relative;
   width: 100%;
-  min-height: 18rem;
+  /*
+   * Matches portrait-mobile.avif's 4:3 exactly, so object-fit has nothing left
+   * to crop and the whole head stays in frame at every phone width.
+   *
+   * This was `min-height: 18rem` — a fixed height on a fluid width, which meant
+   * the panel grew wider without growing taller. By 767px it was a 2.66:1 slot
+   * showing a 240px-tall window onto a face that needs about 410px, so it cut
+   * the photo off at the mouth. No object-position can rescue a window shorter
+   * than the subject; the height has to follow the width.
+   */
+  aspect-ratio: 4 / 3;
   background: var(--surface);
 }
 
 @media (min-width: 768px) {
   .hero-split__media {
     width: 42%;
-    min-height: auto;
+    /* Side by side the panel takes its height from the row, not from the
+       photo, so the ratio above has to be released. */
+    aspect-ratio: auto;
     align-self: stretch;
   }
 }
