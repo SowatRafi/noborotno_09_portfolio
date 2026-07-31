@@ -21,6 +21,12 @@ import { ExternalLink } from './ExternalLink'
 const REVEAL_START = 'polygon(100% 0, 100% 0, 100% 100%, 100% 100%)'
 const REVEAL_END = 'polygon(18% 0, 100% 0, 100% 100%, 0% 100%)'
 
+/* Kept in step with .hero-split__media in global.css. */
+const PORTRAIT_SIZES = '(min-width: 768px) 42vw, 100vw'
+
+const srcSet = (variants: readonly { readonly file: string; readonly width: number }[]) =>
+  variants.map((v) => `${import.meta.env.BASE_URL}${v.file} ${v.width}w`).join(', ')
+
 function ContactIcon({ type }: { type: 'github' | 'linkedin' | 'email' }) {
   const paths = {
     github: (
@@ -75,11 +81,18 @@ export function HeroSection() {
     >
       <div className="hero-split__content">
         <div>
-          {/* Screen readers and search engines get the real name; the typed
-              span is decorative chrome written on top of it, and its caret
-              disappears once the name is finished. */}
-          <m.h1 className="hero-split__title" variants={staggerItem}>
-            <span className="visually-hidden">{profile.name}</span>
+          {/* The ghost span holds the finished name at its final size but
+              invisible, stacked in the same grid cell as the typed one.
+              Without it the heading starts one line tall and jumps to two the
+              moment the name wraps, shoving the portrait down the page — the
+              single largest layout shift on the site.
+
+              Both spans are decorative, so the heading carries the real name as
+              its accessible name instead of a third copy in the markup. */}
+          <m.h1 className="hero-split__title" variants={staggerItem} aria-label={profile.name}>
+            <span className="hero-split__title-ghost" aria-hidden="true">
+              {profile.name}
+            </span>
             <span
               className={
                 name.done
@@ -126,14 +139,22 @@ export function HeroSection() {
         animate={{ clipPath: REVEAL_END }}
         transition={{ duration: 1.1, ease: 'circOut' }}
       >
-        <img
-          className="hero-split__img"
-          src={portraitHref}
-          alt={profile.portraitAlt}
-          width="640"
-          height="800"
-          decoding="async"
-        />
+        {/* Best format the browser admits to understanding, with the JPEG left
+            as the <img> src so anything older still gets the photo. `sizes`
+            mirrors the CSS: the panel is the full viewport width until the hero
+            splits into two columns at 768px, and 42% of it after that. */}
+        <picture>
+          <source type="image/avif" srcSet={srcSet(profile.portraitAvif)} sizes={PORTRAIT_SIZES} />
+          <source type="image/webp" srcSet={srcSet(profile.portraitWebp)} sizes={PORTRAIT_SIZES} />
+          <img
+            className="hero-split__img"
+            src={portraitHref}
+            alt={profile.portraitAlt}
+            width="640"
+            height="800"
+            decoding="async"
+          />
+        </picture>
       </m.div>
     </m.section>
   )

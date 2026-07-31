@@ -32,6 +32,14 @@ export interface Profile {
   /** Portrait filename inside public/, plus its accessible description. */
   readonly portraitFile: string
   readonly portraitAlt: string
+  /**
+   * Modern renditions of the portrait, smallest first, each with the intrinsic
+   * width the browser needs to pick between them. AVIF is offered first (same
+   * photo, noticeably fewer bytes), then WebP; the JPEG above stays as the
+   * fallback for anything that can decode neither.
+   */
+  readonly portraitAvif: readonly { readonly file: string; readonly width: number }[]
+  readonly portraitWebp: readonly { readonly file: string; readonly width: number }[]
 }
 
 export interface SkillGroup {

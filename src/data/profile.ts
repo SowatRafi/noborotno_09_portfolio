@@ -27,4 +27,12 @@ export const profile = {
   resumeFile: 'Resume of Sowat H Rafi.pdf',
   portraitFile: 'portrait.jpg',
   portraitAlt: 'Portrait of Sowat Hossain Rafi',
+  portraitAvif: [
+    { file: 'portrait-480.avif', width: 480 },
+    { file: 'portrait.avif', width: 640 },
+  ],
+  portraitWebp: [
+    { file: 'portrait-480.webp', width: 480 },
+    { file: 'portrait.webp', width: 640 },
+  ],
 } as const satisfies Profile

@@ -389,6 +389,9 @@ a {
 }
 
 .hero-split__title {
+  /* The ghost and the typed name share one grid cell, so the heading is always
+     as tall as the finished name and never grows a line while it types. */
+  display: grid;
   margin: 0;
   font-size: clamp(2.7rem, 6vw, 4.25rem);
   line-height: 1.05;
@@ -399,12 +402,25 @@ a {
   text-wrap: balance;
 }
 
-/* The name is typed in on load by useHumanTyped. The span reserves one line
-   of height so the hero never collapses before the first keystroke, and its
-   caret (a slim green bar) blinks while writing, then disappears when done. */
+/* The name is typed in on load by useHumanTyped. Its caret (a slim green bar)
+   blinks while writing, then disappears when done. The height comes from the
+   ghost stacked underneath, so no keystroke can ever reflow the page. */
+.hero-split__title-ghost,
 .hero-split__title-typed {
+  grid-area: 1 / 1;
+}
+
+.hero-split__title-ghost {
+  visibility: hidden;
+}
+
+/* Reserve the caret's sliver of width too, so the last keystroke before the
+   caret vanishes cannot be the one that tips the name onto an extra line. */
+.hero-split__title-ghost::after {
+  content: '';
   display: inline-block;
-  min-height: 1.05em;
+  width: 0.07em;
+  margin-left: 0.06em;
 }
 
 .hero-split__title-typed::after {
@@ -521,6 +537,12 @@ a {
     min-height: auto;
     align-self: stretch;
   }
+}
+
+/* <picture> only exists to offer the WebP sources; it must not add a line box
+   of its own to the panel that the portrait is absolutely positioned inside. */
+.hero-split__media picture {
+  display: contents;
 }
 
 .hero-split__img {
