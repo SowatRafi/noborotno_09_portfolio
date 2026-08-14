@@ -1224,6 +1224,15 @@ main {
   margin: 0.35rem 0 0;
 }
 
+/* Sits under the topics line inside .cert__main, which is a plain block — so
+   .card__link's `margin-top: auto` resolves to 0 here and this sets the gap
+   itself. inline-flex keeps the chevron on the text baseline. */
+.cert__verify {
+  display: inline-flex;
+  align-items: center;
+  margin-top: 0.6rem;
+}
+
 .badge {
   font-family: var(--font-mono);
   font-size: 0.78rem;

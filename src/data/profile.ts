@@ -14,7 +14,7 @@ export const profile = {
   githubUrl: 'https://github.com/SowatRafi',
   summary: [
     'Master of Cybersecurity graduate with hands-on experience in SIEM monitoring, alert triage, phishing investigation, and digital forensics from academic SOC simulations and the Telstra virtual experience program, plus current industry experience as an AI Engineer Intern building ML features in Python.',
-    'Skilled with Splunk (SPL), Wireshark, Autopsy, and TheHive; familiar with MITRE ATT&CK, NIST CSF, the Essential Eight, and the OWASP Top 10 for LLM Applications. Currently completing the TryHackMe AI Security Level 1 (AI1) and SOC Analyst Level 1 (SAL1) certifications, both expected in 2026.',
+    'Skilled with Splunk (SPL), Wireshark, Autopsy, and TheHive; familiar with MITRE ATT&CK, NIST CSF, the Essential Eight, and the OWASP Top 10 for LLM Applications. Holds the TryHackMe AI Security Level 1 (AI1) certification, and is currently completing SOC Analyst Level 1 (SAL1), expected in 2026.',
     'Available full-time, including rotating shift rosters and on-site attendance.',
   ],
   tagline:

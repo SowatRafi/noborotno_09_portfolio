@@ -103,4 +103,10 @@ export interface Certification {
   /** Shown for in-progress items, e.g. "expected 2026". */
   readonly expected?: string
   readonly topics?: string
+  /**
+   * Public verification page for a completed certification (Credly and the
+   * like). Optional because not every issuer provides one — a certificate
+   * without a verifiable link is still listed, just not linked.
+   */
+  readonly credentialUrl?: string
 }

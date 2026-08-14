@@ -10,13 +10,11 @@ export const certifications: readonly Certification[] = [
   {
     name: 'AI Security Level 1 (AI1) Certification',
     issuer: 'TryHackMe',
-    /* Still in-progress: "expected Aug 2026" is a projection, not a pass.
-       Move to 'completed' (and drop `expected`) only once it is actually
-       awarded — the whole point of the typed status is that this card cannot
-       quietly overstate. */
-    status: 'in-progress',
-    expected: 'expected Aug 2026',
+    /* Awarded 2026-07-31. `expected` is gone with the projection it described;
+       the Credly page is the proof, which is what makes this worth claiming. */
+    status: 'completed',
     topics: 'Prompt injection, data poisoning / RAG defence, AI supply-chain security',
+    credentialUrl: 'https://www.credly.com/badges/7895034b-90ed-4314-8db6-13eeaa64ec2b/public_url',
   },
   {
     name: 'SOC Analyst Level 1 (SAL1) Certification',
