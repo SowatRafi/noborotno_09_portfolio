@@ -2,7 +2,6 @@ import { m } from 'framer-motion'
 import { profile } from '../data/profile'
 import { useHumanTyped } from '../hooks/useHumanTyped'
 import { staggerContainer, staggerItem } from '../lib/motion'
-import { Chevron } from './Chevron'
 import { ExternalLink } from './ExternalLink'
 
 /*
@@ -109,10 +108,6 @@ export function HeroSection() {
         </div>
 
         <m.footer className="hero-split__footer" variants={staggerItem}>
-          <a className="hero-split__contact hero-split__action" href="#experience">
-            View experience
-            <Chevron />
-          </a>
           <ExternalLink className="hero-split__contact" href={profile.githubUrl}>
             <ContactIcon type="github" />
             GitHub

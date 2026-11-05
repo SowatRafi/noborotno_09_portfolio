@@ -543,20 +543,6 @@ a {
   color: var(--accent);
 }
 
-.hero-split__action {
-  min-height: 44px;
-  padding: 0 0.875rem;
-  border: 1px solid var(--accent);
-  border-radius: var(--radius);
-  color: var(--accent);
-  font-weight: 600;
-}
-
-.hero-split__action:hover {
-  background: var(--accent);
-  color: var(--bg);
-}
-
 .hero-split__icon {
   flex: none;
   color: var(--accent);
@@ -732,12 +718,6 @@ a {
   gap: 0.5em;
   color: var(--accent);
   font-weight: 600;
-}
-
-.term__resume {
-  margin: 0 0 0.75rem;
-  padding-bottom: 0.5rem;
-  border-bottom: 1px solid var(--border);
 }
 
 /* Lines the replayed session has not reached yet keep their space — the card
