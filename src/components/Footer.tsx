@@ -11,8 +11,6 @@ export function Footer() {
     <footer id="contact" className="footer" aria-label="Contact">
       <div className="container">
         <h2 className="section__title">Contact</h2>
-        {/* The base location is given as coordinates (Melbourne's), echoing
-            the hero's BUILT IN line — and the reach is worldwide. */}
         <p className="footer__lead">{profile.contactLead}</p>
         <ul className="footer__links">
           <li>

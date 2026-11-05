@@ -1,7 +1,8 @@
 import { m } from 'framer-motion'
-import { profile, resumeHref } from '../data/profile'
+import { profile } from '../data/profile'
 import { useHumanTyped } from '../hooks/useHumanTyped'
 import { staggerContainer, staggerItem } from '../lib/motion'
+import { Chevron } from './Chevron'
 import { ExternalLink } from './ExternalLink'
 
 /*
@@ -91,6 +92,9 @@ export function HeroSection() {
           <m.p className="hero-split__role" variants={staggerItem}>
             {profile.titleLine}
           </m.p>
+          <m.p className="hero-split__tagline" variants={staggerItem}>
+            {profile.tagline}
+          </m.p>
 
           <m.span className="hero-split__rule" variants={staggerItem} aria-hidden="true" />
 
@@ -105,11 +109,9 @@ export function HeroSection() {
         </div>
 
         <m.footer className="hero-split__footer" variants={staggerItem}>
-          <a className="hero-split__contact hero-split__resume" href={resumeHref} download>
-            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-              <path d="M12 3v12m-5-5 5 5 5-5M4 17v4h16v-4" />
-            </svg>
-            Download résumé (PDF)
+          <a className="hero-split__contact hero-split__action" href="#experience">
+            View experience
+            <Chevron />
           </a>
           <ExternalLink className="hero-split__contact" href={profile.githubUrl}>
             <ContactIcon type="github" />

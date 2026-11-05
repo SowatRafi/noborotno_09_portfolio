@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { m, MotionConfig } from 'framer-motion'
-import { profile, resumeHref } from '../data/profile'
+import { profile } from '../data/profile'
 import { ExternalLink } from './ExternalLink'
 
 /*
@@ -27,7 +27,7 @@ import { ExternalLink } from './ExternalLink'
 /* The session script. `exit` is the loop point: bash answers it with
    `logout`, then the screen resets and a fresh session begins. These strings
    are terminal chrome, not site content. */
-const COMMANDS = ['whoami', 'pwd', 'cat status.txt', 'ls contact/', 'open resume.pdf', 'exit'] as const
+const COMMANDS = ['whoami', 'pwd', 'cat status.txt', 'ls contact/', 'exit'] as const
 
 /* A plausible adjacent key for each letter, so typos look like slips of the
    finger rather than random noise. */
@@ -53,6 +53,7 @@ interface ShellState {
 const SESSION_START: ShellState = { active: 0, typed: '', printed: false }
 
 export function Terminal() {
+  const resumeHref = `${import.meta.env.BASE_URL}${encodeURIComponent(profile.resumeFile)}`
   const [shell, setShell] = useState<ShellState>(SESSION_START)
 
   useEffect(() => {
@@ -143,6 +144,13 @@ export function Terminal() {
       </div>
 
       <div className="term__body">
+        <p className="term__resume">
+          <a className="term__link term__link--strong" href={resumeHref} download>
+            <span aria-hidden="true">↓</span>
+            Download résumé (PDF)
+          </a>
+        </p>
+
         <p className={cmdClass(0)} aria-hidden="true">
           <span className={typedClass(0)}>{typedText(0)}</span>
         </p>
@@ -178,17 +186,8 @@ export function Terminal() {
         <p className={cmdClass(4)} aria-hidden="true">
           <span className={typedClass(4)}>{typedText(4)}</span>
         </p>
-        <p className={outClass(4, 'term__out')}>
-          <a className="term__link term__link--strong" href={resumeHref} download>
-            ↓ resume.pdf
-          </a>
-        </p>
-
-        <p className={cmdClass(5)} aria-hidden="true">
-          <span className={typedClass(5)}>{typedText(5)}</span>
-        </p>
         {/* bash's real farewell to `exit` — chrome, not content. */}
-        <p className={outClass(5, 'term__out')} aria-hidden="true">
+        <p className={outClass(4, 'term__out')} aria-hidden="true">
           logout
         </p>
         </div>

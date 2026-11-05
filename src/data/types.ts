@@ -25,7 +25,7 @@ export interface Profile {
   readonly city: string
   /** One-line availability for the terminal `cat status` output. */
   readonly availability: string
-  /** Footer contact lead — base location as coordinates + worldwide reach. */
+  /** Footer contact lead. */
   readonly contactLead: string
   /** Resume filename inside public/. */
   readonly resumeFile: string

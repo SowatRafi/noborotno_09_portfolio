@@ -35,11 +35,11 @@ export default function App() {
           <ProfileRail />
           <main id="main" className="content">
             <About />
-            <Skills />
             <Experience />
-            <Projects />
-            <Publication />
             <Certifications />
+            <Projects />
+            <Skills />
+            <Publication />
           </main>
         </div>
         <Footer />

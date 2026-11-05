@@ -7,22 +7,22 @@ import type { Project } from './types'
 export const projects = [
   {
     name: 'Real-Time Network Intrusion Detection System (NIDS)',
-    stack: ['Python', 'Scapy', 'Nmap', 'scikit-learn'],
+    stack: ['Python', 'Scapy', 'scikit-learn'],
     period: 'May 2025',
     repoUrl: 'https://github.com/SowatRafi/Real-Time-Intrusion-Detection-System-with-Python',
     highlights: [
-      'Captures live traffic, detects anomalous patterns, and raises real-time alerts, mirroring SIEM-style detection and triage.',
-      'Signature-based and ML (anomaly-based) detection with structured JSON logging ready for SIEM ingestion.',
+      'Captures live packets and analyses TCP/IP flows for signs of SYN floods and port scans.',
+      'Uses Isolation Forest to flag anomalous traffic and logs alerts as structured JSON.',
     ],
   },
   {
     name: 'Discovr — Multi-Cloud Asset Discovery & Risk Assessment',
-    stack: ['Python', 'Go', 'Azure SDK', 'AWS Boto3', 'Nmap'],
+    stack: ['Python', 'PySide6', 'AWS', 'Azure', 'Google Cloud'],
     period: 'Oct 2025',
     repoUrl: 'https://github.com/SowatRafi/Discovr-Assest-Discovery',
     highlights: [
-      'Discovers and risk-classifies assets across AWS, Azure, and GCP, surfacing exposed services and misconfigurations.',
-      'Automated CSV/JSON reporting consolidating findings into a single asset inventory.',
+      'Inventories assets across local networks, Active Directory, AWS, Azure and Google Cloud.',
+      'Assigns risk ratings using heuristics and exports CSV, HTML and JSON reports for security reviews.',
     ],
   },
 ] as const satisfies readonly Project[]

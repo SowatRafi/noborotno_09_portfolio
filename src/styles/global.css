@@ -420,6 +420,13 @@ a {
   text-wrap: balance;
 }
 
+.hero-split__tagline {
+  max-width: 46ch;
+  margin: 0.5rem auto 0;
+  color: var(--text-muted);
+  text-wrap: balance;
+}
+
 /* The name is typed in on load by useHumanTyped. Its caret (a slim green bar)
    blinks while writing, then disappears when done. The height comes from the
    ghost stacked underneath, so no keystroke can ever reflow the page. */
@@ -536,7 +543,7 @@ a {
   color: var(--accent);
 }
 
-.hero-split__resume {
+.hero-split__action {
   min-height: 44px;
   padding: 0 0.875rem;
   border: 1px solid var(--accent);
@@ -545,7 +552,7 @@ a {
   font-weight: 600;
 }
 
-.hero-split__resume:hover {
+.hero-split__action:hover {
   background: var(--accent);
   color: var(--bg);
 }
@@ -720,8 +727,17 @@ a {
 }
 
 .term__link--strong {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5em;
   color: var(--accent);
   font-weight: 600;
+}
+
+.term__resume {
+  margin: 0 0 0.75rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--border);
 }
 
 /* Lines the replayed session has not reached yet keep their space — the card

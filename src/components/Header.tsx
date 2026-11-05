@@ -9,11 +9,11 @@ import { useTheme } from '../hooks/useTheme'
  */
 const NAV_ITEMS = [
   ['about', 'About'],
-  ['skills', 'Skills'],
   ['experience', 'Experience'],
-  ['projects', 'Projects'],
-  ['research', 'Research'],
   ['certifications', 'Certifications'],
+  ['projects', 'Projects'],
+  ['skills', 'Skills'],
+  ['research', 'Research'],
   ['contact', 'Contact'],
 ] as const
 
