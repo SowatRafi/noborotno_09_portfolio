@@ -486,15 +486,14 @@ a {
   background: var(--flag-green);
   color: #ffffff;
   font-family: var(--font-mono);
-  font-size: 0.85rem;
+  font-size: clamp(0.7rem, 3.6vw, 0.85rem);
   font-weight: 600;
   letter-spacing: 0.06em;
-  white-space: nowrap;
 }
 
 .hero-split__origin-typed {
   display: inline-block;
-  white-space: nowrap;
+  overflow-wrap: anywhere;
   min-height: 1.5em; /* keeps the chip's height before the first keystroke */
 }
 
@@ -874,7 +873,7 @@ main {
 
 .skills-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(19rem, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 19rem), 1fr));
   /*
    * Ten bordered cards made this the tallest section on the site by more than
    * double — 1165px of chrome around content that is already visually
@@ -986,7 +985,7 @@ main {
 
 .card-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 20rem), 1fr));
   gap: 1.25rem;
 }
 
@@ -1117,6 +1116,7 @@ main {
   flex-wrap: wrap;
   gap: 0.5rem 1.5rem;
   margin: 0;
+  overflow-wrap: anywhere;
 }
 
 /* ---------------------------------------------------------------------------
