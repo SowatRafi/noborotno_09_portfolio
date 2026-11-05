@@ -27,32 +27,12 @@ export interface Profile {
   readonly availability: string
   /** Footer contact lead — base location as coordinates + worldwide reach. */
   readonly contactLead: string
-  /** Resume filename inside public/ — components must URL-encode it. */
+  /** Resume filename inside public/. */
   readonly resumeFile: string
   /*
    * No portrait fields: the owner removed his photo from the site entirely on
    * 2026-07-31. The hero is type-led now. Don't reintroduce one without asking.
    */
-}
-
-export interface SpeakingEngagement {
-  /** The specific session being delivered, e.g. "Workshop 2 · SECURE". */
-  readonly session: string
-  /** The umbrella event the session sits inside. */
-  readonly event: string
-  /** Stated plainly so the card can never be mistaken for one attended, and
-      names the organisation he delivers it for. */
-  readonly role: string
-  readonly location: string
-  /** Machine-readable start for <time datetime>; also decides the badge. */
-  readonly startIso: string
-  /** Written out in full — "23/08/26" is ambiguous across locales. */
-  readonly dateLabel: string
-  readonly summary: string
-  readonly ticketUrl: string
-  /** Shown for transparency; ticketUrl already applies it. */
-  readonly discountCode: string
-  readonly discountNote: string
 }
 
 export interface SkillGroup {

@@ -6,10 +6,11 @@ export const experience: readonly ExperienceEntry[] = [
     role: 'AI Engineer Intern',
     organisation: 'Unwind AI and Data Pty Ltd',
     location: 'Melbourne',
-    period: 'Jun 2026 – Present',
+    period: 'Jun 2026 – Sep 2026',
     highlights: [
-      'Building, testing, and iterating on AI/ML features in Python on real-world projects, collaborating with engineers and stakeholders.',
-      'Working hands-on with modern AI tooling and data workflows — developing first-hand understanding of how production AI systems are built, the foundation for assessing where they can be attacked and how to defend them.',
+      'Contributed Python features to an AI video analysis platform for physical security monitoring.',
+      'Built and tested workflows for event detection and person re-identification.',
+      'Collaborated with engineers and stakeholders to clarify requirements, review outputs and refine features.',
     ],
   },
   {

@@ -1,5 +1,5 @@
 import { m } from 'framer-motion'
-import { profile } from '../data/profile'
+import { profile, resumeHref } from '../data/profile'
 import { useHumanTyped } from '../hooks/useHumanTyped'
 import { staggerContainer, staggerItem } from '../lib/motion'
 import { ExternalLink } from './ExternalLink'
@@ -8,17 +8,8 @@ import { ExternalLink } from './ExternalLink'
  * Type-led hero: plain CSS with the site's design tokens, and Framer's
  * lightweight m.* components (LazyMotion strict) instead of motion.*.
  *
- * It is deliberately spare — just the name (the site's sole <h1>) and a typed
- * origin line in the exact Bangladesh flag colours (white on bottle green
- * #006a4e, red disc #f42a41 as the cursor). The role, city, availability,
- * tagline and resume all live in the terminal and About right below, so
- * repeating them here was redundant. The contact row is GitHub / LinkedIn /
- * Email only (no phone or address).
- *
- * It began life as a two-column split adapted from 21st.dev, with a portrait
- * panel revealed by a clip-path wipe. The owner removed the photo entirely, so
- * the text column now stands alone across the full width and the class names
- * keep the historical "split" prefix.
+ * The name and role introduce the portfolio. The typed origin line uses the
+ * Bangladesh flag colours.
  */
 
 function ContactIcon({ type }: { type: 'github' | 'linkedin' | 'email' }) {
@@ -97,6 +88,10 @@ export function HeroSection() {
             </span>
           </m.h1>
 
+          <m.p className="hero-split__role" variants={staggerItem}>
+            {profile.titleLine}
+          </m.p>
+
           <m.span className="hero-split__rule" variants={staggerItem} aria-hidden="true" />
 
           {/* Screen readers get the finished line; the typed replay is
@@ -110,6 +105,12 @@ export function HeroSection() {
         </div>
 
         <m.footer className="hero-split__footer" variants={staggerItem}>
+          <a className="hero-split__contact hero-split__resume" href={resumeHref} download>
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <path d="M12 3v12m-5-5 5 5 5-5M4 17v4h16v-4" />
+            </svg>
+            Download résumé (PDF)
+          </a>
           <ExternalLink className="hero-split__contact" href={profile.githubUrl}>
             <ContactIcon type="github" />
             GitHub

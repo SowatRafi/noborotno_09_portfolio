@@ -11,7 +11,6 @@ const NAV_ITEMS = [
   ['about', 'About'],
   ['skills', 'Skills'],
   ['experience', 'Experience'],
-  ['speaking', 'Speaking'],
   ['projects', 'Projects'],
   ['research', 'Research'],
   ['certifications', 'Certifications'],

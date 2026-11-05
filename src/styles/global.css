@@ -383,12 +383,8 @@ a {
   display: flex;
   flex: 1;
   flex-direction: column;
-  /* One centred cluster — name, rule, chip, contacts. This was
-     space-between, which pinned the contact row to the bottom edge so it
-     could sit opposite the portrait; with the photo gone that just opened a
-     170px hole in the middle of the hero. */
   justify-content: center;
-  gap: 2.5rem;
+  gap: 1.75rem;
   padding: 2.5rem 1.25rem;
 }
 
@@ -413,6 +409,14 @@ a {
   color: var(--text);
   /* If the bigger name wraps in the narrower mid-width column, balance the
      lines rather than orphaning the last word. */
+  text-wrap: balance;
+}
+
+.hero-split__role {
+  margin: 0.75rem 0 0;
+  color: var(--text-muted);
+  font-size: clamp(1rem, 2.5vw, 1.25rem);
+  font-weight: 600;
   text-wrap: balance;
 }
 
@@ -507,20 +511,16 @@ a {
 }
 
 .hero-split__footer {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 0.75rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem 1.25rem;
 }
 
 @media (min-width: 640px) {
   .hero-split__footer {
-    grid-template-columns: repeat(3, auto);
-    /* Centred, not start-aligned: the row used to sit under a narrow text
-       column beside the portrait, where flush-left read fine. Now that the
-       column is the full page, left-aligned links under a centred name look
-       like a mistake. */
-    justify-content: center;
-    gap: 1.75rem;
+    column-gap: 1.75rem;
   }
 }
 
@@ -535,6 +535,20 @@ a {
 
 .hero-split__contact:hover {
   color: var(--accent);
+}
+
+.hero-split__resume {
+  min-height: 44px;
+  padding: 0 0.875rem;
+  border: 1px solid var(--accent);
+  border-radius: var(--radius);
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.hero-split__resume:hover {
+  background: var(--accent);
+  color: var(--bg);
 }
 
 .hero-split__icon {
@@ -1106,84 +1120,6 @@ main {
 }
 
 /* ---------------------------------------------------------------------------
- * Speaking — reuses .card, .badge and .card__link; only the head row, the
- * meta line and the discount chip are new.
- * ------------------------------------------------------------------------ */
-
-.speaking__head {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 0.5rem 1rem;
-}
-
-.speaking__head .publication__venue {
-  margin: 0.3rem 0 0;
-}
-
-.speaking__when {
-  font-family: var(--font-mono);
-  font-size: 0.85rem;
-  color: var(--text-muted);
-  margin: 0.75rem 0 1rem;
-}
-
-.speaking__cta {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 0.6rem 1.25rem;
-  margin: 0;
-}
-
-/* Unlike the reference links elsewhere ("View on GitHub"), this one is a real
-   action, so it gets a 44px touch target. Outlined rather than filled: the
-   card has to read as a credential, not an advertisement. The margin-top reset
-   undoes .card__link's push-to-bottom, which would drop it off this row's
-   shared baseline. */
-.speaking__cta .card__link {
-  display: inline-flex;
-  align-items: center;
-  min-height: 44px;
-  margin-top: 0;
-  padding: 0 1rem;
-  border: 1px solid var(--accent);
-  border-radius: var(--radius);
-  /* Deliberately no transition on colour. This section starts below the fold
-     with Framer holding it hidden until it scrolls into view, and a
-     transition on a theme-dependent colour leaves the never-painted element
-     stuck on the old theme's accent after a theme switch. Every other link on
-     the site changes instantly too, so this also stays consistent. */
-}
-
-.speaking__cta .card__link:hover {
-  background: var(--accent);
-  /* Page background on the accent fill: dark-on-green in the dark theme,
-     light-on-bottle-green in the light one. Both clear 4.5:1. */
-  color: var(--bg);
-  text-decoration: none;
-}
-
-.speaking__discount {
-  font-size: 0.85rem;
-  color: var(--text-muted);
-}
-
-.speaking__code {
-  font-family: var(--font-mono);
-  font-size: 0.82rem;
-  padding: 0.15rem 0.45rem;
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  /* Page background on a surface-coloured card reads as an inset chip in both
-     themes without needing a token of its own. */
-  background: var(--bg);
-  color: var(--accent);
-  overflow-wrap: anywhere;
-}
-
-/* ---------------------------------------------------------------------------
  * Certifications
  * ------------------------------------------------------------------------ */
 
@@ -1303,11 +1239,6 @@ main {
     min-height: 44px;
   }
 
-  /* The terminal's links include the resume download, which is the only route
-     to the CV anywhere on the site — the one target that must not be fiddly.
-     Its row gap has to come up with the targets: 0.5rem leaves 44px hit areas
-     8px apart, which is the floor rather than comfortable, and the terminal
-     stacks them on a narrow rail. */
   .term__links {
     gap: 0.75rem 1.1rem;
   }

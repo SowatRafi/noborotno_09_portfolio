@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { m, MotionConfig } from 'framer-motion'
-import { profile } from '../data/profile'
+import { profile, resumeHref } from '../data/profile'
 import { ExternalLink } from './ExternalLink'
 
 /*
@@ -53,7 +53,6 @@ interface ShellState {
 const SESSION_START: ShellState = { active: 0, typed: '', printed: false }
 
 export function Terminal() {
-  const resumeHref = `${import.meta.env.BASE_URL}${encodeURIComponent(profile.resumeFile)}`
   const [shell, setShell] = useState<ShellState>(SESSION_START)
 
   useEffect(() => {
