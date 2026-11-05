@@ -27,6 +27,7 @@ export const certifications: readonly Certification[] = [
     name: 'Google Cybersecurity Professional Certificate',
     issuer: 'Coursera',
     status: 'completed',
+    credentialUrl: 'https://www.credly.com/badges/10417210-8717-4edc-9d17-0289a8adc880',
   },
   {
     name: 'Cyber Incident Response & Digital Forensics',
