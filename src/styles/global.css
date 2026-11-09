@@ -404,8 +404,16 @@ a {
   letter-spacing: -0.065em;
 }
 
-.hero-split__family-name {
-  color: var(--accent);
+.hero-split__silver {
+  color: var(--name-silver);
+}
+
+.hero-split__honey {
+  color: var(--name-honey);
+}
+
+.hero-split__rose {
+  color: var(--name-rose);
 }
 
 .hero-split__typed-line {
@@ -426,7 +434,7 @@ a {
   width: 0.055em;
   height: 0.72em;
   margin: 0.12em 0 0 0.05em;
-  background: var(--accent);
+  background: currentColor;
   content: '';
 }
 

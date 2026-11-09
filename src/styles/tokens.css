@@ -33,6 +33,9 @@
   --brand-blue-soft: rgba(4, 120, 87, 0.35);
   --hero-grid: color-mix(in srgb, var(--accent) 14%, transparent);
   --hero-glow: color-mix(in srgb, var(--accent) 12%, transparent);
+  --name-silver: #c0c0c0;
+  --name-honey: #f5c563;
+  --name-rose: #fb86ad;
 
   --flag-red: #f42a41;
   --flag-green: #006a4e;
@@ -84,6 +87,9 @@
   --accent-contrast: #ecfdf5;
   --brand-blue: #065f46;
   --brand-blue-soft: rgba(6, 95, 70, 0.18);
+  --name-silver: #515b67;
+  --name-honey: #765306;
+  --name-rose: #9d2856;
 
   --flag-red: #f42a41;
 
@@ -117,6 +123,9 @@
     --accent-contrast: #ecfdf5;
     --brand-blue: #065f46;
     --brand-blue-soft: rgba(6, 95, 70, 0.18);
+    --name-silver: #515b67;
+    --name-honey: #765306;
+    --name-rose: #9d2856;
 
     --flag-red: #f42a41;
 

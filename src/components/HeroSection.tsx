@@ -50,11 +50,16 @@ function ContactIcon({ type }: { type: 'github' | 'linkedin' | 'email' }) {
 }
 
 export function HeroSection() {
-  const [givenName, ...familyNames] = profile.name.split(' ')
-  const familyName = familyNames.join(' ')
+  const [givenName, middleName, lastName] = profile.name.split(' ')
   const [typedLength, setTypedLength] = useState(0)
+  const [lastNameFrame, setLastNameFrame] = useState(0)
   const nameLength = profile.name.length
+  const lastNameStart = nameLength - lastName.length
   const coordinatesLength = Math.max(0, typedLength - nameLength)
+  const introFinished = coordinatesLength === COORDINATES.length
+  const lastNameLength = introFinished
+    ? Math.abs(lastName.length - lastNameFrame)
+    : Math.max(0, typedLength - lastNameStart)
 
   useEffect(() => {
     if (typedLength === nameLength + COORDINATES.length) return
@@ -63,6 +68,21 @@ export function HeroSection() {
     const timer = window.setTimeout(() => setTypedLength(typedLength + 1), delay)
     return () => window.clearTimeout(timer)
   }, [typedLength, nameLength])
+
+  useEffect(() => {
+    if (!introFinished) return
+
+    // The frame walks from the full surname to empty and back.
+    let delay = lastNameFrame < lastName.length ? 95 : 140
+    if (lastNameFrame === 0) delay = 1400
+    if (lastNameFrame === lastName.length) delay = 300
+
+    const timer = window.setTimeout(
+      () => setLastNameFrame((lastNameFrame + 1) % (lastName.length * 2)),
+      delay,
+    )
+    return () => window.clearTimeout(timer)
+  }, [introFinished, lastName.length, lastNameFrame])
 
   return (
     <m.section
@@ -79,14 +99,26 @@ export function HeroSection() {
           <h1 className="hero-split__title" aria-label={profile.name}>
             <span className="hero-split__typed-line" aria-hidden="true">
               <span className="hero-split__measure">{givenName}</span>
-              <span data-typing={typedLength < givenName.length}>
+              <span className="hero-split__silver" data-typing={typedLength < givenName.length}>
                 {givenName.slice(0, typedLength)}
               </span>
             </span>
-            <span className="hero-split__typed-line hero-split__family-name" aria-hidden="true">
-              <span className="hero-split__measure">{familyName}</span>
-              <span data-typing={typedLength >= givenName.length && typedLength < nameLength}>
-                {familyName.slice(0, Math.max(0, typedLength - givenName.length - 1))}
+            <span className="hero-split__typed-line" aria-hidden="true">
+              <span className="hero-split__measure">{middleName} {lastName}</span>
+              <span>
+                <span
+                  className="hero-split__honey"
+                  data-typing={typedLength >= givenName.length && typedLength < lastNameStart}
+                >
+                  {middleName.slice(0, Math.max(0, typedLength - givenName.length - 1))}
+                </span>
+                {typedLength >= lastNameStart && ' '}
+                <span
+                  className="hero-split__rose"
+                  data-typing={typedLength >= lastNameStart && (typedLength < nameLength || introFinished)}
+                >
+                  {lastName.slice(0, lastNameLength)}
+                </span>
               </span>
             </span>
           </h1>
