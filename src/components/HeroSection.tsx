@@ -131,6 +131,16 @@ export function HeroSection() {
     return () => window.clearTimeout(timer)
   }, [introFinished, lastName.length, lastNameFrame])
 
+  const animatedLastName = (
+    <span
+      className="hero-split__last-name"
+      data-typing={typedLength >= lastNameStart && (typedLength < nameLength || introFinished)}
+      ref={lastNameRef}
+    >
+      {lastName.slice(0, lastNameLength)}
+    </span>
+  )
+
   return (
     <m.section
       id="top"
@@ -143,9 +153,11 @@ export function HeroSection() {
       <div className="hero-split__content container">
         <div className="hero-split__intro">
           <p className="hero-split__eyebrow">Cybersecurity portfolio</p>
-          <h1 className="hero-split__title" aria-label={profile.name}>
+          <h1 className="hero-split__title" aria-label={profile.name} data-compact={showMiddleInitial}>
             <span className="hero-split__typed-line" aria-hidden="true">
-              <span className="hero-split__measure">{givenName}</span>
+              <span className="hero-split__measure">
+                {showMiddleInitial ? `${givenName} ${middleName[0]} ${lastName}` : givenName}
+              </span>
               <span className="hero-split__given-name" data-typing={typedLength < givenName.length}>
                 {givenName.slice(0, typedLength)}
                 {showMiddleInitial && (
@@ -154,35 +166,29 @@ export function HeroSection() {
                     <span className="hero-split__middle-name hero-split__middle-initial" ref={middleInitialRef}>
                       {middleName[0]}
                     </span>
+                    {' '}
+                    {animatedLastName}
                   </>
                 )}
               </span>
             </span>
             <span className="hero-split__typed-line" aria-hidden="true">
               <span className="hero-split__measure">{middleName} {lastName}</span>
-              <span>
-                {!showMiddleInitial && (
-                  <>
-                    <span
-                      className="hero-split__middle-name"
-                      data-typing={typedLength >= givenName.length && typedLength < lastNameStart}
-                    >
-                      <span className="hero-split__middle-initial" ref={middleInitialRef}>{typedMiddleName[0]}</span>
-                      <span className="hero-split__middle-tail" data-fading={middleNameStage === 'fading'}>
-                        {typedMiddleName.slice(1)}
-                      </span>
+              {!showMiddleInitial && (
+                <span>
+                  <span
+                    className="hero-split__middle-name"
+                    data-typing={typedLength >= givenName.length && typedLength < lastNameStart}
+                  >
+                    <span className="hero-split__middle-initial" ref={middleInitialRef}>{typedMiddleName[0]}</span>
+                    <span className="hero-split__middle-tail" data-fading={middleNameStage === 'fading'}>
+                      {typedMiddleName.slice(1)}
                     </span>
-                    {typedLength >= lastNameStart && ' '}
-                  </>
-                )}
-                <span
-                  className="hero-split__last-name"
-                  data-typing={typedLength >= lastNameStart && (typedLength < nameLength || introFinished)}
-                  ref={lastNameRef}
-                >
-                  {lastName.slice(0, lastNameLength)}
+                  </span>
+                  {typedLength >= lastNameStart && ' '}
+                  {animatedLastName}
                 </span>
-              </span>
+              )}
             </span>
           </h1>
 
