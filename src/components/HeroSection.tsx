@@ -1,8 +1,11 @@
 import { m } from 'framer-motion'
+import { useEffect, useState } from 'react'
 import { profile } from '../data/profile'
 import { staggerContainer, staggerItem } from '../lib/motion'
 import { ExternalLink } from './ExternalLink'
 import { ProfileRail } from './ProfileRail'
+
+const COORDINATES = `BUILT IN ${profile.originCoordinates}`
 
 /*
  * Type-led hero: plain CSS with the site's design tokens, and Framer's
@@ -47,7 +50,19 @@ function ContactIcon({ type }: { type: 'github' | 'linkedin' | 'email' }) {
 }
 
 export function HeroSection() {
-  const [givenName, ...familyName] = profile.name.split(' ')
+  const [givenName, ...familyNames] = profile.name.split(' ')
+  const familyName = familyNames.join(' ')
+  const [typedLength, setTypedLength] = useState(0)
+  const nameLength = profile.name.length
+  const coordinatesLength = Math.max(0, typedLength - nameLength)
+
+  useEffect(() => {
+    if (typedLength === nameLength + COORDINATES.length) return
+
+    const delay = typedLength === 0 || typedLength === nameLength ? 250 : 55
+    const timer = window.setTimeout(() => setTypedLength(typedLength + 1), delay)
+    return () => window.clearTimeout(timer)
+  }, [typedLength, nameLength])
 
   return (
     <m.section
@@ -61,9 +76,19 @@ export function HeroSection() {
       <div className="hero-split__content container">
         <div className="hero-split__intro">
           <p className="hero-split__eyebrow">Cybersecurity portfolio</p>
-          <h1 className="hero-split__title">
-            {givenName}{' '}
-            <span>{familyName.join(' ')}</span>
+          <h1 className="hero-split__title" aria-label={profile.name}>
+            <span className="hero-split__typed-line" aria-hidden="true">
+              <span className="hero-split__measure">{givenName}</span>
+              <span data-typing={typedLength < givenName.length}>
+                {givenName.slice(0, typedLength)}
+              </span>
+            </span>
+            <span className="hero-split__typed-line hero-split__family-name" aria-hidden="true">
+              <span className="hero-split__measure">{familyName}</span>
+              <span data-typing={typedLength >= givenName.length && typedLength < nameLength}>
+                {familyName.slice(0, Math.max(0, typedLength - givenName.length - 1))}
+              </span>
+            </span>
           </h1>
 
           <m.p className="hero-split__role" variants={staggerItem}>
@@ -88,7 +113,12 @@ export function HeroSection() {
             </a>
           </m.div>
 
-          <p className="hero-split__coordinates">BUILT IN {profile.originCoordinates}</p>
+          <p className="hero-split__coordinates" data-typing={coordinatesLength < COORDINATES.length}>
+            <span className="hero-split__typed-line">
+              <span className="hero-split__measure">{COORDINATES}</span>
+              <span aria-hidden="true">{COORDINATES.slice(0, coordinatesLength)}</span>
+            </span>
+          </p>
         </div>
         <ProfileRail />
       </div>

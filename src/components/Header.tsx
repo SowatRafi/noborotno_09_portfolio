@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import defenderMark from '../assets/defender-mark.svg'
 import { useActiveSection } from '../hooks/useActiveSection'
 import { useTheme } from '../hooks/useTheme'
 
@@ -35,7 +34,7 @@ export function Header() {
     <header className="header">
       <div className="header__inner container">
         <a className="header__brand" href="#top" aria-label="sowat.rafi — back to top">
-          <img src={defenderMark} alt="" width="32" height="32" />
+          <span className="header__prompt" aria-hidden="true">~$</span>
           sowat.rafi
         </a>
 

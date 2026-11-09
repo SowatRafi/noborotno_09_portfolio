@@ -134,8 +134,8 @@ a {
   white-space: nowrap;
 }
 
-.header__brand img {
-  flex: none;
+.header__prompt {
+  color: var(--accent);
 }
 
 .header__links {
@@ -404,9 +404,30 @@ a {
   letter-spacing: -0.065em;
 }
 
-.hero-split__title span {
-  display: block;
+.hero-split__family-name {
   color: var(--accent);
+}
+
+.hero-split__typed-line {
+  display: grid;
+}
+
+.hero-split__typed-line > span {
+  grid-area: 1 / 1;
+}
+
+.hero-split__measure {
+  opacity: 0;
+  user-select: none;
+}
+
+.hero-split__title [data-typing='true']::after {
+  position: absolute;
+  width: 0.055em;
+  height: 0.72em;
+  margin: 0.12em 0 0 0.05em;
+  background: var(--accent);
+  content: '';
 }
 
 .hero-split__role {
@@ -1231,6 +1252,11 @@ a {
 }
 
 @media (prefers-reduced-motion: no-preference) {
+  .hero-split__title [data-typing='true']::after,
+  .hero-split__coordinates[data-typing='true']::after {
+    animation: cursor-blink 1.1s steps(2, jump-none) infinite;
+  }
+
   /* The newest timeline dot pings like a fresh alert. */
   .timeline__item:first-child::before {
     animation: dot-ping 2.6s ease-out infinite;
