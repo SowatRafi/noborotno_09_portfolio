@@ -26,7 +26,7 @@
   --text: #e9f5f0;
   --text-muted: #a2b9b4;
 
-  /* Mint and bottle green pair with flag red at the Bangladesh endpoint. */
+  /* Mint and bottle green pair with flag red in the coordinates chip. */
   --accent: #70edb7;
   --accent-contrast: #04231a;
   --brand-blue: #047857;
@@ -35,7 +35,7 @@
   --hero-glow: color-mix(in srgb, var(--accent) 12%, transparent);
 
   --flag-red: #f42a41;
-  --flag-red-soft: rgba(244, 42, 65, 0.3);
+  --flag-green: #006a4e;
 
   --badge-done-bg: rgba(16, 185, 129, 0.13);
   --badge-done-text: #6ee7b7;
@@ -86,7 +86,6 @@
   --brand-blue-soft: rgba(6, 95, 70, 0.18);
 
   --flag-red: #f42a41;
-  --flag-red-soft: rgba(244, 42, 65, 0.16);
 
   --badge-done-bg: rgba(4, 120, 87, 0.1);
   --badge-done-text: #047857;
@@ -120,7 +119,6 @@
     --brand-blue-soft: rgba(6, 95, 70, 0.18);
 
     --flag-red: #f42a41;
-    --flag-red-soft: rgba(244, 42, 65, 0.16);
 
     --badge-done-bg: rgba(4, 120, 87, 0.1);
     --badge-done-text: #047857;

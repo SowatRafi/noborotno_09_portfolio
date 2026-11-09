@@ -87,6 +87,8 @@ export function HeroSection() {
               {profile.email}
             </a>
           </m.div>
+
+          <p className="hero-split__coordinates">BUILT IN {profile.originCoordinates}</p>
         </div>
         <ProfileRail />
       </div>

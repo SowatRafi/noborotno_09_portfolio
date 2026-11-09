@@ -454,11 +454,32 @@ a {
   color: var(--accent);
 }
 
+.hero-split__coordinates {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  width: fit-content;
+  margin: 1.4rem 0 0;
+  padding: 0.32rem 0.6rem;
+  border-radius: 3px;
+  background: var(--flag-green);
+  color: #fff;
+  font: 600 0.66rem / 1.65 var(--font-mono);
+  letter-spacing: 0.08em;
+}
+
+.hero-split__coordinates::after {
+  flex: 0 0 0.48rem;
+  height: 0.48rem;
+  border-radius: 50%;
+  background: var(--flag-red);
+  content: '';
+}
+
 .rail {
   position: relative;
   isolation: isolate;
-  display: grid;
-  gap: 0.65rem;
+  padding-block: 0.9rem;
   width: min(100%, 31rem);
   justify-self: center;
 }
@@ -476,47 +497,6 @@ a {
 .rail__trace path + path {
   stroke-dasharray: 3 5;
   stroke-opacity: 0.32;
-}
-
-.rail__station {
-  display: grid;
-  grid-template-columns: auto minmax(0, 1fr);
-  align-items: center;
-  gap: 0.05rem 0.6rem;
-  justify-self: start;
-  margin: 0 0.7rem;
-  padding: 0.4rem 0.65rem;
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  background: var(--bg-raised);
-  color: var(--text);
-  font: 600 0.72rem / 1.4 var(--font-mono);
-  letter-spacing: 0.045em;
-  text-transform: uppercase;
-}
-
-.rail__station::before {
-  grid-row: span 2;
-  width: 0.5rem;
-  height: 0.5rem;
-  border-radius: 50%;
-  background: var(--accent);
-  box-shadow: 0 0 0 0.2rem var(--hero-grid);
-  content: '';
-}
-
-.rail__station--origin::before {
-  background: var(--flag-red);
-  box-shadow: 0 0 0 0.2rem var(--flag-red-soft);
-}
-
-.rail__station--base {
-  justify-self: end;
-}
-
-.rail__detail {
-  color: var(--text-muted);
-  font-weight: 400;
 }
 
 @media (max-width: 820px) {
@@ -1221,7 +1201,6 @@ a {
 
 @media (hover: hover) and (prefers-reduced-motion: no-preference) {
   .card,
-  .skill-group,
   .cert {
     transition:
       box-shadow 0.22s ease-out,
@@ -1229,7 +1208,6 @@ a {
   }
 
   .card:hover,
-  .skill-group:hover,
   .cert:hover {
     box-shadow: var(--shadow-lift), var(--glow);
     border-color: var(--panel-border);

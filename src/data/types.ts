@@ -19,7 +19,7 @@ export interface Profile {
   readonly summary: readonly string[]
   /** One-line positioning statement for the hero subtitle. */
   readonly tagline: string
-  /** Coordinates of the Bangladesh origin point shown in the hero. */
+  /** Coordinates shown in the hero's “Built in” line. */
   readonly originCoordinates: string
   /** City line for the terminal `pwd` output (no parenthetical). */
   readonly city: string

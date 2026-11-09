@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import defenderMark from '../assets/defender-mark.svg'
 import { useActiveSection } from '../hooks/useActiveSection'
 import { useTheme } from '../hooks/useTheme'
 
@@ -34,7 +35,7 @@ export function Header() {
     <header className="header">
       <div className="header__inner container">
         <a className="header__brand" href="#top" aria-label="sowat.rafi — back to top">
-          <img src={`${import.meta.env.BASE_URL}favicon.svg`} alt="" width="32" height="32" />
+          <img src={defenderMark} alt="" width="32" height="32" />
           sowat.rafi
         </a>
 
