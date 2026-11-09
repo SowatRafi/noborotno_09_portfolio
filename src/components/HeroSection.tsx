@@ -1,5 +1,5 @@
-import { m } from 'framer-motion'
-import { useEffect, useState } from 'react'
+import { m, useReducedMotion } from 'framer-motion'
+import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { profile } from '../data/profile'
 import { staggerContainer, staggerItem } from '../lib/motion'
 import { ExternalLink } from './ExternalLink'
@@ -53,11 +53,17 @@ export function HeroSection() {
   const [givenName, middleName, lastName] = profile.name.split(' ')
   const [typedLength, setTypedLength] = useState(0)
   const [lastNameFrame, setLastNameFrame] = useState(0)
-  const [showMiddleInitial, setShowMiddleInitial] = useState(false)
+  const [middleNameStage, setMiddleNameStage] = useState<'full' | 'fading' | 'initial'>('full')
+  const middleInitialRef = useRef<HTMLSpanElement>(null)
+  const lastNameRef = useRef<HTMLSpanElement>(null)
+  const previousPositions = useRef<(DOMRect | undefined)[]>([])
+  const reduceMotion = useReducedMotion()
+  const showMiddleInitial = middleNameStage === 'initial'
   const nameLength = profile.name.length
   const lastNameStart = nameLength - lastName.length
   const coordinatesLength = Math.max(0, typedLength - nameLength)
   const introFinished = coordinatesLength === COORDINATES.length
+  const typedMiddleName = middleName.slice(0, Math.max(0, typedLength - givenName.length - 1))
   const lastNameLength = introFinished
     ? Math.abs(lastName.length - lastNameFrame)
     : Math.max(0, typedLength - lastNameStart)
@@ -73,11 +79,42 @@ export function HeroSection() {
   }, [typedLength, nameLength, lastNameStart])
 
   useEffect(() => {
-    if (!introFinished) return
+    if (!introFinished || middleNameStage === 'initial') return
 
-    const timer = window.setTimeout(() => setShowMiddleInitial(true), 2500)
+    const timer = window.setTimeout(() => {
+      if (middleNameStage === 'full' && !reduceMotion) {
+        setMiddleNameStage('fading')
+        return
+      }
+
+      previousPositions.current = [
+        middleInitialRef.current?.getBoundingClientRect(),
+        lastNameRef.current?.getBoundingClientRect(),
+      ]
+      setMiddleNameStage('initial')
+    }, middleNameStage === 'full' ? 2050 : 240)
     return () => window.clearTimeout(timer)
-  }, [introFinished])
+  }, [introFinished, middleNameStage, reduceMotion])
+
+  useLayoutEffect(() => {
+    if (!showMiddleInitial || reduceMotion) return
+
+    // Draw each word from its old position before the browser paints the new layout.
+    const animations = [middleInitialRef.current, lastNameRef.current].map((element, index) => {
+      const previous = previousPositions.current[index]
+      if (!element || !previous) return
+
+      const next = element.getBoundingClientRect()
+      return element.animate(
+        [
+          { transform: `translate(${previous.left - next.left}px, ${previous.top - next.top}px)` },
+          { transform: 'translate(0, 0)' },
+        ],
+        { duration: 460, easing: 'cubic-bezier(0.22, 1, 0.36, 1)' },
+      )
+    })
+    return () => animations.forEach((animation) => animation?.cancel())
+  }, [showMiddleInitial, reduceMotion])
 
   useEffect(() => {
     if (!introFinished) return
@@ -114,7 +151,9 @@ export function HeroSection() {
                 {showMiddleInitial && (
                   <>
                     {' '}
-                    <span className="hero-split__middle-name hero-split__middle-initial">{middleName[0]}</span>
+                    <span className="hero-split__middle-name hero-split__middle-initial" ref={middleInitialRef}>
+                      {middleName[0]}
+                    </span>
                   </>
                 )}
               </span>
@@ -128,7 +167,10 @@ export function HeroSection() {
                       className="hero-split__middle-name"
                       data-typing={typedLength >= givenName.length && typedLength < lastNameStart}
                     >
-                      {middleName.slice(0, Math.max(0, typedLength - givenName.length - 1))}
+                      <span className="hero-split__middle-initial" ref={middleInitialRef}>{typedMiddleName[0]}</span>
+                      <span className="hero-split__middle-tail" data-fading={middleNameStage === 'fading'}>
+                        {typedMiddleName.slice(1)}
+                      </span>
                     </span>
                     {typedLength >= lastNameStart && ' '}
                   </>
@@ -136,6 +178,7 @@ export function HeroSection() {
                 <span
                   className="hero-split__last-name"
                   data-typing={typedLength >= lastNameStart && (typedLength < nameLength || introFinished)}
+                  ref={lastNameRef}
                 >
                   {lastName.slice(0, lastNameLength)}
                 </span>
