@@ -166,22 +166,24 @@ export function Terminal() {
           <p className={cmdClass(5)} aria-hidden="true">
             <span className={typedClass(5)}>{typedText(5)}</span>
           </p>
-          <ul className={outClass(5, 'term__out term__certs')} aria-label="Certifications">
-            {certifications.map((certification) => (
-              <li key={certification.name}>
-                {certification.status === 'completed' ? (
-                  <span className="term__ok">[done]</span>
-                ) : (
-                  <span>[wip]</span>
-                )}
-                {certification.credentialUrl ? (
-                  <ExternalLink href={certification.credentialUrl}>{certification.name}</ExternalLink>
-                ) : (
-                  <span>{certification.name}</span>
-                )}
-              </li>
-            ))}
-          </ul>
+          <div className={outClass(5, 'term__cert-reveal')}>
+            <ul className="term__out term__certs" aria-label="Certifications">
+              {certifications.map((certification) => (
+                <li key={certification.name}>
+                  {certification.status === 'completed' ? (
+                    <span className="term__ok">[done]</span>
+                  ) : (
+                    <span>[wip]</span>
+                  )}
+                  {certification.credentialUrl ? (
+                    <ExternalLink href={certification.credentialUrl}>{certification.name}</ExternalLink>
+                  ) : (
+                    <span>{certification.name}</span>
+                  )}
+                </li>
+              ))}
+            </ul>
+          </div>
 
           <p className={cmdClass(6)} aria-hidden="true">
             <span className={typedClass(6)}>{typedText(6)}</span>

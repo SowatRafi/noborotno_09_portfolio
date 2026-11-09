@@ -16,8 +16,6 @@ export const profile = {
     'I hold a Master of Cybersecurity and have investigated simulated security alerts with Splunk, TheHive and Wireshark. At Unwind AI and Data, I helped build and test Python features for an AI video analysis platform for physical security monitoring.',
     'Available for full-time, on-site work and rotating shifts.',
   ],
-  tagline:
-    'TryHackMe SAL1 and AI1 certified. Based in Melbourne, Australia.',
   originCoordinates: '24.2644°N, 89.9181°E',
   city: 'Melbourne, Australia',
   availability: 'Available to relocate worldwide',

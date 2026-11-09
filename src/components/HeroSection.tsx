@@ -11,7 +11,7 @@ const COORDINATES = `BUILT IN ${profile.originCoordinates}`
  * Type-led hero: plain CSS with the site's design tokens, and Framer's
  * lightweight m.* components (LazyMotion strict) instead of motion.*.
  *
- * The name and role introduce the portfolio alongside the profile terminal.
+ * The animated name introduces the portfolio alongside the profile terminal.
  */
 
 function ContactIcon({ type }: { type: 'github' | 'linkedin' | 'email' }) {
@@ -152,7 +152,6 @@ export function HeroSection() {
     >
       <div className="hero-split__content container">
         <div className="hero-split__intro">
-          <p className="hero-split__eyebrow">Cybersecurity portfolio</p>
           <h1 className="hero-split__title" aria-label={profile.name} data-compact={showMiddleInitial}>
             <span className="hero-split__typed-line" aria-hidden="true">
               <span className="hero-split__measure">
@@ -191,13 +190,6 @@ export function HeroSection() {
               )}
             </span>
           </h1>
-
-          <m.p className="hero-split__role" variants={staggerItem}>
-            {profile.titleLine}
-          </m.p>
-          <m.p className="hero-split__tagline" variants={staggerItem}>
-            {profile.tagline}
-          </m.p>
 
           <m.div className="hero-split__footer" variants={staggerItem}>
             <ExternalLink className="hero-split__contact" href={profile.githubUrl}>

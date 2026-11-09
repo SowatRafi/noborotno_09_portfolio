@@ -17,8 +17,6 @@ export interface Profile {
   readonly githubUrl: string
   /** Paragraphs of the professional summary, rendered in order. */
   readonly summary: readonly string[]
-  /** One-line positioning statement for the hero subtitle. */
-  readonly tagline: string
   /** Coordinates shown in the hero's “Built in” line. */
   readonly originCoordinates: string
   /** City line for the terminal `pwd` output (no parenthetical). */
