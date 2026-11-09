@@ -365,7 +365,7 @@ a {
 .hero-split__content {
   display: grid;
   grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
-  align-items: center;
+  align-items: start;
   gap: clamp(1.75rem, 5vw, 5rem);
   min-height: min(46rem, 83svh);
   padding-block: clamp(4rem, 8vw, 7.5rem);
@@ -732,11 +732,9 @@ a {
   font-weight: 600;
 }
 
-/* Lines the replayed session has not reached yet keep their space — the card
-   must never change height through the clear/retype cycle — but stay
-   invisible (and out of the a11y tree / tab order) until "printed". */
+/* The window grows only for commands and output the session has reached. */
 .term .is-hidden {
-  visibility: hidden;
+  display: none;
 }
 
 /* Block cursor sitting after the text being typed at the active prompt. */

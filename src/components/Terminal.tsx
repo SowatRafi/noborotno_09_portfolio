@@ -8,9 +8,7 @@ import { ExternalLink } from './ExternalLink'
  * occasional corrected typos. Each command prints its output, and the
  * session starts over after `exit`.
  *
- * Layout never shifts: every line is always in the flow and lines that the
- * session has not reached yet are only hidden with `visibility` (.is-hidden),
- * so the card keeps its full height through the clear/retype cycle.
+ * The frame grows downward as the session reaches each command and output.
  *
  * The prompt/command lines are decorative (aria-hidden); the outputs carry the
  * real content — the role, city, availability and the genuine contact links
@@ -103,12 +101,8 @@ export function Terminal() {
     }
   }, [])
 
-  /* Everything the session has not reached yet keeps its space but stays
-     invisible, so the card never changes height. */
-  const cmdClass = (index: number, extra = '') => {
-    const hidden = index > shell.active ? ' is-hidden' : ''
-    return `term__cmd${extra}${hidden}`
-  }
+  const cmdClass = (index: number) =>
+    index > shell.active ? 'term__cmd is-hidden' : 'term__cmd'
   const typedText = (index: number) =>
     index < shell.active ? COMMANDS[index] : index === shell.active ? shell.typed : ''
   const typedClass = (index: number) =>
