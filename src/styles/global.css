@@ -579,11 +579,8 @@ a {
   }
 }
 
-/* --- Animated terminal: a 3D card floating in a perspective stage --- */
+/* --- Terminal window --- */
 .term-stage {
-  /* The stage gives the terminal its depth; the padding leaves room for the
-     tilt so the floating card never clips or nudges a scrollbar. */
-  perspective: 1200px;
   margin-inline: 1rem;
   padding: 0.65rem;
   border: 1px solid var(--hero-grid);
@@ -605,9 +602,6 @@ a {
   background: linear-gradient(145deg, #102020, #0b1718 70%);
   box-shadow: 0 20px 50px #0317134d, 0 0 30px #4ae4a21a;
   font-family: var(--font-mono);
-  transform-style: preserve-3d;
-  backface-visibility: hidden;
-  will-change: transform;
 }
 
 .term__bar {

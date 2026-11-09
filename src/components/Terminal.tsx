@@ -1,17 +1,11 @@
 import { useEffect, useState } from 'react'
-import { m, MotionConfig } from 'framer-motion'
 import { profile } from '../data/profile'
 import { ExternalLink } from './ExternalLink'
 
 /*
- * Animated bash-style terminal in the rail. It floats as a 3D card — a
- * continuous gentle tilt on the X and Y axes inside a perspective stage —
- * while a JS "operator" replays the session like a real person at a keyboard:
- * each command is typed with an uneven per-key cadence (occasionally slipping
- * onto a neighbouring key and backspacing to fix it), the cursor holds a beat
- * before Enter, the output prints, and after the last command an idle prompt
- * blinks for a while before `clear` is typed and the session replays. Every
- * pass draws fresh random timings, so no two loops look the same.
+ * The terminal replays a bash session with an uneven typing cadence and
+ * occasional corrected typos. Each command prints its output, and the
+ * session starts over after `exit`.
  *
  * Layout never shifts: every line is always in the flow and lines that the
  * session has not reached yet are only hidden with `visibility` (.is-hidden),
@@ -123,79 +117,66 @@ export function Terminal() {
 
   return (
     <div className="term-stage">
-      {/* reducedMotion="never" overrides the app-level "user" setting for this
-          subtree only: the owner wants the terminal to keep floating even when
-          the OS asks to reduce motion. Everything else still honours it. */}
-      <MotionConfig reducedMotion="never">
-        {/* No aria-label here: ARIA forbids naming a plain <div> that carries
-            no role, and the card needs no name of its own — the surrounding
-            <aside className="rail"> is already labelled "Profile", and the
-            session's output lines are read as ordinary text inside it. */}
-        <m.div
-          className="term"
-          animate={{ rotateY: [-6, 6, -6], rotateX: [3, -3, 3] }}
-          transition={{ duration: 9, ease: 'easeInOut', repeat: Infinity }}
-        >
-          <div className="term__bar" aria-hidden="true">
-        <span className="term__dot term__dot--close" />
-        <span className="term__dot term__dot--min" />
-        <span className="term__dot term__dot--max" />
-        <span className="term__host">sowat@portfolio:~</span>
-      </div>
-
-      <div className="term__body">
-        <p className={cmdClass(0)} aria-hidden="true">
-          <span className={typedClass(0)}>{typedText(0)}</span>
-        </p>
-        {/* whoami answers with the role only — the name already lives in the
-            hero's <h1> next to the rail, so echoing it here was redundant. */}
-        <p className={outClass(0, 'term__role')}>{profile.titleLine}</p>
-
-        <p className={cmdClass(1)} aria-hidden="true">
-          <span className={typedClass(1)}>{typedText(1)}</span>
-        </p>
-        <p className={outClass(1, 'term__out')}>{profile.city}</p>
-
-        <p className={cmdClass(2)} aria-hidden="true">
-          <span className={typedClass(2)}>{typedText(2)}</span>
-        </p>
-        <p className={outClass(2, 'term__out term__ok')}>{profile.availability}</p>
-
-        <p className={cmdClass(3)} aria-hidden="true">
-          <span className={typedClass(3)}>{typedText(3)}</span>
-        </p>
-        <p className={outClass(3, 'term__out term__links')}>
-          <ExternalLink className="term__link" href={profile.githubUrl}>
-            github
-          </ExternalLink>
-          <ExternalLink className="term__link" href={profile.linkedinUrl}>
-            linkedin
-          </ExternalLink>
-          <a className="term__link" href={`mailto:${profile.email}`}>
-            email
-          </a>
-        </p>
-
-        <p className={cmdClass(4)} aria-hidden="true">
-          <span className={typedClass(4)}>{typedText(4)}</span>
-        </p>
-        <p className={outClass(4, 'term__out')}>
-          <a className="term__link term__link--strong" href={resumeHref} download>
-            <span aria-hidden="true">↓</span>
-            resume.pdf
-          </a>
-        </p>
-
-        <p className={cmdClass(5)} aria-hidden="true">
-          <span className={typedClass(5)}>{typedText(5)}</span>
-        </p>
-        {/* bash's real farewell to `exit` — chrome, not content. */}
-        <p className={outClass(5, 'term__out')} aria-hidden="true">
-          logout
-        </p>
+      <div className="term">
+        <div className="term__bar" aria-hidden="true">
+          <span className="term__dot term__dot--close" />
+          <span className="term__dot term__dot--min" />
+          <span className="term__dot term__dot--max" />
+          <span className="term__host">sowat@portfolio:~</span>
         </div>
-      </m.div>
-      </MotionConfig>
+
+        <div className="term__body">
+          <p className={cmdClass(0)} aria-hidden="true">
+            <span className={typedClass(0)}>{typedText(0)}</span>
+          </p>
+          {/* whoami answers with the role only — the name already lives in the
+              hero's <h1> next to the rail, so echoing it here was redundant. */}
+          <p className={outClass(0, 'term__role')}>{profile.titleLine}</p>
+
+          <p className={cmdClass(1)} aria-hidden="true">
+            <span className={typedClass(1)}>{typedText(1)}</span>
+          </p>
+          <p className={outClass(1, 'term__out')}>{profile.city}</p>
+
+          <p className={cmdClass(2)} aria-hidden="true">
+            <span className={typedClass(2)}>{typedText(2)}</span>
+          </p>
+          <p className={outClass(2, 'term__out term__ok')}>{profile.availability}</p>
+
+          <p className={cmdClass(3)} aria-hidden="true">
+            <span className={typedClass(3)}>{typedText(3)}</span>
+          </p>
+          <p className={outClass(3, 'term__out term__links')}>
+            <ExternalLink className="term__link" href={profile.githubUrl}>
+              github
+            </ExternalLink>
+            <ExternalLink className="term__link" href={profile.linkedinUrl}>
+              linkedin
+            </ExternalLink>
+            <a className="term__link" href={`mailto:${profile.email}`}>
+              email
+            </a>
+          </p>
+
+          <p className={cmdClass(4)} aria-hidden="true">
+            <span className={typedClass(4)}>{typedText(4)}</span>
+          </p>
+          <p className={outClass(4, 'term__out')}>
+            <a className="term__link term__link--strong" href={resumeHref} download>
+              <span aria-hidden="true">↓</span>
+              resume.pdf
+            </a>
+          </p>
+
+          <p className={cmdClass(5)} aria-hidden="true">
+            <span className={typedClass(5)}>{typedText(5)}</span>
+          </p>
+          {/* bash's real farewell to `exit` — chrome, not content. */}
+          <p className={outClass(5, 'term__out')} aria-hidden="true">
+            logout
+          </p>
+        </div>
+      </div>
     </div>
   )
 }
