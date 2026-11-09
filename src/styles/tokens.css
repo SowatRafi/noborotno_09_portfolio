@@ -26,11 +26,7 @@
   --text: #e9f5f0;
   --text-muted: #a2b9b4;
 
-  /* Bottle-green accent inspired by the Bangladeshi flag's green field, with
-     flag red kept as a restrained accent (heading underlines, the hero rule,
-     the origin chip's cursor) — an inspiration, never the flag itself.
-     --brand-blue keeps its name but now carries a deep-green supporting tone
-     for gradients and borders. */
+  /* Mint and bottle green pair with flag red at the Bangladesh endpoint. */
   --accent: #70edb7;
   --accent-contrast: #04231a;
   --brand-blue: #047857;
@@ -40,9 +36,6 @@
 
   --flag-red: #f42a41;
   --flag-red-soft: rgba(244, 42, 65, 0.3);
-  /* The flag's exact bottle green — used as a fixed chip background (hero
-     origin line), so it stays identical in both themes. */
-  --flag-green: #006a4e;
 
   --badge-done-bg: rgba(16, 185, 129, 0.13);
   --badge-done-text: #6ee7b7;
@@ -86,8 +79,7 @@
   --text: #152925;
   --text-muted: #405a53;
 
-  /* Bright mode keeps the flag identity: the official bottle green as the
-     accent, and the same flag red + gold emblem colours as dark mode. */
+  /* The light theme uses bottle green for contrast. */
   --accent: #006a4e;
   --accent-contrast: #ecfdf5;
   --brand-blue: #065f46;
@@ -95,7 +87,6 @@
 
   --flag-red: #f42a41;
   --flag-red-soft: rgba(244, 42, 65, 0.16);
-  --flag-green: #006a4e;
 
   --badge-done-bg: rgba(4, 120, 87, 0.1);
   --badge-done-text: #047857;
@@ -130,7 +121,6 @@
 
     --flag-red: #f42a41;
     --flag-red-soft: rgba(244, 42, 65, 0.16);
-    --flag-green: #006a4e;
 
     --badge-done-bg: rgba(4, 120, 87, 0.1);
     --badge-done-text: #047857;

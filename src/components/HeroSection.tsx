@@ -8,8 +8,7 @@ import { ProfileRail } from './ProfileRail'
  * Type-led hero: plain CSS with the site's design tokens, and Framer's
  * lightweight m.* components (LazyMotion strict) instead of motion.*.
  *
- * The name and role introduce the portfolio. The typed origin line uses the
- * Bangladesh flag colours.
+ * The name and role introduce the portfolio alongside the profile terminal.
  */
 
 function ContactIcon({ type }: { type: 'github' | 'linkedin' | 'email' }) {
@@ -88,8 +87,6 @@ export function HeroSection() {
               {profile.email}
             </a>
           </m.div>
-
-          <p className="hero-split__origin">{profile.originLine}</p>
         </div>
         <ProfileRail />
       </div>

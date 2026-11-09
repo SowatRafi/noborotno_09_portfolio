@@ -18,7 +18,7 @@ export const profile = {
   ],
   tagline:
     'TryHackMe SAL1 and AI1 certified. Based in Melbourne, Australia.',
-  originLine: 'BUILT IN 24.2644°N, 89.9181°E',
+  originCoordinates: '24.2644°N, 89.9181°E',
   city: 'Melbourne, Australia',
   availability: 'Available to relocate worldwide',
   contactLead:

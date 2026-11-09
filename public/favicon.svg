@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-  <!-- Terminal-prompt monogram: dark tile, teal prompt. -->
-  <rect width="64" height="64" rx="12" fill="#0b1017"/>
-  <rect width="64" height="64" rx="12" fill="none" stroke="#22304a" stroke-width="2"/>
-  <text x="10" y="42" font-family="ui-monospace, Consolas, monospace" font-size="26" font-weight="700" fill="#2dd4bf">&gt;_</text>
+  <rect x="1" y="1" width="62" height="62" rx="14" fill="#102020" stroke="#31504a" stroke-width="2"/>
+  <path d="M46 17H28L18 27v5h20l9 9v6H18" fill="none" stroke="#70edb7" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="46" cy="17" r="5" fill="#ff5368"/>
+  <circle cx="18" cy="47" r="5" fill="#70edb7"/>
 </svg>
