@@ -19,7 +19,7 @@ export interface Profile {
   readonly summary: readonly string[]
   /** One-line positioning statement for the hero subtitle. */
   readonly tagline: string
-  /** Origin line typed out in the hero — Bangladesh's coordinates. */
+  /** Origin line in the hero with Bangladesh's coordinates. */
   readonly originLine: string
   /** City line for the terminal `pwd` output (no parenthetical). */
   readonly city: string
@@ -50,6 +50,7 @@ export interface ExperienceEntry {
 
 export interface Project {
   readonly name: string
+  readonly illustration?: string
   readonly stack: readonly string[]
   readonly repoUrl: string
   readonly highlights: readonly string[]

@@ -19,22 +19,24 @@
   /* color-scheme makes native UI (scrollbars, form controls) match the theme */
   color-scheme: dark;
 
-  --bg: #0b1017;
-  --bg-raised: #101724;
-  --surface: #131c2b;
-  --border: #22304a;
-  --text: #dbe4ef;
-  --text-muted: #92a3b8;
+  --bg: #091313;
+  --bg-raised: #0e1c1d;
+  --surface: #122223;
+  --border: #2b4140;
+  --text: #e9f5f0;
+  --text-muted: #a2b9b4;
 
   /* Bottle-green accent inspired by the Bangladeshi flag's green field, with
      flag red kept as a restrained accent (heading underlines, the hero rule,
      the origin chip's cursor) — an inspiration, never the flag itself.
      --brand-blue keeps its name but now carries a deep-green supporting tone
      for gradients and borders. */
-  --accent: #10b981;
+  --accent: #70edb7;
   --accent-contrast: #04231a;
   --brand-blue: #047857;
   --brand-blue-soft: rgba(4, 120, 87, 0.35);
+  --hero-grid: color-mix(in srgb, var(--accent) 14%, transparent);
+  --hero-glow: color-mix(in srgb, var(--accent) 12%, transparent);
 
   --flag-red: #f42a41;
   --flag-red-soft: rgba(244, 42, 65, 0.3);
@@ -62,9 +64,9 @@
   --font-sans: 'IBM Plex Sans Variable', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
   --font-mono: 'JetBrains Mono Variable', ui-monospace, 'Cascadia Code', Menlo, Consolas, monospace;
 
-  --radius: 10px;
+  --radius: 8px;
   --radius-lg: 16px;
-  --container-width: 72rem;
+  --container-width: 78rem;
 
   /* Snappy easing with a slight overshoot — gives reveal motion a bolder,
      springier finish than a plain ease-out. Not theme-dependent, so it lives
@@ -77,12 +79,12 @@
 :root[data-theme='light'] {
   color-scheme: light;
 
-  --bg: #f6f8fa;
+  --bg: #f4f8f5;
   --bg-raised: #ffffff;
   --surface: #ffffff;
-  --border: #d7dfe9;
-  --text: #182230;
-  --text-muted: #48586c;
+  --border: #cbdad3;
+  --text: #152925;
+  --text-muted: #405a53;
 
   /* Bright mode keeps the flag identity: the official bottle green as the
      accent, and the same flag red + gold emblem colours as dark mode. */
@@ -114,12 +116,12 @@
   :root:not([data-theme]) {
     color-scheme: light;
 
-    --bg: #f6f8fa;
+    --bg: #f4f8f5;
     --bg-raised: #ffffff;
     --surface: #ffffff;
-    --border: #d7dfe9;
-    --text: #182230;
-    --text-muted: #48586c;
+    --border: #cbdad3;
+    --text: #152925;
+    --text-muted: #405a53;
 
     --accent: #006a4e;
     --accent-contrast: #ecfdf5;

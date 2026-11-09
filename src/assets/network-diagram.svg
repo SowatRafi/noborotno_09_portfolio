@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="240" viewBox="0 0 640 240" fill="none">
+  <defs>
+    <pattern id="grid" width="24" height="24" patternUnits="userSpaceOnUse">
+      <path d="M24 0H0v24" stroke="#213b39"/>
+    </pattern>
+    <linearGradient id="signal" x1="38" y1="0" x2="602" y2="0" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#328476" stop-opacity=".2"/>
+      <stop offset=".58" stop-color="#75f6bd"/>
+      <stop offset="1" stop-color="#75f6bd" stop-opacity=".3"/>
+    </linearGradient>
+    <linearGradient id="area" x1="0" y1="60" x2="0" y2="192" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#46e8a7" stop-opacity=".3"/>
+      <stop offset="1" stop-color="#46e8a7" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+  <path fill="#0b1b1d" d="M0 0h640v240H0z"/>
+  <path fill="url(#grid)" opacity=".7" d="M0 0h640v240H0z"/>
+  <path d="M38 144h62l20-9 22 14 24-31 18 25h29l20-13 22 15 26-12 28 12 24-41 16 28 26-68 16 87 29-25 24 16 26-8 20 12 34-10h62v56H38z" fill="url(#area)"/>
+  <path d="M38 144h62l20-9 22 14 24-31 18 25h29l20-13 22 15 26-12 28 12 24-41 16 28 26-68 16 87 29-25 24 16 26-8 20 12 34-10h62" stroke="url(#signal)" stroke-width="3" stroke-linejoin="round"/>
+  <path d="M375 44v147M38 192h564" stroke="#47726c" stroke-dasharray="4 6"/>
+  <circle cx="375" cy="64" r="15" fill="#75f6bd" fill-opacity=".15"/>
+  <circle cx="375" cy="64" r="4" fill="#a2ffd5"/>
+  <path d="M38 56V36h20m524 0h20v20M38 184v20h20m524 0h20v-20" stroke="#5aa58f" stroke-opacity=".7"/>
+  <text x="61" y="57" fill="#a2c5b8" font-family="monospace" font-size="12" letter-spacing="2">PACKET FLOW</text>
+  <text x="397" y="59" fill="#99f5cc" font-family="monospace" font-size="12" letter-spacing="1">ANOMALY</text>
+</svg>

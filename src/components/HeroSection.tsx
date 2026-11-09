@@ -1,8 +1,8 @@
 import { m } from 'framer-motion'
 import { profile } from '../data/profile'
-import { useHumanTyped } from '../hooks/useHumanTyped'
 import { staggerContainer, staggerItem } from '../lib/motion'
 import { ExternalLink } from './ExternalLink'
+import { ProfileRail } from './ProfileRail'
 
 /*
  * Type-led hero: plain CSS with the site's design tokens, and Framer's
@@ -48,10 +48,7 @@ function ContactIcon({ type }: { type: 'github' | 'linkedin' | 'email' }) {
 }
 
 export function HeroSection() {
-  /* The name writes itself first, like a person signing in; the origin line
-     waits and starts only once the name is finished. */
-  const name = useHumanTyped(profile.name, { startDelayMs: 400 })
-  const origin = useHumanTyped(profile.originLine, { startDelayMs: 350, enabled: name.done })
+  const [givenName, ...familyName] = profile.name.split(' ')
 
   return (
     <m.section
@@ -62,31 +59,13 @@ export function HeroSection() {
       initial="hidden"
       animate="show"
     >
-      <div className="hero-split__content">
-        <div>
-          {/* The ghost span holds the finished name at its final size but
-              invisible, stacked in the same grid cell as the typed one.
-              Without it the heading starts one line tall and jumps to two the
-              moment the name wraps, shoving everything below it down the page
-              — this was the single largest layout shift on the site.
-
-              Both spans are decorative, so the heading carries the real name as
-              its accessible name instead of a third copy in the markup. */}
-          <m.h1 className="hero-split__title" variants={staggerItem} aria-label={profile.name}>
-            <span className="hero-split__title-ghost" aria-hidden="true">
-              {profile.name}
-            </span>
-            <span
-              className={
-                name.done
-                  ? 'hero-split__title-typed hero-split__title-typed--done'
-                  : 'hero-split__title-typed'
-              }
-              aria-hidden="true"
-            >
-              {name.typed}
-            </span>
-          </m.h1>
+      <div className="hero-split__content container">
+        <div className="hero-split__intro">
+          <p className="hero-split__eyebrow">Cybersecurity portfolio</p>
+          <h1 className="hero-split__title">
+            {givenName}{' '}
+            <span>{familyName.join(' ')}</span>
+          </h1>
 
           <m.p className="hero-split__role" variants={staggerItem}>
             {profile.titleLine}
@@ -95,32 +74,24 @@ export function HeroSection() {
             {profile.tagline}
           </m.p>
 
-          <m.span className="hero-split__rule" variants={staggerItem} aria-hidden="true" />
+          <m.div className="hero-split__footer" variants={staggerItem}>
+            <ExternalLink className="hero-split__contact" href={profile.githubUrl}>
+              <ContactIcon type="github" />
+              GitHub
+            </ExternalLink>
+            <ExternalLink className="hero-split__contact" href={profile.linkedinUrl}>
+              <ContactIcon type="linkedin" />
+              LinkedIn
+            </ExternalLink>
+            <a className="hero-split__contact" href={`mailto:${profile.email}`}>
+              <ContactIcon type="email" />
+              {profile.email}
+            </a>
+          </m.div>
 
-          {/* Screen readers get the finished line; the typed replay is
-              decorative chrome on top of it. */}
-          <m.p className="hero-split__origin" variants={staggerItem}>
-            <span className="visually-hidden">{profile.originLine}</span>
-            <span className="hero-split__origin-typed" aria-hidden="true">
-              {origin.typed}
-            </span>
-          </m.p>
+          <p className="hero-split__origin">{profile.originLine}</p>
         </div>
-
-        <m.footer className="hero-split__footer" variants={staggerItem}>
-          <ExternalLink className="hero-split__contact" href={profile.githubUrl}>
-            <ContactIcon type="github" />
-            GitHub
-          </ExternalLink>
-          <ExternalLink className="hero-split__contact" href={profile.linkedinUrl}>
-            <ContactIcon type="linkedin" />
-            LinkedIn
-          </ExternalLink>
-          <a className="hero-split__contact" href={`mailto:${profile.email}`}>
-            <ContactIcon type="email" />
-            {profile.email}
-          </a>
-        </m.footer>
+        <ProfileRail />
       </div>
     </m.section>
   )

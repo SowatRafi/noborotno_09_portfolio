@@ -22,6 +22,9 @@ export function Projects() {
             variants={staggerItem}
             whileHover={hoverLift}
           >
+            {project.illustration !== undefined && (
+              <img className="project-card__art" src={project.illustration} alt="" loading="lazy" width="640" height="240" />
+            )}
             <h3 className="card__title">{project.name}</h3>
             {project.period !== undefined && (
               <p className="card__period">{project.period}</p>

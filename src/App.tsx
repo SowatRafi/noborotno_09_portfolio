@@ -6,7 +6,6 @@ import { Footer } from './components/Footer'
 import { Header } from './components/Header'
 import { HeroSection } from './components/HeroSection'
 import { Projects } from './components/Projects'
-import { ProfileRail } from './components/ProfileRail'
 import { Publication } from './components/Publication'
 import { Skills } from './components/Skills'
 
@@ -26,22 +25,15 @@ export default function App() {
           Skip to content
         </a>
         <Header />
-        {/* Split hero (adapted 21st.dev component): carries the sole h1 and the
-            #top back-to-top anchor. */}
         <HeroSection />
-        {/* Two-column shell: a sticky profile rail beside the scrolling
-            content sections. */}
-        <div className="layout">
-          <ProfileRail />
-          <main id="main" className="content">
-            <About />
-            <Experience />
-            <Certifications />
-            <Projects />
-            <Skills />
-            <Publication />
-          </main>
-        </div>
+        <main id="main" className="content container">
+          <About />
+          <Experience />
+          <Certifications />
+          <Projects />
+          <Skills />
+          <Publication />
+        </main>
         <Footer />
       </LazyMotion>
     </MotionConfig>

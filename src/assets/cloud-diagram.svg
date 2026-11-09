@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="240" viewBox="0 0 640 240" fill="none">
+  <defs>
+    <pattern id="grid" width="24" height="24" patternUnits="userSpaceOnUse">
+      <path d="M24 0H0v24" stroke="#213b39"/>
+    </pattern>
+    <radialGradient id="glow" cx="0" cy="0" r="1" gradientTransform="translate(320 120) rotate(90) scale(137 275)" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#235f54"/>
+      <stop offset="1" stop-color="#0b1b1d"/>
+    </radialGradient>
+  </defs>
+  <path fill="url(#glow)" d="M0 0h640v240H0z"/>
+  <path fill="url(#grid)" opacity=".7" d="M0 0h640v240H0z"/>
+  <g stroke="#65c7ab" stroke-width="1.5">
+    <path d="M272 112h-53l-30-33h-41m124 49h-53l-30 33h-41m220-49h53l30-33h41m-124 49h53l30 33h41"/>
+    <rect x="272" y="83" width="96" height="74" rx="12" fill="#12312f" stroke="#8cf5cb"/>
+    <rect x="63" y="62" width="85" height="34" rx="7" fill="#112827"/>
+    <rect x="63" y="144" width="85" height="34" rx="7" fill="#112827"/>
+    <rect x="492" y="62" width="85" height="34" rx="7" fill="#112827"/>
+    <rect x="492" y="144" width="85" height="34" rx="7" fill="#112827"/>
+  </g>
+  <g fill="#a2ffd5">
+    <circle cx="219" cy="112" r="3"/><circle cx="219" cy="128" r="3"/>
+    <circle cx="421" cy="112" r="3"/><circle cx="421" cy="128" r="3"/>
+  </g>
+  <path d="M304 125h32a7 7 0 0 0 0-14h-1a13 13 0 0 0-25-2 8 8 0 0 0-6 16z" stroke="#a2ffd5" stroke-width="2" stroke-linejoin="round"/>
+  <g fill="#b9e4d6" font-family="monospace" font-size="12" text-anchor="middle" letter-spacing="1">
+    <text x="105" y="83">AWS</text><text x="105" y="165">AZURE</text>
+    <text x="535" y="83">GCP</text><text x="535" y="165">LOCAL</text>
+    <text x="320" y="143">ASSETS</text>
+  </g>
+</svg>
