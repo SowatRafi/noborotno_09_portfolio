@@ -113,7 +113,7 @@ export function HeroSection() {
             </a>
           </m.div>
 
-          <p className="hero-split__coordinates" data-typing={coordinatesLength < COORDINATES.length}>
+          <p className="hero-split__coordinates">
             <span className="hero-split__typed-line">
               <span className="hero-split__measure">{COORDINATES}</span>
               <span aria-hidden="true">{COORDINATES.slice(0, coordinatesLength)}</span>

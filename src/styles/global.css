@@ -480,20 +480,25 @@ a {
   align-items: center;
   gap: 0.65rem;
   width: fit-content;
+  max-width: 100%;
   margin: 1.4rem 0 0;
-  padding: 0.32rem 0.6rem;
-  border-radius: 3px;
-  background: var(--flag-green);
+  padding: 0.55rem clamp(0.6rem, 2.5vw, 0.95rem);
+  border: 1px solid #79e1b777;
+  border-radius: var(--radius);
+  background: linear-gradient(115deg, var(--flag-green), #07543f);
+  box-shadow: 0 4px 18px #006a4e42;
   color: #fff;
-  font: 600 0.66rem / 1.65 var(--font-mono);
+  font: 650 clamp(0.7rem, 3.4vw, 0.92rem) / 1.5 var(--font-mono);
   letter-spacing: 0.08em;
 }
 
 .hero-split__coordinates::after {
-  flex: 0 0 0.48rem;
-  height: 0.48rem;
+  flex: 0 0 0.6rem;
+  height: 0.6rem;
   border-radius: 50%;
   background: var(--flag-red);
+  box-shadow: 0 0 0.55rem var(--flag-red);
+  animation: cursor-blink 1.4s step-end infinite;
   content: '';
 }
 
@@ -1252,8 +1257,7 @@ a {
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  .hero-split__title [data-typing='true']::after,
-  .hero-split__coordinates[data-typing='true']::after {
+  .hero-split__title [data-typing='true']::after {
     animation: cursor-blink 1.1s steps(2, jump-none) infinite;
   }
 
