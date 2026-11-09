@@ -404,16 +404,16 @@ a {
   letter-spacing: -0.065em;
 }
 
-.hero-split__silver {
-  color: var(--name-silver);
+.hero-split__given-name {
+  color: var(--name-given);
 }
 
-.hero-split__honey {
-  color: var(--name-honey);
+.hero-split__middle-name {
+  color: var(--name-middle);
 }
 
-.hero-split__rose {
-  color: var(--name-rose);
+.hero-split__last-name {
+  color: var(--name-last);
 }
 
 .hero-split__typed-line {

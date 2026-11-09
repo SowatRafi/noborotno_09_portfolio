@@ -99,7 +99,7 @@ export function HeroSection() {
           <h1 className="hero-split__title" aria-label={profile.name}>
             <span className="hero-split__typed-line" aria-hidden="true">
               <span className="hero-split__measure">{givenName}</span>
-              <span className="hero-split__silver" data-typing={typedLength < givenName.length}>
+              <span className="hero-split__given-name" data-typing={typedLength < givenName.length}>
                 {givenName.slice(0, typedLength)}
               </span>
             </span>
@@ -107,14 +107,14 @@ export function HeroSection() {
               <span className="hero-split__measure">{middleName} {lastName}</span>
               <span>
                 <span
-                  className="hero-split__honey"
+                  className="hero-split__middle-name"
                   data-typing={typedLength >= givenName.length && typedLength < lastNameStart}
                 >
                   {middleName.slice(0, Math.max(0, typedLength - givenName.length - 1))}
                 </span>
                 {typedLength >= lastNameStart && ' '}
                 <span
-                  className="hero-split__rose"
+                  className="hero-split__last-name"
                   data-typing={typedLength >= lastNameStart && (typedLength < nameLength || introFinished)}
                 >
                   {lastName.slice(0, lastNameLength)}
