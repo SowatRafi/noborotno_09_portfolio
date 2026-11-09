@@ -372,7 +372,17 @@ a {
 }
 
 .hero-split__intro {
+  --hero-name-size: clamp(3rem, 7.4vw, 7.2rem);
+  --hero-name-line-height: 0.96;
+
   min-width: 0;
+  padding-block-end: 0;
+}
+
+/* Reserve the heading's second line in the hero when the name compacts.
+   This keeps the terminal in place, including when it sits below the intro. */
+.hero-split__intro:has(.hero-split__title[data-compact='true']) {
+  padding-block-end: calc(var(--hero-name-size) * var(--hero-name-line-height));
 }
 
 .hero-split__eyebrow {
@@ -398,16 +408,16 @@ a {
 
 .hero-split__title {
   display: grid;
-  grid-template-rows: auto 1fr;
+  grid-template-rows: auto 1lh;
   margin: 0;
-  font-size: clamp(3rem, 7.4vw, 7.2rem);
+  font-size: var(--hero-name-size);
   font-weight: 650;
-  line-height: 0.96;
+  line-height: var(--hero-name-line-height);
   letter-spacing: -0.065em;
 }
 
 .hero-split__title[data-compact='true'] {
-  grid-template-rows: auto 0fr;
+  grid-template-rows: auto 0lh;
 }
 
 .hero-split__title[data-compact='true'] > :first-child {
@@ -570,8 +580,8 @@ a {
     padding-block: 3rem;
   }
 
-  .hero-split__title {
-    font-size: clamp(2.85rem, 11vw, 5.8rem);
+  .hero-split__intro {
+    --hero-name-size: clamp(2.85rem, 11vw, 5.8rem);
   }
 
   .rail {
@@ -687,6 +697,20 @@ a {
   display: flex;
   flex-wrap: wrap;
   gap: 0.3rem 0.9rem;
+}
+
+.term__certs {
+  display: grid;
+  gap: 0.3rem;
+  padding: 0;
+  list-style: none;
+}
+
+.term__certs li {
+  display: grid;
+  grid-template-columns: 6ch minmax(0, 1fr);
+  gap: 0.55rem;
+  overflow-wrap: anywhere;
 }
 
 .term__link {
@@ -1288,6 +1312,10 @@ a {
 }
 
 @media (prefers-reduced-motion: no-preference) {
+  .hero-split__intro {
+    transition: padding-block-end 0.46s ease-out;
+  }
+
   .hero-split__title {
     transition: grid-template-rows 0.46s ease-out;
   }

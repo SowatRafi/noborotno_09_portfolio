@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { certifications } from '../data/certifications'
 import { profile } from '../data/profile'
 import { ExternalLink } from './ExternalLink'
 
@@ -21,7 +22,7 @@ import { ExternalLink } from './ExternalLink'
 /* The session script. `exit` is the loop point: bash answers it with
    `logout`, then the screen resets and a fresh session begins. These strings
    are terminal chrome, not site content. */
-const COMMANDS = ['whoami', 'pwd', 'cat status.txt', 'ls contact/', 'open resume.pdf', 'exit'] as const
+const COMMANDS = ['whoami', 'pwd', 'cat status.txt', 'ls contact/', 'open resume.pdf', 'ls certs/', 'exit'] as const
 
 /* A plausible adjacent key for each letter, so typos look like slips of the
    finger rather than random noise. */
@@ -171,8 +172,28 @@ export function Terminal() {
           <p className={cmdClass(5)} aria-hidden="true">
             <span className={typedClass(5)}>{typedText(5)}</span>
           </p>
+          <ul className={outClass(5, 'term__out term__certs')} aria-label="Certifications">
+            {certifications.map((certification) => (
+              <li key={certification.name}>
+                {certification.status === 'completed' ? (
+                  <span className="term__ok">[done]</span>
+                ) : (
+                  <span>[wip]</span>
+                )}
+                {certification.credentialUrl ? (
+                  <ExternalLink href={certification.credentialUrl}>{certification.name}</ExternalLink>
+                ) : (
+                  <span>{certification.name}</span>
+                )}
+              </li>
+            ))}
+          </ul>
+
+          <p className={cmdClass(6)} aria-hidden="true">
+            <span className={typedClass(6)}>{typedText(6)}</span>
+          </p>
           {/* bash's real farewell to `exit` — chrome, not content. */}
-          <p className={outClass(5, 'term__out')} aria-hidden="true">
+          <p className={outClass(6, 'term__out')} aria-hidden="true">
             logout
           </p>
         </div>
