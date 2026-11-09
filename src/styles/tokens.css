@@ -33,10 +33,10 @@
   --brand-blue-soft: rgba(4, 120, 87, 0.35);
   --hero-grid: color-mix(in srgb, var(--accent) 14%, transparent);
   --hero-glow: color-mix(in srgb, var(--accent) 12%, transparent);
-  /* Seafoam, heather and royal blue echo the initials of the name. */
-  --name-given: #85e6c2;
-  --name-middle: #cab9eb;
-  --name-last: #89a9ff;
+  /* Slate, hunter green and rosewood echo the initials of the name. */
+  --name-given: #dde5ea;
+  --name-middle: #a1ccb6;
+  --name-last: #d9b2b4;
 
   --flag-red: #f42a41;
   --flag-green: #006a4e;
@@ -88,9 +88,9 @@
   --accent-contrast: #ecfdf5;
   --brand-blue: #065f46;
   --brand-blue-soft: rgba(6, 95, 70, 0.18);
-  --name-given: #006a58;
-  --name-middle: #665280;
-  --name-last: #2e51b7;
+  --name-given: #37454f;
+  --name-middle: #285a47;
+  --name-last: #75454e;
 
   --flag-red: #f42a41;
 
@@ -124,9 +124,9 @@
     --accent-contrast: #ecfdf5;
     --brand-blue: #065f46;
     --brand-blue-soft: rgba(6, 95, 70, 0.18);
-    --name-given: #006a58;
-    --name-middle: #665280;
-    --name-last: #2e51b7;
+    --name-given: #37454f;
+    --name-middle: #285a47;
+    --name-last: #75454e;
 
     --flag-red: #f42a41;
 

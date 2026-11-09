@@ -64,18 +64,20 @@ export function HeroSection() {
   useEffect(() => {
     if (typedLength === nameLength + COORDINATES.length) return
 
-    const delay = typedLength === 0 || typedLength === nameLength ? 250 : 55
+    let delay = 55
+    if (typedLength === 0 || typedLength === nameLength) delay = 250
+    if (typedLength >= lastNameStart && typedLength < nameLength) delay = 180
     const timer = window.setTimeout(() => setTypedLength(typedLength + 1), delay)
     return () => window.clearTimeout(timer)
-  }, [typedLength, nameLength])
+  }, [typedLength, nameLength, lastNameStart])
 
   useEffect(() => {
     if (!introFinished) return
 
     // The frame walks from the full surname to empty and back.
-    let delay = lastNameFrame < lastName.length ? 95 : 140
-    if (lastNameFrame === 0) delay = 1400
-    if (lastNameFrame === lastName.length) delay = 300
+    let delay = lastNameFrame < lastName.length ? 205 : 250
+    if (lastNameFrame === 0) delay = 2800
+    if (lastNameFrame === lastName.length) delay = 480
 
     const timer = window.setTimeout(
       () => setLastNameFrame((lastNameFrame + 1) % (lastName.length * 2)),
