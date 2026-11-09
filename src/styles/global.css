@@ -413,7 +413,10 @@ a {
 }
 
 .hero-split__last-name {
+  position: relative;
+  min-height: 1lh;
   color: var(--name-last);
+  vertical-align: top;
 }
 
 .hero-split__middle-initial,
@@ -441,6 +444,12 @@ a {
   margin: 0.12em 0 0 0.05em;
   background: currentColor;
   content: '';
+}
+
+.hero-split__last-name[data-typing='true']::after {
+  inset-block-start: 0.12em;
+  inset-inline-start: 100%;
+  margin-block-start: 0;
 }
 
 .hero-split__role {
