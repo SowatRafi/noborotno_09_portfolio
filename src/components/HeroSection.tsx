@@ -53,6 +53,7 @@ export function HeroSection() {
   const [givenName, middleName, lastName] = profile.name.split(' ')
   const [typedLength, setTypedLength] = useState(0)
   const [lastNameFrame, setLastNameFrame] = useState(0)
+  const [showMiddleInitial, setShowMiddleInitial] = useState(false)
   const nameLength = profile.name.length
   const lastNameStart = nameLength - lastName.length
   const coordinatesLength = Math.max(0, typedLength - nameLength)
@@ -70,6 +71,13 @@ export function HeroSection() {
     const timer = window.setTimeout(() => setTypedLength(typedLength + 1), delay)
     return () => window.clearTimeout(timer)
   }, [typedLength, nameLength, lastNameStart])
+
+  useEffect(() => {
+    if (!introFinished) return
+
+    const timer = window.setTimeout(() => setShowMiddleInitial(true), 2500)
+    return () => window.clearTimeout(timer)
+  }, [introFinished])
 
   useEffect(() => {
     if (!introFinished) return
@@ -103,18 +111,28 @@ export function HeroSection() {
               <span className="hero-split__measure">{givenName}</span>
               <span className="hero-split__given-name" data-typing={typedLength < givenName.length}>
                 {givenName.slice(0, typedLength)}
+                {showMiddleInitial && (
+                  <>
+                    {' '}
+                    <span className="hero-split__middle-name hero-split__middle-initial">{middleName[0]}</span>
+                  </>
+                )}
               </span>
             </span>
             <span className="hero-split__typed-line" aria-hidden="true">
               <span className="hero-split__measure">{middleName} {lastName}</span>
               <span>
-                <span
-                  className="hero-split__middle-name"
-                  data-typing={typedLength >= givenName.length && typedLength < lastNameStart}
-                >
-                  {middleName.slice(0, Math.max(0, typedLength - givenName.length - 1))}
-                </span>
-                {typedLength >= lastNameStart && ' '}
+                {!showMiddleInitial && (
+                  <>
+                    <span
+                      className="hero-split__middle-name"
+                      data-typing={typedLength >= givenName.length && typedLength < lastNameStart}
+                    >
+                      {middleName.slice(0, Math.max(0, typedLength - givenName.length - 1))}
+                    </span>
+                    {typedLength >= lastNameStart && ' '}
+                  </>
+                )}
                 <span
                   className="hero-split__last-name"
                   data-typing={typedLength >= lastNameStart && (typedLength < nameLength || introFinished)}
