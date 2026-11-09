@@ -9,8 +9,8 @@ export function ProfileRail() {
         <path d="M30 20L13 38V367l42 53h395" vectorEffect="non-scaling-stroke" />
       </svg>
       <p className="rail__station rail__station--origin">
-        <span>01 / Bangladesh</span>
-        <span className="rail__detail">{profile.originCoordinates}</span>
+        <span>01 / {profile.originCoordinates}</span>
+        <span className="rail__detail">Origin</span>
       </p>
       <Terminal />
       <p className="rail__station rail__station--base">
